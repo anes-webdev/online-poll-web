@@ -1,5 +1,4 @@
-/* Todo: Is this line really needed? */
-@import "tailwindcss";
+/* Todo: Should I remove this file? */
 
 #root {
   max-width: 1280px;
