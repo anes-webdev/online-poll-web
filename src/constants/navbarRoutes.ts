@@ -1,4 +1,4 @@
-import { APP_ROUTES } from "./Routes";
+import { APP_ROUTES } from "./routes";
 
 export const NAVBAR_ROUTES = [
   {
