@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "../../../constants/Routes";
 import NavbarItem from "./NavbarItem";
 
 type NavbarListProps = {
@@ -12,15 +13,15 @@ const NavbarList = ({ isMobileView, onItemClick }: NavbarListProps) => {
   const navItemsData = [
     {
       label: "Home",
-      path: "/",
+      path: APP_ROUTES.LANDING,
     },
     {
       label: "Poll List",
-      path: "/pollList",
+      path: APP_ROUTES.POLLS,
     },
     {
-      label: "create",
-      path: "/createPoll",
+      label: "Create",
+      path: APP_ROUTES.ADD_POLL,
     },
   ];
 
