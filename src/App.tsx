@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <MainLayout>
-        <p>This is main part</p>
+        <p></p>
       </MainLayout>
     </>
   )
