@@ -43,7 +43,7 @@ const Navbar = () => {
             src={Logo}
           />
         </Link>
-        {isDesktopView ? (
+        {isDesktopView && (
           <div className="mr-4">
             {isLoggedIn && <NavbarList isMobileView={false} />}
             <NavbarOutlinedButton
@@ -54,7 +54,8 @@ const Navbar = () => {
               {signInBtnText}
             </NavbarOutlinedButton>
           </div>
-        ) : (
+        )}
+        {!isDesktopView && (
           <IconButton className="p-0!" onClick={toggleMobileNav}>
             {isMobileNavOpen ? (
               <CloseIcon className="text-gray-500" />
