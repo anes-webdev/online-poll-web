@@ -1,0 +1,92 @@
+import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router";
+import Logo from "../../assets/Logo.svg";
+import NavbarList from "./components/NavbarList";
+import { NavbarOutlinedButton } from "./components/NavbarOutlinedButton";
+import "./styles.css";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import Button from "../../components/button/Button";
+import { IconButton } from "@mui/material";
+
+const Navbar = () => {
+  const theme = useTheme();
+  const isDesktopView = useMediaQuery(theme.breakpoints.up(760));
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const showMobileNav = !isDesktopView && isMobileNavOpen;
+  //   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = true;
+  //   const dispatch = useDispatch();
+  //   const navigate = useNavigate();
+
+  const onSignInButtonClick = () => {
+    if (isMobileNavOpen) setIsMobileNavOpen(false);
+    if (isLoggedIn) {
+      //   dispatch(authAction.logoutHandler());
+      //   navigate("../");
+    } else {
+      //   navigate("../signIn");
+    }
+  };
+
+  const onLinksClick = () => {
+    setIsMobileNavOpen(false);
+  };
+
+  return (
+    <>
+      <nav className="navbar">
+        <Link to="/">
+          <img
+            className="hover:opacity-75 transition-opacity h-8"
+            alt="Logo"
+            src={Logo}
+          />
+        </Link>
+        {isDesktopView ? (
+          <div className="mr-4">
+            {isLoggedIn && <NavbarList isMobileView={false} />}
+            <NavbarOutlinedButton
+              className="ml-18!"
+              onClick={onSignInButtonClick}
+              variant="navbar"
+            >
+              {isLoggedIn ? "Sign out" : "Sign in"}
+            </NavbarOutlinedButton>
+          </div>
+        ) : (
+          <IconButton
+            className="p-0!"
+            onClick={() => {
+              setIsMobileNavOpen(!isMobileNavOpen);
+            }}
+          >
+            {isMobileNavOpen ? (
+              <CloseIcon className="text-gray-500" />
+            ) : (
+              <MenuIcon className="text-gray-500" />
+            )}
+          </IconButton>
+        )}
+      </nav>
+      {showMobileNav && (
+        <nav className="mobile-nav-menu-wrapper">
+          {isLoggedIn && (
+            <NavbarList isMobileView={true} onItemClick={onLinksClick} />
+          )}
+          <Button
+            variant="navbar"
+            onClick={onSignInButtonClick}
+            className="mt-6! text-gray-500"
+          >
+            {isLoggedIn ? "Sign out" : "Sign in"}
+          </Button>
+        </nav>
+      )}
+    </>
+  );
+};
+
+export default Navbar;
