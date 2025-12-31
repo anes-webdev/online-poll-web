@@ -1,4 +1,4 @@
-import { APP_ROUTES } from "../../../constants/Routes";
+import { NAVBAR_ROUTES } from "../../../constants/navbarRoutes";
 import NavbarItem from "./NavbarItem";
 
 type NavbarListProps = {
@@ -7,27 +7,10 @@ type NavbarListProps = {
 };
 
 const NavbarList = ({ isMobileView, onItemClick }: NavbarListProps) => {
-  // Todo: create an object for route addresses and use the best practice for writing them
-  // Todo: Add translation for each text
-  // Move this array into constants
-  const navItemsData = [
-    {
-      label: "Home",
-      path: APP_ROUTES.LANDING,
-    },
-    {
-      label: "Poll List",
-      path: APP_ROUTES.POLLS,
-    },
-    {
-      label: "Create",
-      path: APP_ROUTES.ADD_POLL,
-    },
-  ];
 
   return (
     <>
-      {navItemsData.map(({ label, path }) => {
+      {NAVBAR_ROUTES.map(({ label, path }) => {
         return (
           <NavbarItem
             key={label}
