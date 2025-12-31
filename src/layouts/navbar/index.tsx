@@ -15,9 +15,11 @@ const Navbar = () => {
   const theme = useTheme();
   const isDesktopView = useMediaQuery(theme.breakpoints.up(760));
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const toggleMobileNav = () => setIsMobileNavOpen((prevState) => !prevState);
   const showMobileNav = !isDesktopView && isMobileNavOpen;
   //   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isLoggedIn = true;
+  const signInBtnText = isLoggedIn ? "Sign out" : "Sign in";
   //   const dispatch = useDispatch();
   //   const navigate = useNavigate();
 
@@ -29,10 +31,6 @@ const Navbar = () => {
     } else {
       //   navigate("../signIn");
     }
-  };
-
-  const onLinksClick = () => {
-    setIsMobileNavOpen(false);
   };
 
   return (
@@ -53,16 +51,11 @@ const Navbar = () => {
               onClick={onSignInButtonClick}
               variant="navbar"
             >
-              {isLoggedIn ? "Sign out" : "Sign in"}
+              {signInBtnText}
             </NavbarOutlinedButton>
           </div>
         ) : (
-          <IconButton
-            className="p-0!"
-            onClick={() => {
-              setIsMobileNavOpen(!isMobileNavOpen);
-            }}
-          >
+          <IconButton className="p-0!" onClick={toggleMobileNav}>
             {isMobileNavOpen ? (
               <CloseIcon className="text-gray-500" />
             ) : (
@@ -74,14 +67,14 @@ const Navbar = () => {
       {showMobileNav && (
         <nav className="mobile-nav-menu-wrapper">
           {isLoggedIn && (
-            <NavbarList isMobileView={true} onItemClick={onLinksClick} />
+            <NavbarList isMobileView={true} onItemClick={toggleMobileNav} />
           )}
           <Button
             variant="navbar"
             onClick={onSignInButtonClick}
             className="mt-6! text-gray-500"
           >
-            {isLoggedIn ? "Sign out" : "Sign in"}
+            {signInBtnText}
           </Button>
         </nav>
       )}
