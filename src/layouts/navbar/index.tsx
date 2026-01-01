@@ -79,9 +79,7 @@ const Navbar = () => {
           </Button>
         </nav>
       )}
-      <Typography className="text-fg-primary">primary color</Typography>
-      <p className="text-fg-secondary">Secondary color</p>
-      <p className="text-fg-muted">Muted color</p>
+      <Typography color="textSecondary">primary color</Typography>
     </>
   );
 };

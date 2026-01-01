@@ -3,6 +3,28 @@ import { palette } from "./palette";
 
 const theme = createTheme({
   components: {
+    MuiTypography: {
+      variants: [
+        {
+          props: { color: "textPrimary" },
+          style: {
+            color: palette.fg.primary,
+          },
+        },
+        {
+          props: { color: "textSecondary" },
+          style: {
+            color: palette.fg.secondary,
+          },
+        },
+        {
+          props: { color: "muted" },
+          style: {
+            color: palette.fg.muted,
+          },
+        },
+      ],
+    },
     MuiSvgIcon: {
       variants: [
         {
