@@ -1,5 +1,7 @@
 /* Todo: Should I remove this file? */
 @import "tailwindcss";
+@config "../tailwind.config.ts";
+
 @import '@fontsource/roboto/300.css';
 @import '@fontsource/roboto/400.css';
 @import '@fontsource/roboto/500.css';

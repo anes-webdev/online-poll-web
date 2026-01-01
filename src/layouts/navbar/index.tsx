@@ -4,12 +4,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router";
 import Logo from "../../assets/Logo.svg";
 import NavbarList from "./components/NavbarList";
-import { NavbarOutlinedButton } from "./components/NavbarOutlinedButton";
 import "./styles.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Button from "../../components/button/Button";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -38,7 +37,7 @@ const Navbar = () => {
       <nav className="navbar">
         <Link to="/">
           <img
-            className="hover:opacity-75 transition-opacity h-8"
+            className="logo"
             alt="Logo"
             src={Logo}
           />
@@ -46,21 +45,22 @@ const Navbar = () => {
         {isDesktopView && (
           <div className="mr-4">
             {isLoggedIn && <NavbarList isMobileView={false} />}
-            <NavbarOutlinedButton
+            <Button
               className="ml-18!"
               onClick={onSignInButtonClick}
-              variant="navbar"
+              variant="outlined"
+              color="neutral"
             >
               {signInBtnText}
-            </NavbarOutlinedButton>
+            </Button>
           </div>
         )}
         {!isDesktopView && (
           <IconButton className="p-0!" onClick={toggleMobileNav}>
             {isMobileNavOpen ? (
-              <CloseIcon className="text-gray-500" />
+              <CloseIcon color="action"/>
             ) : (
-              <MenuIcon className="text-gray-500" />
+              <MenuIcon color="action"/>
             )}
           </IconButton>
         )}
@@ -79,6 +79,9 @@ const Navbar = () => {
           </Button>
         </nav>
       )}
+      <Typography className="text-fg-primary">primary color</Typography>
+      <p className="text-fg-secondary">Secondary color</p>
+      <p className="text-fg-muted">Muted color</p>
     </>
   );
 };
