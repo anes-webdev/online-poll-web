@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "../../assets/Logo.svg";
 import NavbarList from "./components/NavbarList";
 import "./styles.css";
@@ -9,6 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Button from "../../components/button/Button";
 import { IconButton, Typography } from "@mui/material";
+import { APP_ROUTES } from "../../constants/routes";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -20,15 +21,15 @@ const Navbar = () => {
   const isLoggedIn = true;
   const signInBtnText = isLoggedIn ? "Sign out" : "Sign in";
   //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const onSignInButtonClick = () => {
     if (isMobileNavOpen) setIsMobileNavOpen(false);
     if (isLoggedIn) {
       //   dispatch(authAction.logoutHandler());
-      //   navigate("../");
+        navigate(APP_ROUTES.LANDING);
     } else {
-      //   navigate("../signIn");
+        navigate(APP_ROUTES.SIGN_IN);
     }
   };
 
