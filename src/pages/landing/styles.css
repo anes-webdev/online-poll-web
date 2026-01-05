@@ -1,0 +1,19 @@
+@reference "tailwindcss";
+
+@layer components {
+  .landing-main-wrapper {
+    @apply max-w-lg sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto mt-8 sm:mt-12 md:mt-16 lg:mt-24 px-5 sm:px-8 flex flex-col md:flex-row;
+  }
+  .landing-right-section {
+    @apply md:w-5/12 mt-10 sm:mt-12;
+  }
+  .landing-left-section {
+    @apply md:w-7/12 md:px-10 lg:px-14 md:pt-12 lg:pt-16;
+  }
+  .signin-button {
+    @apply lg:h-11 mt-5! lg:mt-6! w-full sm:w-60
+  }
+    .landing-poll-image {
+    @apply h-60 w-60 mx-auto sm:h-72 sm:w-72 lg:h-80 lg:w-80
+  }
+}

@@ -8,7 +8,7 @@ import "./styles.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Button from "../../components/button/Button";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { APP_ROUTES } from "../../constants/routes";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { authAction } from "../../store/slices/auth";
@@ -82,7 +82,6 @@ const Navbar = () => {
           </Button>
         </nav>
       )}
-      <Typography color="textSecondary">primary color</Typography>
     </>
   );
 };
