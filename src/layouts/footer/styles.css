@@ -1,0 +1,10 @@
+@reference "tailwindcss";
+
+@layer components {
+  footer {
+    @apply mt-12 md:mt-16 lg:mt-20 bg-gray-100 py-3;
+  }
+  footer div {
+    @apply flex justify-center mt-2 space-x-4;
+  }
+}

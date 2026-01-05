@@ -1,8 +1,9 @@
-import type { ReactNode } from "react";import Navbar from "./navbar";
-;
+import type { ReactNode } from "react";
+import Navbar from "./navbar";
+import Footer from "./footer/index";
 
 type MainLayoutProps = {
-    children: ReactNode;
+  children: ReactNode;
 };
 
 const MainLayout = ({ children }: MainLayoutProps) => {
@@ -10,6 +11,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <>
       <Navbar />
       <main>{children}</main>
+      <Footer />
     </>
   );
 };
