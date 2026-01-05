@@ -10,26 +10,32 @@ import { useTheme } from "@mui/material/styles";
 import Button from "../../components/button/Button";
 import { IconButton, Typography } from "@mui/material";
 import { APP_ROUTES } from "../../constants/routes";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { authAction } from "../../store/slices/auth";
+import { useAppSelector } from "../../hooks/useAppSelector";
 
 const Navbar = () => {
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const isDesktopView = useMediaQuery(theme.breakpoints.up(760));
+
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const toggleMobileNav = () => setIsMobileNavOpen((prevState) => !prevState);
   const showMobileNav = !isDesktopView && isMobileNavOpen;
-  //   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isLoggedIn = true;
-  const signInBtnText = isLoggedIn ? "Sign out" : "Sign in";
-  //   const dispatch = useDispatch();
-    const navigate = useNavigate();
+
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  // const isAuthenticated = true;
+  const signInBtnText = isAuthenticated ? "Sign out" : "Sign in";
 
   const onSignInButtonClick = () => {
     if (isMobileNavOpen) setIsMobileNavOpen(false);
-    if (isLoggedIn) {
-      //   dispatch(authAction.logoutHandler());
-        navigate(APP_ROUTES.LANDING);
+    if (isAuthenticated) {
+      dispatch(authAction.logout());
+      navigate(APP_ROUTES.LANDING);
     } else {
-        navigate(APP_ROUTES.SIGN_IN);
+      navigate(APP_ROUTES.SIGN_IN);
     }
   };
 
@@ -37,15 +43,11 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <Link to="/">
-          <img
-            className="logo"
-            alt="Logo"
-            src={Logo}
-          />
+          <img className="logo" alt="Logo" src={Logo} />
         </Link>
         {isDesktopView && (
           <div className="mr-4">
-            {isLoggedIn && <NavbarList isMobileView={false} />}
+            {isAuthenticated && <NavbarList isMobileView={false} />}
             <Button
               className="ml-18!"
               onClick={onSignInButtonClick}
@@ -59,16 +61,16 @@ const Navbar = () => {
         {!isDesktopView && (
           <IconButton className="p-0!" onClick={toggleMobileNav}>
             {isMobileNavOpen ? (
-              <CloseIcon color="action"/>
+              <CloseIcon color="action" />
             ) : (
-              <MenuIcon color="action"/>
+              <MenuIcon color="action" />
             )}
           </IconButton>
         )}
       </nav>
       {showMobileNav && (
         <nav className="mobile-nav-menu-wrapper">
-          {isLoggedIn && (
+          {isAuthenticated && (
             <NavbarList isMobileView={true} onItemClick={toggleMobileNav} />
           )}
           <Button

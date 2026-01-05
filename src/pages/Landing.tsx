@@ -4,11 +4,11 @@ import mainImg from "../assets/main2.webp";
 // import { useSelector } from "react-redux";
 
 const LandingPage = () => {
-    const isLoggedIn = false;
+    const isAuthenticated = false;
 //   let navigate = useNavigate();
-//   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+//   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 //   const onMainButtonClick = () => {
-//     if (isLoggedIn) {
+//     if (isAuthenticated) {
 //       navigate("/pollList");
 //     } else {
 //       navigate("/signIn");
@@ -33,7 +33,7 @@ const LandingPage = () => {
               variant="contained"
             //   onClick={onMainButtonClick}
             >
-              {isLoggedIn ? "Manage polls" : "Sign in"}
+              {isAuthenticated ? "Manage polls" : "Sign in"}
             </Button>
           </div>
         </div>
