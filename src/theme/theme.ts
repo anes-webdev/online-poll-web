@@ -4,6 +4,11 @@ import { palette } from "./palette";
 const theme = createTheme({
   components: {
     MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: palette.fg.primary
+        }
+      },
       variants: [
         {
           props: { color: "textPrimary" },
@@ -18,7 +23,7 @@ const theme = createTheme({
           },
         },
         {
-          props: { color: "muted" },
+          props: { color: "textMuted" },
           style: {
             color: palette.fg.muted,
           },
@@ -71,6 +76,7 @@ const theme = createTheme({
           textTransform: "none",
           borderRadius: 8,
           fontWeight: 500,
+          fontSize: 16
         },
       },
     },
