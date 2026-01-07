@@ -4,11 +4,6 @@ import { palette } from './palette';
 const theme = createTheme({
   components: {
     MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: palette.fg.primary,
-        },
-      },
       variants: [
         {
           props: { color: 'textPrimary' },
@@ -77,6 +72,15 @@ const theme = createTheme({
           borderRadius: 8,
           fontWeight: 500,
           fontSize: 16,
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 8,
+          },
         },
       },
     },
