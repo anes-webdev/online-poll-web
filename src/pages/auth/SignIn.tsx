@@ -3,7 +3,12 @@ import { useState, type FormEventHandler } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/slices/auth';
-import { Button } from '@mui/material';
+import { Button, FormHelperText, Typography } from '@mui/material';
+
+// Todo: add api calls
+// Todo: add form validation
+// Todo: update cont
+// Todo: use separate css file
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -74,57 +79,54 @@ const SignIn = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
-      <form
-        onSubmit={onFormSubmit}
-        className="px-1 sm:p-8 py-6 lg:pb-4 sm:border sm:border-gray-300 rounded-lg sm:shadow-sm"
-      >
-        <h2 className="text-2xl text-gray-600 text-center">Sign-in</h2>
-        <div className="flex flex-col mt-6 lg:mt-8">
-          <div>
-            <TextField
-              error={isUserNameInvalid}
-              className="w-full"
-              label="UserName"
-              variant="outlined"
-              helperText={isUserNameInvalid ? userNameErrorMessage : ' '}
-              value={userNameValue}
-              onChange={(e) => {
-                setIsUserNameInvalid(false);
-                setUserNameValue(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mt-4">
-            <TextField
-              error={isPasswordInvalid}
-              className="w-full"
-              label="Password"
-              variant="outlined"
-              type="password"
-              helperText={isPasswordInvalid ? passwordErrorMessage : ' '}
-              value={passwordValue}
-              onChange={(e) => {
-                setIsPasswordInvalid(false);
-                setPasswordValue(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mt-4 lg:mt-8">
-            <Button
-              loading={isLoading}
-              className="w-full h-11"
-              variant="contained"
-              type="submit"
-            >
-              Sing in
-            </Button>
-          </div>
-          <p className="text-error-red mt-4">
-            {responseMessage}
-            &nbsp;
-          </p>
-        </div>
+    <div className="max-w-90 sm:max-w-104 mx-auto px-1 sm:p-8 py-6 sm:border sm:border-border-default rounded-lg sm:shadow-sm">
+      <form onSubmit={onFormSubmit}>
+        <Typography className="text-center" variant="h5" color="textSecondary">
+          Sign in
+        </Typography>
+        <TextField
+          error={isUserNameInvalid}
+          className="w-full mt-6! lg:mt-8!"
+          label="Username"
+          variant="outlined"
+          value={userNameValue}
+          onChange={(e) => {
+            setIsUserNameInvalid(false);
+            setUserNameValue(e.target.value);
+          }}
+        />
+        <FormHelperText error>
+          {isUserNameInvalid ? userNameErrorMessage : ' '}
+        </FormHelperText>
+        <TextField
+          id="standard-error-helper-text"
+          error={isPasswordInvalid}
+          className="w-full mt-3!"
+          label="Password"
+          variant="outlined"
+          type="password"
+          value={passwordValue}
+          onChange={(e) => {
+            setIsPasswordInvalid(false);
+            setPasswordValue(e.target.value);
+          }}
+        />
+        <FormHelperText error>
+          {isPasswordInvalid ? passwordErrorMessage : ' '}
+        </FormHelperText>
+        <Button
+          loading={isLoading}
+          className="w-full h-11 mt-4! lg:mt-4!"
+          variant="contained"
+          type="submit"
+        >
+          Sing in
+        </Button>
+        {responseMessage && (
+          <Typography className="mt-4!" color="error">
+            {responseMessage} &nbsp;
+          </Typography>
+        )}
       </form>
     </div>
   );
