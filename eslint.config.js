@@ -13,6 +13,10 @@ export default defineConfig([
   globalIgnores(["dist"]),
   {
     files: ["**/*.{ts,tsx}"],
+    ignores: [
+      "tailwind.config.ts",
+      "vite.config.ts"
+    ],
     extends: [
       js.configs.recommended,
       eslint.configs.recommended,
