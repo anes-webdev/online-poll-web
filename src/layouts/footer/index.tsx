@@ -1,6 +1,7 @@
 import { Tooltip, Typography } from '@mui/material';
 import { FOOTER_LINKS, type FooterLinkType } from '../../constants/footerLinks';
 import './styles.css';
+import type { Ref } from 'react';
 
 const FooterLink = ({ href, icon: Icon, tooltipTitle }: FooterLinkType) => {
   return (
@@ -12,9 +13,13 @@ const FooterLink = ({ href, icon: Icon, tooltipTitle }: FooterLinkType) => {
   );
 };
 
-const Footer = () => {
+type FooterProps = {
+  ref: Ref<HTMLElement>;
+};
+
+const Footer = ({ ref }: FooterProps) => {
   return (
-    <footer>
+    <footer ref={ref} className="footer">
       <Typography color="textSecondary" className="text-center text-lg!">
         Follow Me
       </Typography>

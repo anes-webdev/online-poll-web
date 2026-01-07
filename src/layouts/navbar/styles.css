@@ -5,7 +5,8 @@
     @apply border-b border-gray-300 py-3 px-4 sm:py-3 sm:px-6 max-w-6xl mx-auto flex justify-between sticky top-0 bg-white z-10 items-center;
   }
   .mobile-nav-menu-wrapper {
-    @apply w-full sticky z-20 top-14 bg-white pt-16 flex flex-col items-center h-full;
+    height: calc(100vh - 57px);
+    @apply w-full sticky z-20 top-14 bg-white pt-16 flex flex-col items-center;
   }
   .logo {
     @apply hover:opacity-75 transition-opacity h-8;

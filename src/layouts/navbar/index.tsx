@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type Ref } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router';
@@ -14,7 +14,11 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { authAction } from '../../store/slices/auth';
 import { useAppSelector } from '../../hooks/useAppSelector';
 
-const Navbar = () => {
+type NavbarProps = {
+  ref: Ref<HTMLElement>;
+};
+
+const Navbar = ({ ref }: NavbarProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -41,7 +45,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar">
+      <nav ref={ref} className="navbar">
         <Link to="/">
           <img className="logo" alt="Logo" src={Logo} />
         </Link>
