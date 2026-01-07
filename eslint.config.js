@@ -35,6 +35,7 @@ export default defineConfig([
       },
     },
     rules: {
+      "quotes": ["error", "single"],
       "no-unused-vars": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
