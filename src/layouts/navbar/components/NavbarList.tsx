@@ -1,5 +1,5 @@
-import { NAVBAR_ROUTES } from "../../../constants/navbarRoutes";
-import NavbarItem from "./NavbarItem";
+import { NAVBAR_ROUTES } from '../../../constants/navbarRoutes';
+import NavbarItem from './NavbarItem';
 
 type NavbarListProps = {
   isMobileView: boolean;

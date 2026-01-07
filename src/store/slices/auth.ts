@@ -1,6 +1,6 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-const initialToken = localStorage.getItem("token");
+const initialToken = localStorage.getItem('token');
 
 type Token = string | null;
 
@@ -15,16 +15,16 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     login: (state, action: PayloadAction<Token>) => {
       state.token = action.payload;
-      localStorage.setItem("token", action.payload as string);
+      localStorage.setItem('token', action.payload as string);
       state.isAuthenticated = true;
     },
     logout: (state) => {
-      localStorage.removeItem("token");
+      localStorage.removeItem('token');
       state.token = null;
       state.isAuthenticated = false;
     },

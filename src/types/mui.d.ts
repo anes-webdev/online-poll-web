@@ -1,6 +1,6 @@
-import "@mui/material/Button";
+import '@mui/material/Button';
 
-declare module "@mui/material/Button" {
+declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     navbar: true;
   }
@@ -9,9 +9,9 @@ declare module "@mui/material/Button" {
   }
 }
 
-import "@mui/material/Typography";
+import '@mui/material/Typography';
 
-declare module "@mui/material/Typography" {
+declare module '@mui/material/Typography' {
   interface TypographyPropsColorOverrides {
     muted: true;
   }

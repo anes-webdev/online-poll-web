@@ -1,5 +1,5 @@
-import { Link } from "react-router";
-import Button from "../../../components/button/Button";
+import { Link } from 'react-router';
+import Button from '../../../components/button/Button';
 
 type NavbarItemProps = {
   label: string;
@@ -9,7 +9,7 @@ type NavbarItemProps = {
 };
 
 const NavbarItem = ({ to, isMobileView, onClick, label }: NavbarItemProps) => {
-  const classes = isMobileView ? "my-6" : "ml-8";
+  const classes = isMobileView ? 'my-6' : 'ml-8';
   return (
     <Link onClick={onClick} to={to} className={classes}>
       <Button variant="navbar">{label}</Button>

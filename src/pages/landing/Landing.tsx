@@ -1,16 +1,16 @@
-import Button from "@mui/material/Button";
-import pollImage from "../../assets/Poll.webp";
-import { useAppSelector } from "../../hooks/useAppSelector";
-import { useNavigate } from "react-router";
-import { APP_ROUTES } from "../../constants/routes";
-import { Typography } from "@mui/material";
-import "./styles.css";
+import Button from '@mui/material/Button';
+import pollImage from '../../assets/Poll.webp';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useNavigate } from 'react-router';
+import { APP_ROUTES } from '../../constants/routes';
+import { Typography } from '@mui/material';
+import './styles.css';
 
 const Landing = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const onMainButtonClick = () =>
-    navigate(APP_ROUTES[isAuthenticated ? "POLLS" : "SIGN_IN"]);
+    navigate(APP_ROUTES[isAuthenticated ? 'POLLS' : 'SIGN_IN']);
 
   return (
     <div className="landing-main-wrapper">
@@ -27,7 +27,7 @@ const Landing = () => {
           variant="contained"
           onClick={onMainButtonClick}
         >
-          {isAuthenticated ? "Manage Polls" : "Sign In"}
+          {isAuthenticated ? 'Manage Polls' : 'Sign In'}
         </Button>
       </div>
       <div className="landing-right-section">

@@ -1,25 +1,23 @@
-import TextField from "@mui/material/TextField";
-import { useState, type FormEventHandler } from "react";
-import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-// import LoadingButton from "@mui/lab/LoadingButton";
-import { authAction } from "../../store/slices/auth";
-import { Button } from "@mui/material";
+import TextField from '@mui/material/TextField';
+import { useState, type FormEventHandler } from 'react';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { authAction } from '../../store/slices/auth';
+import { Button } from '@mui/material';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  let x;
 
-  const [userNameValue, setUserNameValue] = useState("");
+  const [userNameValue, setUserNameValue] = useState('');
   const [isUserNameInvalid, setIsUserNameInvalid] = useState(false);
-  const [userNameErrorMessage, setUserNameErrorMessage] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  const [userNameErrorMessage, setUserNameErrorMessage] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [responseMessage, setResponseMessage] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const onFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
@@ -29,12 +27,12 @@ const SignIn = () => {
       passwordValue.trim().length === 0
     ) {
       if (userNameValue.trim().length === 0) {
-        setUserNameErrorMessage("Can not be empty");
+        setUserNameErrorMessage('Can not be empty');
         setIsUserNameInvalid(true);
       }
       if (passwordValue.trim().length === 0) {
         setIsPasswordInvalid(true);
-        setPasswordErrorMessage("Can not be empty");
+        setPasswordErrorMessage('Can not be empty');
       }
       return;
     }
@@ -45,27 +43,27 @@ const SignIn = () => {
         const response = await fetch(
           `http://${API_BASE_URL}/user/signing?username=${userNameValue}&password=${passwordValue}`,
           {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
           },
         );
         setIsLoading(false);
         if (response.status > 399) {
-          setUserNameErrorMessage("Incorrect username");
-          setPasswordErrorMessage("Incorrect password");
+          setUserNameErrorMessage('Incorrect username');
+          setPasswordErrorMessage('Incorrect password');
           setIsUserNameInvalid(true);
           setIsPasswordInvalid(true);
-          throw new Error("Username or password is incorrect");
+          throw new Error('Username or password is incorrect');
         }
 
         const data = await response.text();
         dispatch(authAction.login(data));
         setIsUserNameInvalid(false);
         setIsPasswordInvalid(false);
-        setResponseMessage("");
-        navigate("../pollList");
+        setResponseMessage('');
+        navigate('../pollList');
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setIsLoading(false);
@@ -89,7 +87,7 @@ const SignIn = () => {
               className="w-full"
               label="UserName"
               variant="outlined"
-              helperText={isUserNameInvalid ? userNameErrorMessage : " "}
+              helperText={isUserNameInvalid ? userNameErrorMessage : ' '}
               value={userNameValue}
               onChange={(e) => {
                 setIsUserNameInvalid(false);
@@ -104,7 +102,7 @@ const SignIn = () => {
               label="Password"
               variant="outlined"
               type="password"
-              helperText={isPasswordInvalid ? passwordErrorMessage : " "}
+              helperText={isPasswordInvalid ? passwordErrorMessage : ' '}
               value={passwordValue}
               onChange={(e) => {
                 setIsPasswordInvalid(false);

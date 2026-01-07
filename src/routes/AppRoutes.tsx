@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router";
-import { APP_ROUTES } from "../constants/routes";
-import Landing from "../pages/landing/Landing";
-import SignIn from "../pages/auth/Signin";
+import { Route, Routes } from 'react-router';
+import { APP_ROUTES } from '../constants/routes';
+import Landing from '../pages/landing/Landing';
+import SignIn from '../pages/auth/SignIn';
 
 const AppRoutes = () => {
   return (

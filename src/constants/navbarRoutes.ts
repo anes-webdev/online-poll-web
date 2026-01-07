@@ -1,16 +1,16 @@
-import { APP_ROUTES } from "./routes";
+import { APP_ROUTES } from './routes';
 
 export const NAVBAR_ROUTES = [
   {
-    label: "Home",
+    label: 'Home',
     path: APP_ROUTES.LANDING,
   },
   {
-    label: "Poll List",
+    label: 'Poll List',
     path: APP_ROUTES.POLLS,
   },
   {
-    label: "Create",
+    label: 'Create',
     path: APP_ROUTES.ADD_POLL,
   },
 ];

@@ -1,18 +1,18 @@
-import { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useNavigate } from "react-router";
-import Logo from "../../assets/Logo.svg";
-import NavbarList from "./components/NavbarList";
-import "./styles.css";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import Button from "../../components/button/Button";
-import { IconButton } from "@mui/material";
-import { APP_ROUTES } from "../../constants/routes";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { authAction } from "../../store/slices/auth";
-import { useAppSelector } from "../../hooks/useAppSelector";
+import { useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link, useNavigate } from 'react-router';
+import Logo from '../../assets/Logo.svg';
+import NavbarList from './components/NavbarList';
+import './styles.css';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import Button from '../../components/button/Button';
+import { IconButton } from '@mui/material';
+import { APP_ROUTES } from '../../constants/routes';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { authAction } from '../../store/slices/auth';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   // const isAuthenticated = true;
-  const signInBtnText = isAuthenticated ? "Sign out" : "Sign in";
+  const signInBtnText = isAuthenticated ? 'Sign out' : 'Sign in';
 
   const onSignInButtonClick = () => {
     if (isMobileNavOpen) setIsMobileNavOpen(false);

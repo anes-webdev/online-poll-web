@@ -1,6 +1,6 @@
-import { Tooltip, Typography } from "@mui/material";
-import { FOOTER_LINKS, type FooterLinkType } from "../../constants/footerLinks";
-import "./styles.css";
+import { Tooltip, Typography } from '@mui/material';
+import { FOOTER_LINKS, type FooterLinkType } from '../../constants/footerLinks';
+import './styles.css';
 
 const FooterLink = ({ href, icon: Icon, tooltipTitle }: FooterLinkType) => {
   return (

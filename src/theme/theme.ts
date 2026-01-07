@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material/styles";
-import { palette } from "./palette";
+import { createTheme } from '@mui/material/styles';
+import { palette } from './palette';
 
 const theme = createTheme({
   components: {
@@ -11,19 +11,19 @@ const theme = createTheme({
       },
       variants: [
         {
-          props: { color: "textPrimary" },
+          props: { color: 'textPrimary' },
           style: {
             color: palette.fg.primary,
           },
         },
         {
-          props: { color: "textSecondary" },
+          props: { color: 'textSecondary' },
           style: {
             color: palette.fg.secondary,
           },
         },
         {
-          props: { color: "textMuted" },
+          props: { color: 'textMuted' },
           style: {
             color: palette.fg.muted,
           },
@@ -33,7 +33,7 @@ const theme = createTheme({
     MuiSvgIcon: {
       variants: [
         {
-          props: { color: "action" },
+          props: { color: 'action' },
           style: {
             color: palette.fg.secondary,
           },
@@ -43,29 +43,29 @@ const theme = createTheme({
     MuiButton: {
       variants: [
         {
-          props: { variant: "navbar" },
+          props: { variant: 'navbar' },
           style: {
             fontSize: 16,
             fontWeight: 400,
-            border: "unset",
+            border: 'unset',
             color: palette.fg.secondary,
-            backgroundColor: "unset",
-            "&:hover": {
+            backgroundColor: 'unset',
+            '&:hover': {
               color: palette.fg.primary,
             },
           },
         },
         {
-          props: { variant: "outlined", color: "neutral" },
+          props: { variant: 'outlined', color: 'neutral' },
           style: {
             fontSize: 16,
             fontWeight: 400,
-            backgroundColor: "unset",
+            backgroundColor: 'unset',
             color: palette.fg.secondary,
-            border: `1px solid`,
+            border: '1px solid',
             borderColor: palette.border.default,
-            "&:hover": {
-              border: "1px solid black",
+            '&:hover': {
+              border: '1px solid black',
               color: palette.fg.primary,
             },
           },
@@ -73,7 +73,7 @@ const theme = createTheme({
       ],
       styleOverrides: {
         root: {
-          textTransform: "none",
+          textTransform: 'none',
           borderRadius: 8,
           fontWeight: 500,
           fontSize: 16,
