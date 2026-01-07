@@ -6,8 +6,8 @@ const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: palette.fg.primary
-        }
+          color: palette.fg.primary,
+        },
       },
       variants: [
         {
@@ -76,7 +76,7 @@ const theme = createTheme({
           textTransform: "none",
           borderRadius: 8,
           fontWeight: 500,
-          fontSize: 16
+          fontSize: 16,
         },
       },
     },

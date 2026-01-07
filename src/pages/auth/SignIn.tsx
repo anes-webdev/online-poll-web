@@ -49,7 +49,7 @@ const SignIn = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         setIsLoading(false);
         if (response.status > 399) {

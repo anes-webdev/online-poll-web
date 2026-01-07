@@ -3,10 +3,10 @@ import { colors } from "./colors";
 //Todo: remove additional comments
 
 export const palette = {
-//   background: {
-//     default: colors.neutral[50],
-//     surface: "#ffffff",
-//   },
+  //   background: {
+  //     default: colors.neutral[50],
+  //     surface: "#ffffff",
+  //   },
 
   fg: {
     primary: colors.neutral[900],
@@ -18,11 +18,11 @@ export const palette = {
     default: colors.neutral[300],
   },
 
-    primary: {
-      main: colors.brand.primary,
+  primary: {
+    main: colors.brand.primary,
     //   hover: '#1d4ed8',
     //   contrast: '#ffffff',
-    },
+  },
 
   //   status: {
   //     success: colors.semantic.success,

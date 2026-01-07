@@ -4,7 +4,6 @@ import { authReducer } from "./slices/auth";
 // import { alertReducer } from "./alert-slice";
 // import { pollLinkReducer } from "./pollLink-slice";
 
-
 const store = configureStore({
   reducer: {
     auth: authReducer,

@@ -5,8 +5,7 @@ import { BrowserRouter } from "react-router";
 import theme from "./theme/theme.ts";
 import { ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
-import store from './store';
-
+import store from "./store";
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider theme={theme}>
@@ -15,5 +14,5 @@ createRoot(document.getElementById("root")!).render(
         <App />
       </BrowserRouter>
     </Provider>
-  </ThemeProvider>
+  </ThemeProvider>,
 );

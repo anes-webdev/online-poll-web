@@ -7,7 +7,6 @@ type NavbarListProps = {
 };
 
 const NavbarList = ({ isMobileView, onItemClick }: NavbarListProps) => {
-
   return (
     <>
       {NAVBAR_ROUTES.map(({ label, path }) => {
