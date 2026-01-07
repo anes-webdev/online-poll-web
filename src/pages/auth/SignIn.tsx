@@ -74,7 +74,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-12 sm:mt-16 md:mt-20 lg:mt-24 px-4 sm:px-6">
+    <div className="max-w-lg mx-auto">
       <form
         onSubmit={onFormSubmit}
         className="px-1 sm:p-8 py-6 lg:pb-4 sm:border sm:border-gray-300 rounded-lg sm:shadow-sm"

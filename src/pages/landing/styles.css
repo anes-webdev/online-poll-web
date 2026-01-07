@@ -2,7 +2,7 @@
 
 @layer components {
   .landing-main-wrapper {
-    @apply max-w-lg sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto mt-8 sm:mt-12 md:mt-16 lg:mt-24 px-5 sm:px-8 flex flex-col md:flex-row;
+    @apply mx-auto max-w-lg sm:max-w-2xl md:max-w-4xl lg:max-w-6xl flex flex-col md:flex-row;
   }
   .landing-right-section {
     @apply md:w-5/12 mt-10 sm:mt-12;

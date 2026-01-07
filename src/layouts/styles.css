@@ -1,0 +1,7 @@
+@reference "tailwindcss";
+
+@layer components {
+  main {
+    @apply mx-auto py-12 sm:py-16 md:py-20 lg:py-22! px-4 sm:px-8! min-h-fit!;
+  }
+}
