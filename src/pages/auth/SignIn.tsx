@@ -1,52 +1,54 @@
 import TextField from '@mui/material/TextField';
-import { useState, type FormEventHandler } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/slices/auth';
 import { Button, FormHelperText, Typography } from '@mui/material';
+import './styles.css';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { API_BASE_URL } from '../../constants/api';
 
 // Todo: add api calls
-// Todo: add form validation
-// Todo: update cont
 // Todo: use separate css file
+// Todo: Add snackbar instead of error message under sign in button
+// Todo: refactor form schema and validations
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-  const [userNameValue, setUserNameValue] = useState('');
-  const [isUserNameInvalid, setIsUserNameInvalid] = useState(false);
-  const [userNameErrorMessage, setUserNameErrorMessage] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
-  const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const onFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    if (
-      userNameValue.trim().length === 0 ||
-      passwordValue.trim().length === 0
-    ) {
-      if (userNameValue.trim().length === 0) {
-        setUserNameErrorMessage('Can not be empty');
-        setIsUserNameInvalid(true);
-      }
-      if (passwordValue.trim().length === 0) {
-        setIsPasswordInvalid(true);
-        setPasswordErrorMessage('Can not be empty');
-      }
-      return;
-    }
+  const loginSchema = z.object({
+    username: z.string().nonempty('Can not be empty'),
+    password: z.string().nonempty('Can not be empty'),
+  });
 
+  type LoginFormData = z.infer<typeof loginSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
+
+  const onFormSubmit = (data: LoginFormData) => {
+    const { username, password } = data;
     const signIn = async () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://${API_BASE_URL}/user/signing?username=${userNameValue}&password=${passwordValue}`,
+          `http://${API_BASE_URL}/user/signing?username=${username}&password=${password}`,
           {
             method: 'POST',
             headers: {
@@ -54,69 +56,52 @@ const SignIn = () => {
             },
           },
         );
-        setIsLoading(false);
         if (response.status > 399) {
-          setUserNameErrorMessage('Incorrect username');
-          setPasswordErrorMessage('Incorrect password');
-          setIsUserNameInvalid(true);
-          setIsPasswordInvalid(true);
           throw new Error('Username or password is incorrect');
         }
-
         const data = await response.text();
         dispatch(authAction.login(data));
-        setIsUserNameInvalid(false);
-        setIsPasswordInvalid(false);
         setResponseMessage('');
         navigate('../pollList');
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        setIsLoading(false);
+        setError('username', { message: 'Incorrect username' });
+        setError('password', { message: 'Incorrect password' });
         setResponseMessage(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
     signIn();
   };
 
   return (
-    <div className="max-w-90 sm:max-w-104 mx-auto px-1 sm:p-8 py-6 sm:border sm:border-border-default rounded-lg sm:shadow-sm">
-      <form onSubmit={onFormSubmit}>
+    // Todo: move border-default class into separate css file:
+    <div className="sign-in-form-container sm:border-border-default">
+      <form onSubmit={handleSubmit(onFormSubmit)}>
         <Typography className="text-center" variant="h5" color="textSecondary">
           Sign in
         </Typography>
         <TextField
-          error={isUserNameInvalid}
+          {...register('username')}
+          error={!!errors.username}
           className="w-full mt-6! lg:mt-8!"
           label="Username"
           variant="outlined"
-          value={userNameValue}
-          onChange={(e) => {
-            setIsUserNameInvalid(false);
-            setUserNameValue(e.target.value);
-          }}
         />
-        <FormHelperText error>
-          {isUserNameInvalid ? userNameErrorMessage : ' '}
-        </FormHelperText>
+        <FormHelperText error>{errors.username?.message}</FormHelperText>
         <TextField
-          id="standard-error-helper-text"
-          error={isPasswordInvalid}
-          className="w-full mt-3!"
+          {...register('password')}
+          error={!!errors.password}
+          className="w-full mt-4!"
           label="Password"
           variant="outlined"
           type="password"
-          value={passwordValue}
-          onChange={(e) => {
-            setIsPasswordInvalid(false);
-            setPasswordValue(e.target.value);
-          }}
         />
-        <FormHelperText error>
-          {isPasswordInvalid ? passwordErrorMessage : ' '}
-        </FormHelperText>
+        <FormHelperText error>{errors.password?.message}</FormHelperText>
         <Button
           loading={isLoading}
-          className="w-full h-11 mt-4! lg:mt-4!"
+          className="w-full h-11 mt-5!"
           variant="contained"
           type="submit"
         >
