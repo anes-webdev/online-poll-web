@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { API_BASE_URL } from '../../constants/api';
+import { APP_ROUTES } from '../../constants/routes';
 
 // Todo: add api calls
 // Todo: use separate css file
@@ -62,7 +63,7 @@ const SignIn = () => {
         const data = await response.text();
         dispatch(authAction.login(data));
         setResponseMessage('');
-        navigate('../pollList');
+        navigate(APP_ROUTES.POLLS);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setError('username', { message: 'Incorrect username' });
