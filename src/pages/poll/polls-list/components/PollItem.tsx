@@ -5,13 +5,14 @@ import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from 'react-router';
 import Tooltip from '@mui/material/Tooltip';
 import { useState, type MouseEventHandler } from 'react';
-import { APP_ROUTES } from '../../../constants/routes';
+import { APP_ROUTES } from '../../../../constants/routes';
 import { Typography } from '@mui/material';
-import './styles.css';
+import '../styles.css';
 // import { CopyToClipboard } from 'react-copy-to-clipboard';
 // import { alertAction } from '../../store/alert-slice';
 
 // Todo: add mandatory key prop into map function as eslint rule.
+// Todo: change poll item name.
 
 type Poll = {
   id: number;

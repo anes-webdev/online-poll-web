@@ -9,14 +9,15 @@ import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import { API_BASE_URL } from '../../../constants/api';
 import { authAction } from '../../../store/slices/auth';
-import PollItem from './PollItem';
+import PollItem from './components/PollItem';
 import type { RootState } from '../../../store';
 import Button from '../../../components/button/Button';
 import { APP_ROUTES } from '../../../constants/routes';
-import DeleteModal from './DeleteModal';
+import DeleteModal from './components/DeleteModal';
 import { Skeleton } from '@mui/material';
 
-// Todo: add skeleton for fetch polls
+// Todo: add search and sort
+// Todo: change mui red color - Its too dark
 
 const PollList = () => {
   const [deletingPoll, setDeletingPoll] = useState('');
@@ -42,7 +43,6 @@ const PollList = () => {
           Authorization: token,
         },
       });
-      setIsLoading(false);
       if (response.status > 399) {
         if (response.status === 403) {
           dispatch(authAction.logout());
@@ -59,8 +59,9 @@ const PollList = () => {
       //   setError('');
       setFetchedPolls(data);
     } catch (err: any) {
-      setIsLoading(false);
       setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   }, [token, dispatch, navigate]);
 
