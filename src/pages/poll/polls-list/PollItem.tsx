@@ -2,12 +2,13 @@ import PeopleIcon from '@mui/icons-material/People';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ShareIcon from '@mui/icons-material/Share';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 import Tooltip from '@mui/material/Tooltip';
-import { useState } from 'react';
+import { useState, type MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
-import { APP_BASE_URL } from '../../../constants/api';
 import { APP_ROUTES } from '../../../constants/routes';
+import { Typography } from '@mui/material';
+import './styles.css';
 // import { CopyToClipboard } from 'react-copy-to-clipboard';
 // import { alertAction } from '../../store/alert-slice';
 
@@ -31,12 +32,13 @@ const PollItem = ({ poll, editPoll, deletePoll, key }: PollItemProps) => {
   const [shareLinkToolTipMsg, setShareLinkToolTipMsg] =
     useState('Copy poll link');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { title, description, participantsCount, link, createdAt } = poll;
   const createdDate = createdAt.substring(0, 10);
-  const createdTime = createdAt.substring(11, 19);
-  const pollLink = `${APP_BASE_URL}${APP_ROUTES.POLL_LINK.build(link)}`;
+  const createdTime = createdAt.substring(11, 16);
 
-  const onShareIconClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const onShareIconClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
     setShareLinkToolTipMsg('Copied!');
     setTimeout(() => {
       setShareLinkToolTipMsg('Copy poll link');
@@ -48,60 +50,64 @@ const PollItem = ({ poll, editPoll, deletePoll, key }: PollItemProps) => {
     //   }),
     // );
   };
-
+  const navigateToPollView = () => navigate(APP_ROUTES.POLL_VIEW.build(link));
+  const onEditPollClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    editPoll(link);
+  };
+  const onDeletePollClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    deletePoll(link);
+  };
   return (
-    <div key={key} className="border-b border-gray-300 py-2.5 lg:py-3 px-2">
-      <div className="flex justify-between">
-        <Link
-          to={`../pollDetails/${link}`}
-          className="text-xl font-semibold text-gray-700 cursor-pointer hover:text-blue-600"
-        >
-          {title}
-        </Link>
-        <div>
-          {/* <CopyToClipboard text={pollLink}> */}
-          <button onClick={onShareIconClick}>
-            <Tooltip placement="top" title={shareLinkToolTipMsg}>
-              <ShareIcon className="text-gray-500 hover:text-gray-600" />
-            </Tooltip>
-          </button>
-          {/* </CopyToClipboard> */}
-
-          <button
-            onClick={() => {
-              editPoll(link);
-            }}
-            className="mx-4 lg:mx-5"
-          >
-            <Tooltip placement="top" title="Edit poll">
-              <EditIcon className="text-gray-500 hover:text-gray-600" />
-            </Tooltip>
-          </button>
-          <button
-            onClick={() => {
-              deletePoll(link);
-            }}
-          >
-            <Tooltip placement="top" title="Delete poll">
-              <DeleteIcon className="text-gray-500 hover:text-gray-600" />
-            </Tooltip>
-          </button>
+    <button className="w-full" onClick={navigateToPollView}>
+      <div
+        key={key}
+        // Todo: Move these classes into separate css file:
+        className="poll-item-container border-border-default hover:border-fg-primary"
+      >
+        <div className="flex justify-between items-center flex-wrap gap-1">
+          <Typography className="text-left" variant="h6" color="textPrimary">
+            {title}
+          </Typography>
+          <div className="flex gap-4">
+            {/* Todo: handle copy to clipboard */}
+            {/* <CopyToClipboard text={pollLink}> */}
+            <button onClick={onShareIconClick}>
+              <Tooltip placement="top" title={shareLinkToolTipMsg}>
+                <ShareIcon color="action" />
+              </Tooltip>
+            </button>
+            {/* </CopyToClipboard> */}
+            <button onClick={onEditPollClick}>
+              <Tooltip placement="top" title="Edit poll">
+                <EditIcon color="action" />
+              </Tooltip>
+            </button>
+            <button onClick={onDeletePollClick}>
+              <Tooltip placement="top" title="Delete poll">
+                <DeleteIcon color="action" />
+              </Tooltip>
+            </button>
+          </div>
+        </div>
+        <Typography className="mt-2! md:mt-3! text-left" color="textMuted">
+          {description}
+        </Typography>
+        <div className="flex justify-between items-center mt-2 md:mt-3">
+          <div className="flex items-center">
+            <PeopleIcon color="action" />
+            {/* Todo: Cal participants counts: */}
+            <Typography color="textSecondary">{participantsCount}</Typography>
+          </div>
+          <Typography color="textMuted" variant="caption">
+            {createdDate}
+            &nbsp;&nbsp;
+            {createdTime}
+          </Typography>
         </div>
       </div>
-
-      <p className="mt-2 md:mt-3 text-gray-500">{description} </p>
-      <div className="flex justify-between items-center mt-2 md:mt-3">
-        <div className="flex items-center">
-          <PeopleIcon className="text-gray-500" />
-          <p className="ml-2 text-gray-500">{participantsCount}</p>
-        </div>
-        <p className="text-gray-500 font-light text-xs mr-2">
-          {createdDate}
-          &nbsp;&nbsp;
-          {createdTime}
-        </p>
-      </div>
-    </div>
+    </button>
   );
 };
 export default PollItem;

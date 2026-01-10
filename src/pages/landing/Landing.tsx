@@ -15,7 +15,9 @@ const Landing = () => {
   return (
     <div className="landing-main-wrapper">
       <div className="landing-left-section">
-        <Typography variant="h4">Create online poll easily</Typography>
+        <Typography variant="h4" color="textPrimary">
+          Create online poll easily
+        </Typography>
         <Typography color="textMuted" className="mt-4! sm:mt-6! lg:w-9/12">
           Easily create, manage and share online polls and surveys, and analyze
           responses in real-time.

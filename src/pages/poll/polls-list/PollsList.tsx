@@ -135,7 +135,7 @@ const PollList = () => {
         {error === 'No polls found' && (
           <h2 className="text-center text-gray-600 text-xl mt-4">{error}</h2>
         )}
-        <div className="mt-7">{pollsList}</div>
+        <div className="mt-5">{pollsList}</div>
       </div>
 
       {/* {isDeleteModalDisplayed && (

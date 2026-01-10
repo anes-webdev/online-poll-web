@@ -1,0 +1,7 @@
+@reference "tailwindcss";
+
+@layer components {
+  .poll-item-container {
+    @apply border transition p-4 mt-3 rounded-lg;
+  }
+}
