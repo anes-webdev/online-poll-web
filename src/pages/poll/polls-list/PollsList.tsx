@@ -13,12 +13,16 @@ import PollItem from './PollItem';
 import type { RootState } from '../../../store';
 import Button from '../../../components/button/Button';
 import { APP_ROUTES } from '../../../constants/routes';
+import DeleteModal from './DeleteModal';
+import { Skeleton } from '@mui/material';
+
+// Todo: add skeleton for fetch polls
 
 const PollList = () => {
   const [deletingPoll, setDeletingPoll] = useState('');
-  const [editingPoll, setEditingPoll] = useState('');
-  const showDeleteModal = deletingPoll;
-  const showEditModal = editingPoll;
+  const [deletePollLoading, setDeletePollLoading] = useState(false);
+  const showDeleteModal = !!deletingPoll;
+  const closeDeleteModal = () => setDeletingPoll('');
 
   const [fetchedPolls, setFetchedPolls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -65,10 +69,12 @@ const PollList = () => {
   }, [getAllPolls]);
 
   const onDeletePollIconClick = (pollSlug: string) => setDeletingPoll(pollSlug);
-  const onEditPollIconClick = (pollSlug: string) => setEditingPoll(pollSlug);
+  const onEditPollIconClick = (pollSlug: string) =>
+    navigate(APP_ROUTES.EDIT_POLL.build(pollSlug));
 
   const deletePoll = async () => {
     try {
+      setDeletePollLoading(true);
       const response = await fetch(
         `http://${API_BASE_URL}/poll/delete/${deletingPoll}`,
         {
@@ -86,6 +92,7 @@ const PollList = () => {
         }
         throw new Error('Some thing went wrong');
       }
+      closeDeleteModal();
       //   dispatch(
       //     alertAction.showAlert({
       //       message: 'Poll successFully deleted',
@@ -100,6 +107,8 @@ const PollList = () => {
       //       type: 'error',
       //     }),
       //   );
+    } finally {
+      setDeletePollLoading(false);
     }
   };
 
@@ -114,50 +123,53 @@ const PollList = () => {
     );
   });
 
-  // Todo: add skeleton here:
-  if (isLoading) {
-    return 'Loading...';
-    // return <LoadingSpinner />;
-  }
+  // Todo: replace this array:
+  const skeletonArr = [1, 2, 3];
+
+  const loadingSkeleton = (
+    <div className="flex flex-col gap-3">
+      <Skeleton className="w-30! h-10! mb-2!" />
+      {skeletonArr.map((item, index) => {
+        return <Skeleton key={index} className="h-36! w-full!" />;
+      })}
+    </div>
+  );
 
   return (
     <>
       <div className="max-w-3xl mx-auto">
-        <Button
-          component="a"
-          href={APP_ROUTES.ADD_POLL}
-          variant="outlined"
-          color="neutral"
-        >
-          Create Poll
-        </Button>
-        {/* Todo: handle this error and refactor it: */}
-        {error === 'No polls found' && (
-          <h2 className="text-center text-gray-600 text-xl mt-4">{error}</h2>
+        {isLoading ? (
+          loadingSkeleton
+        ) : (
+          <>
+            <Button
+              component="a"
+              href={APP_ROUTES.ADD_POLL}
+              variant="outlined"
+              color="neutral"
+            >
+              Create Poll
+            </Button>
+            {/* Todo: handle this error and refactor it: */}
+            {error === 'No polls found' && (
+              <h2 className="text-center text-gray-600 text-xl mt-4">
+                {error}
+              </h2>
+            )}
+            <div className="mt-5">{pollsList}</div>
+          </>
         )}
-        <div className="mt-5">{pollsList}</div>
       </div>
-
-      {/* {isDeleteModalDisplayed && (
-        <Modal
-          handleYes={() => {
-            deletePoll();
-          }}
-          hideModal={() => {
-            setIsDeleteModalDisplayed(false);
-          }}
+      {showDeleteModal && (
+        <DeleteModal
+          title="Are you sure you want to delete this poll?"
+          description="All data related to this poll includes participants and options will be lost"
+          isOpen={showDeleteModal}
+          onConfirm={deletePoll}
+          confirmLoading={deletePollLoading}
+          onClose={closeDeleteModal}
         />
       )}
-      {isEditModalDisplayed && (
-        <Modal
-          handleYes={() => {
-            navigate(`../editPoll/${selectedPollForEdit}`);
-          }}
-          hideModal={() => {
-            setIsEditModalDisplayed(false);
-          }}
-        />
-      )} */}
     </>
   );
 };

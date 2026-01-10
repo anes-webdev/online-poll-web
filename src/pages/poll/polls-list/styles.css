@@ -2,6 +2,9 @@
 
 @layer components {
   .poll-item-container {
-    @apply border transition p-4 mt-3 rounded-lg;
+    @apply border transition p-4 mt-3 rounded-lg cursor-pointer;
+  }
+    .poll-item-head {
+    @apply flex justify-between items-center flex-wrap gap-1;
   }
 }
