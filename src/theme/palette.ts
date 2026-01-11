@@ -24,10 +24,10 @@ export const palette = {
     //   contrast: '#ffffff',
   },
 
-  //   status: {
-  //     success: colors.semantic.success,
-  //     warning: colors.semantic.warning,
-  //     error: colors.semantic.error,
-  //     info: colors.semantic.info,
-  //   },
+  status: {
+    // success: colors.semantic.success,
+    // warning: colors.semantic.warning,
+    error: colors.semantic.error,
+    // info: colors.semantic.info,
+  },
 };

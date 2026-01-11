@@ -1,0 +1,13 @@
+@reference "tailwindcss";
+
+@layer components {
+  .poll-form-container {
+    @apply max-w-96 sm:max-w-110 mx-auto px-1 py-6 lg:pb-8 sm:p-8 sm:border rounded-lg sm:shadow-sm;
+  }
+  .poll-option-container {
+    @apply border rounded-lg px-2.5 py-2 m-1.5 flex justify-between items-center bg-white;
+  }
+    .poll-options-list-container {
+    @apply border bg-gray-100 p-2.5 sm:p-4 rounded-lg mt-4;
+  }
+}
