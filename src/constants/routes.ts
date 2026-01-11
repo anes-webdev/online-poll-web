@@ -9,7 +9,8 @@ export const APP_ROUTES = {
   },
   POLL_LINK: {
     PATH: '/polls/:pollSlug/link',
-    build: (pollSlug: string) => `/polls/${pollSlug}/link`,
+    build: (pollSlug: string, status: 'poll-create' | 'vote') =>
+      `/polls/${pollSlug}/link/?status=${status}`,
   },
   POLL_VIEW: {
     PATH: '/polls/:pollSlug/view',

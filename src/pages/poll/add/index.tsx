@@ -135,10 +135,7 @@ const CreatePoll = () => {
           throw new Error('Some thing went wrong');
         }
         const pollSlug = await response.text();
-        // dispatch(
-        //   pollLinkAction.showPollLinkPage('The poll successfully created'),
-        // );
-        navigate(APP_ROUTES.POLL_LINK.build(pollSlug));
+        navigate(APP_ROUTES.POLL_LINK.build(pollSlug, 'poll-create'));
       } catch (error) {
         // dispatch(
         //   alertAction.showAlert({
