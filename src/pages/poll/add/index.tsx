@@ -119,7 +119,7 @@ const CreatePoll = () => {
     const createPoll = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://${API_BASE_URL}/poll/create`, {
+        const response = await fetch(`${API_BASE_URL}/poll/create`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

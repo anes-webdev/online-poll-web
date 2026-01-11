@@ -49,7 +49,7 @@ const SignIn = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://${API_BASE_URL}/user/signing?username=${username}&password=${password}`,
+          `${API_BASE_URL}/user/signing?username=${username}&password=${password}`,
           {
             method: 'POST',
             headers: {
