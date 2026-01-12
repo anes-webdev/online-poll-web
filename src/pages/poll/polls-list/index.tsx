@@ -8,8 +8,8 @@ import Button from '../../../components/button/Button';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
 import { Skeleton } from '@mui/material';
-import { usePolls } from '../../../network/hooks/usePolls';
-import { deletePoll } from '../../../network/polls';
+import { usePoll } from '../../../network/hooks/main/usePoll';
+import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
 
 // Todo: add search and sort
 // Todo: change mui red color - Its too dark
@@ -18,13 +18,14 @@ import { deletePoll } from '../../../network/polls';
 const PollList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { deletePoll } = usePoll();
 
   const [deletingPoll, setDeletingPoll] = useState('');
   const [deletePollLoading, setDeletePollLoading] = useState(false);
   const showDeleteModal = !!deletingPoll;
   const closeDeleteModal = () => setDeletingPoll('');
 
-  const { data: polls, isLoading, error, refetch } = usePolls();
+  const { data: polls, isLoading, error, refetch } = useGetPolls();
   const emptyList = polls?.length === 0;
 
   const onDeletePollIconClick = (pollSlug: string) => setDeletingPoll(pollSlug);
@@ -44,10 +45,6 @@ const PollList = () => {
       //   );
       refetch();
     } catch (error: any) {
-      if (error.status === 403) {
-        dispatch(authAction.logout());
-        navigate(APP_ROUTES.LANDING);
-      }
       //   dispatch(
       //     alertAction.showAlert({
       //       message: error.message,

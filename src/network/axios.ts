@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import axios, { type AxiosResponse } from 'axios';
-import { API_BASE_URL } from '../constants/api';
-
-const token = localStorage.getItem('token');
+import { API_BASE_URL } from '../constants/baseUrls';
 
 // export const api = axios.create({
 //   baseURL: API_BASE_URL,
@@ -19,6 +17,7 @@ export const api = async <T>(
   url: string,
   data?: any,
 ): Promise<AxiosResponse<T, any, {}>> => {
+  const token = localStorage.getItem('token');
   return axios({
     method: method,
     url: API_BASE_URL + url,
@@ -29,37 +28,3 @@ export const api = async <T>(
     data: data,
   });
 };
-
-// export const getMethod = async <T>(
-//   url: string,
-// ): Promise<AxiosResponse<T, any, {}>> => {
-//   return axios.get<T>(API_BASE_URL + url, {
-//     headers: defaultHeaders,
-//   });
-// };
-
-// export const deleteMethod = async (
-//   url: string,
-// ): Promise<AxiosResponse<any, any, {}>> => {
-//   return axios.delete(API_BASE_URL + url, {
-//     headers: defaultHeaders,
-//   });
-// };
-
-// export const postMethod = async <T>(
-//   url: string,
-//   data?: any,
-// ): Promise<AxiosResponse<T, any, {}>> => {
-//   return axios.post<T>(API_BASE_URL + url, data, {
-//     headers: defaultHeaders,
-//   });
-// };
-
-// export const putMethod = async <T>(
-//   url: string,
-//   data: any = {},
-// ): Promise<AxiosResponse<T, any, {}>> => {
-//   return axios.put<T>(API_BASE_URL + url, data, {
-//     headers: defaultHeaders,
-//   });
-// };

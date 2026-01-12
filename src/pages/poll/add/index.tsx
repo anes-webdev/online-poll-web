@@ -14,7 +14,7 @@ import type { RootState } from '../../../store';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { API_BASE_URL } from '../../../constants/api';
+import { API_BASE_URL } from '../../../constants/baseUrls';
 import { APP_ROUTES } from '../../../constants/routes';
 // import { authAction } from '../../../store/auth-slice';
 // import { pollLinkAction } from '../../../store/pollLink-slice';

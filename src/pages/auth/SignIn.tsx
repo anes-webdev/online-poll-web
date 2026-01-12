@@ -8,7 +8,7 @@ import './styles.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { API_BASE_URL } from '../../constants/api';
+import { API_BASE_URL } from '../../constants/baseUrls';
 import { APP_ROUTES } from '../../constants/routes';
 
 // Todo: add api calls
