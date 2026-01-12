@@ -10,7 +10,7 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 export const useApi = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const token = useAppSelector((state) => state.auth.token) + 's';
+  const token = useAppSelector((state) => state.auth.token);
 
   const api = async <T>(
     method: 'get' | 'post' | 'put' | 'patch' | 'delete',
