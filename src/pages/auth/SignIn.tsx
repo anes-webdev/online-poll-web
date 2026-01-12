@@ -1,7 +1,6 @@
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/slices/auth';
 import { Button, FormHelperText, Typography } from '@mui/material';
 import './styles.css';
@@ -10,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { APP_ROUTES } from '../../constants/routes';
 import { useSignIn } from '../../network/hooks/main/useSignIn';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 // Todo: add api calls
 // Todo: use separate css file
@@ -18,7 +18,7 @@ import { useSignIn } from '../../network/hooks/main/useSignIn';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { signIn } = useSignIn();
 
   const [responseMessage, setResponseMessage] = useState('');
