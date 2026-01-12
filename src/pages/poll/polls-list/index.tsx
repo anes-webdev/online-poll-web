@@ -1,8 +1,6 @@
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 // import { alertAction } from '../../store/alert-slice';
-import { authAction } from '../../../store/slices/auth';
 import PollItem from './components/PollItem';
 import Button from '../../../components/button/Button';
 import { APP_ROUTES } from '../../../constants/routes';
@@ -16,7 +14,6 @@ import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
 // Todo: handle response 403 then logout in axios
 
 const PollList = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { deletePoll } = usePoll();
 
@@ -31,6 +28,9 @@ const PollList = () => {
   const onDeletePollIconClick = (pollSlug: string) => setDeletingPoll(pollSlug);
   const onEditPollIconClick = (pollSlug: string) =>
     navigate(APP_ROUTES.EDIT_POLL.build(pollSlug));
+  const navigateToCreatePoll = () => {
+    navigate(APP_ROUTES.ADD_POLL);
+  };
 
   const onDeletePoll = async () => {
     try {
@@ -92,8 +92,7 @@ const PollList = () => {
         ) : (
           <>
             <Button
-              component="a"
-              href={APP_ROUTES.ADD_POLL}
+              onClick={navigateToCreatePoll}
               variant="outlined"
               color="neutral"
             >
