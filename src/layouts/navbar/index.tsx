@@ -12,7 +12,7 @@ import { IconButton } from '@mui/material';
 import { APP_ROUTES } from '../../constants/routes';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { authAction } from '../../store/slices/auth';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAuth } from '../../hooks/useAuth';
 
 type NavbarProps = {
   ref: Ref<HTMLElement>;
@@ -22,6 +22,7 @@ const Navbar = ({ ref }: NavbarProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const isDesktopView = useMediaQuery(theme.breakpoints.up(760));
 
@@ -29,8 +30,6 @@ const Navbar = ({ ref }: NavbarProps) => {
   const toggleMobileNav = () => setIsMobileNavOpen((prevState) => !prevState);
   const showMobileNav = !isDesktopView && isMobileNavOpen;
 
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-  // const isAuthenticated = true;
   const signInBtnText = isAuthenticated ? 'Sign out' : 'Sign in';
 
   const onSignInButtonClick = () => {

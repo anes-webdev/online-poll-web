@@ -5,12 +5,12 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { authAction } from '../../store/slices/auth';
 import { useNavigate } from 'react-router';
 import { APP_ROUTES } from '../../constants/routes';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAuth } from '../../hooks/useAuth';
 
 export const useApi = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const token = useAppSelector((state) => state.auth.token);
+  const { token } = useAuth();
 
   const api = async <T>(
     method: 'get' | 'post' | 'put' | 'patch' | 'delete',

@@ -1,14 +1,14 @@
 import Button from '@mui/material/Button';
 import pollImage from '../../assets/Poll.webp';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { useNavigate } from 'react-router';
 import { APP_ROUTES } from '../../constants/routes';
 import { Typography } from '@mui/material';
 import './styles.css';
+import { useAuth } from '../../hooks/useAuth';
 
 const Landing = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const { isAuthenticated } = useAuth();
   const onMainButtonClick = () =>
     navigate(APP_ROUTES[isAuthenticated ? 'POLLS' : 'SIGN_IN']);
 
