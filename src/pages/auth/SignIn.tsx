@@ -8,8 +8,8 @@ import './styles.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { API_BASE_URL } from '../../constants/baseUrls';
 import { APP_ROUTES } from '../../constants/routes';
+import { useSignIn } from '../../network/hooks/main/useSignIn';
 
 // Todo: add api calls
 // Todo: use separate css file
@@ -19,6 +19,7 @@ import { APP_ROUTES } from '../../constants/routes';
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { signIn } = useSignIn();
 
   const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,37 +44,27 @@ const SignIn = () => {
     },
   });
 
-  const onFormSubmit = (data: LoginFormData) => {
+  const onFormSubmit = async (data: LoginFormData) => {
     const { username, password } = data;
-    const signIn = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}/user/signing?username=${username}&password=${password}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        if (response.status > 399) {
-          throw new Error('Username or password is incorrect');
-        }
-        const data = await response.text();
-        dispatch(authAction.login(data));
-        setResponseMessage('');
-        navigate(APP_ROUTES.POLLS);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
+    setIsLoading(true);
+    try {
+      const token = await signIn(username, password);
+      dispatch(authAction.login(token));
+      setResponseMessage('');
+      navigate(APP_ROUTES.POLLS);
+    } catch (error: any) {
+      console.log(error);
+      if (error.status === 404) {
         setError('username', { message: 'Incorrect username' });
         setError('password', { message: 'Incorrect password' });
-        setResponseMessage(error.message);
-      } finally {
-        setIsLoading(false);
+        setResponseMessage('Username or password is incorrect');
+      } else {
+        // Replace this part with an alert:
+        setResponseMessage(error.response.data || 'Something went wrong');
       }
-    };
-    signIn();
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
