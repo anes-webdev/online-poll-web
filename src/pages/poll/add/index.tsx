@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import OptionList from './components/OptionsList';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-// import { alertAction } from '../../../store/alert-slice';
 import { FormHelperText, Tooltip, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useForm } from 'react-hook-form';
@@ -15,6 +14,7 @@ import {
   type CreatePollData,
 } from '../../../schemas/createPollSchema';
 import { usePoll } from '../../../network/hooks/main/usePoll';
+import { useAlert } from '../../../hooks/useAlert';
 // import { authAction } from '../../../store/auth-slice';
 // import { pollLinkAction } from '../../../store/pollLink-slice';
 
@@ -25,6 +25,7 @@ export type Option = { optionName: string };
 const CreatePoll = () => {
   const navigate = useNavigate();
   const { createPoll } = usePoll();
+  const alert = useAlert();
 
   const {
     watch,
@@ -89,15 +90,10 @@ const CreatePoll = () => {
     setLoading(true);
     try {
       const pollSlug = await createPoll(data);
+      alert('The poll successfully created', 'success');
       navigate(APP_ROUTES.POLL_LINK.build(pollSlug, 'poll-create'));
-    } catch (error) {
-      // Todo: Handle this part:
-      // dispatch(
-      //   alertAction.showAlert({
-      //     message: error.message,
-      //     type: 'error',
-      //   }),
-      // );
+    } catch (error: any) {
+      alert(error.response.message, 'error');
     } finally {
       setLoading(false);
     }

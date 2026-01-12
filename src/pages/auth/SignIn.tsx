@@ -10,18 +10,14 @@ import { useForm } from 'react-hook-form';
 import { APP_ROUTES } from '../../constants/routes';
 import { useSignIn } from '../../network/hooks/main/useSignIn';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-
-// Todo: add api calls
-// Todo: use separate css file
-// Todo: Add snackbar instead of error message under sign in button
-// Todo: refactor form schema and validations
+import { useAlert } from '../../hooks/useAlert';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { signIn } = useSignIn();
+  const alert = useAlert();
 
-  const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const loginSchema = z.object({
@@ -50,17 +46,14 @@ const SignIn = () => {
     try {
       const token = await signIn(username, password);
       dispatch(authAction.login(token));
-      setResponseMessage('');
       navigate(APP_ROUTES.POLLS);
     } catch (error: any) {
-      console.log(error);
       if (error.status === 404) {
         setError('username', { message: 'Incorrect username' });
         setError('password', { message: 'Incorrect password' });
-        setResponseMessage('Username or password is incorrect');
+        alert('Username or password is incorrect', 'error');
       } else {
-        // Replace this part with an alert:
-        setResponseMessage(error.response.data || 'Something went wrong');
+        alert(error.response.data, 'error');
       }
     } finally {
       setIsLoading(false);
@@ -99,11 +92,6 @@ const SignIn = () => {
         >
           Sing in
         </Button>
-        {responseMessage && (
-          <Typography className="mt-4!" color="error">
-            {responseMessage} &nbsp;
-          </Typography>
-        )}
       </form>
     </div>
   );

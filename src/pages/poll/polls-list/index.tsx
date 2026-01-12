@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-// import { alertAction } from '../../store/alert-slice';
 import PollItem from './components/PollItem';
 import Button from '../../../components/button/Button';
 import { APP_ROUTES } from '../../../constants/routes';
@@ -8,14 +7,15 @@ import DeleteModal from './components/DeleteModal';
 import { Skeleton } from '@mui/material';
 import { usePoll } from '../../../network/hooks/main/usePoll';
 import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
+import { useAlert } from '../../../hooks/useAlert';
 
 // Todo: add search and sort
 // Todo: change mui red color - Its too dark
-// Todo: handle response 403 then logout in axios
 
 const PollList = () => {
   const navigate = useNavigate();
   const { deletePoll } = usePoll();
+  const alert = useAlert();
 
   const [deletingPoll, setDeletingPoll] = useState('');
   const [deletePollLoading, setDeletePollLoading] = useState(false);
@@ -37,20 +37,10 @@ const PollList = () => {
       setDeletePollLoading(true);
       await deletePoll(deletingPoll);
       closeDeleteModal();
-      //   dispatch(
-      //     alertAction.showAlert({
-      //       message: 'Poll successFully deleted',
-      //       type: 'success',
-      //     }),
-      //   );
+      alert('Poll successFully deleted', 'success');
       refetch();
     } catch (error: any) {
-      //   dispatch(
-      //     alertAction.showAlert({
-      //       message: error.message,
-      //       type: 'error',
-      //     }),
-      //   );
+      alert(error.response.data, 'error');
     } finally {
       setDeletePollLoading(false);
     }

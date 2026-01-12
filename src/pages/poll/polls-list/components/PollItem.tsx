@@ -8,8 +8,8 @@ import { useState, type MouseEventHandler } from 'react';
 import { APP_ROUTES } from '../../../../constants/routes';
 import { Typography } from '@mui/material';
 import '../styles.css';
+import { useAlert } from '../../../../hooks/useAlert';
 // import { CopyToClipboard } from 'react-copy-to-clipboard';
-// import { alertAction } from '../../store/alert-slice';
 
 // Todo: add mandatory key prop into map function as eslint rule.
 // Todo: change poll item name.
@@ -30,9 +30,11 @@ type PollItemProps = {
 };
 
 const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
+  const navigate = useNavigate();
+  const alert = useAlert();
+
   const [shareLinkToolTipMsg, setShareLinkToolTipMsg] =
     useState('Copy poll link');
-  const navigate = useNavigate();
   const { title, description, participantsCount, link, createdAt } = poll;
   const createdDate = createdAt.substring(0, 10);
   const createdTime = createdAt.substring(11, 16);
@@ -43,12 +45,7 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
     setTimeout(() => {
       setShareLinkToolTipMsg('Copy poll link');
     }, 2000);
-    // dispatch(
-    //   alertAction.showAlert({
-    //     message: 'Poll link copied',
-    //     type: 'success',
-    //   }),
-    // );
+    alert('Poll link copied', 'success');
   };
   const navigateToPollView = () => navigate(APP_ROUTES.POLL_VIEW.build(link));
   const onEditPollClick: MouseEventHandler<HTMLButtonElement> = (e) => {
