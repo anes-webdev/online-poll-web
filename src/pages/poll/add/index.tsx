@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import OptionList from './components/OptionsList';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { FormHelperText, Tooltip, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useForm } from 'react-hook-form';
@@ -15,17 +15,17 @@ import {
 } from '../../../schemas/createPollSchema';
 import { usePoll } from '../../../network/hooks/main/usePoll';
 import { useAlert } from '../../../hooks/useAlert';
-// import { authAction } from '../../../store/auth-slice';
-// import { pollLinkAction } from '../../../store/pollLink-slice';
+import { usePollLink } from '../../../hooks/usePollLink';
 
 // Todo: should I style form tag itself or I should use a div container for it?!
 // Todo: Handle background colors
+
 export type Option = { optionName: string };
 
 const CreatePoll = () => {
-  const navigate = useNavigate();
-  const { createPoll } = usePoll();
   const alert = useAlert();
+  const { createPoll } = usePoll();
+  const { showPollLink } = usePollLink();
 
   const {
     watch,
@@ -90,8 +90,7 @@ const CreatePoll = () => {
     setLoading(true);
     try {
       const pollSlug = await createPoll(data);
-      alert('The poll successfully created', 'success');
-      navigate(APP_ROUTES.POLL_LINK.build(pollSlug, 'poll-create'));
+      showPollLink(pollSlug, 'The poll successfully created');
     } catch (error: any) {
       alert(error.response.message, 'error');
     } finally {
