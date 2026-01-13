@@ -5,6 +5,7 @@ import SignIn from '../pages/auth/SignIn';
 import PollsList from '../pages/poll/list';
 import CreatePoll from '../pages/poll/add';
 import PollLink from '../pages/poll/link/PollLink';
+import NotFoundPage from '../pages/not-found/NotFoundPage';
 
 const AppRoutes = () => {
   return (
@@ -16,7 +17,7 @@ const AppRoutes = () => {
       <Route path={APP_ROUTES.POLL_LINK.PATH} element={<PollLink />} />
       {/* <Route path="/editPoll/:pollLink" element={<EditPollPage />} /> */}
       {/* <Route path="/pollDetails/:pollLink" element={<PollDetailsPage />} /> */}
-      {/* <Route path="*" element={<NotFoundPage />} /> */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
