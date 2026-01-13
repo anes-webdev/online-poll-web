@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router';
 import { APP_ROUTES } from '../constants/routes';
 import Landing from '../pages/landing/Landing';
 import SignIn from '../pages/auth/SignIn';
-import PollsList from '../pages/poll/polls-list';
+import PollsList from '../pages/poll/list';
 import CreatePoll from '../pages/poll/add';
 
 const AppRoutes = () => {
