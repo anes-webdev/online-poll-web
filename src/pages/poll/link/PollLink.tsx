@@ -11,10 +11,12 @@ import { useAlert } from '../../../hooks/useAlert';
 import { APP_ROUTES } from '../../../constants/routes';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { usePollLink } from '../../../hooks/usePollLink';
+import './styles.css';
 // import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 // Todo: handle copy to clipboard:
 // Todo: Search about the right folder of redux hooks
+// Todo: try to write a wrapper component like a card for forms, links, ...
 
 const PollLink = () => {
   const alert = useAlert();
@@ -49,52 +51,47 @@ const PollLink = () => {
   }, [hidePollLink, isPollLinkDisplayed, navigate]);
 
   return (
-    <div className="max-w-md md:max-w-lg mx-auto">
-      <div className="py-6 px-4 md:p-8 border border-border-default rounded-lg shadow-sm">
-        <Tooltip placement="top" title="Back">
-          <button onClick={onBackButtonClick} className="absolute">
-            <ArrowBackIosIcon className="absolute" color="action" />
+    <div className="poll-link-container border-border-default">
+      <Tooltip placement="top" title="Back">
+        <button onClick={onBackButtonClick} className="absolute">
+          <ArrowBackIosIcon className="absolute" color="action" />
+        </button>
+      </Tooltip>
+      <Typography color="success" className="text-center text-xl! mx-9">
+        {pollLinkMessage}
+      </Typography>
+      <Typography color="textSecondary" className="text-center text-xl! mt-6!">
+        Poll Link
+      </Typography>
+      <div className="link-field-wrapper">
+        <TextField
+          className="w-full"
+          variant="outlined"
+          value={pollLink}
+          aria-readonly
+        />
+        <div className="copy-icon">
+          {/* <CopyToClipboard text={pollLink}> */}
+          <button onClick={onCopyButtonClick}>
+            <Tooltip placement="top" title={copyLinkIconToolTipMsg}>
+              <ContentCopyIcon color="action" />
+            </Tooltip>
           </button>
-        </Tooltip>
-        <Typography color="success" className="text-center text-xl! mx-9">
-          {pollLinkMessage}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          className="text-center text-xl! mt-6!"
-        >
-          Poll Link
-        </Typography>
-        <div className="mt-4 lg:mt-6 flex items-center justify-between w-full relative">
-          <TextField
-            className="w-full"
-            variant="outlined"
-            value={pollLink}
-            aria-readonly
-          />
-          <div className="flex justify-center items-center absolute top-3.5 w-10 right-2 bg-white z-10">
-            {/* <CopyToClipboard text={pollLink}> */}
-            <button onClick={onCopyButtonClick}>
-              <Tooltip placement="top" title={copyLinkIconToolTipMsg}>
-                <ContentCopyIcon color="action" />
-              </Tooltip>
-            </button>
-            {/* </CopyToClipboard> */}
-          </div>
+          {/* </CopyToClipboard> */}
         </div>
-        {isAuthenticated && (
-          <div className="text-center mt-6">
-            <Button
-              onClick={() => {
-                navigate(APP_ROUTES.POLLS);
-              }}
-              variant="contained"
-            >
-              Back to pollList
-            </Button>
-          </div>
-        )}
       </div>
+      {isAuthenticated && (
+        <div className="text-center mt-6">
+          <Button
+            onClick={() => {
+              navigate(APP_ROUTES.POLLS);
+            }}
+            variant="contained"
+          >
+            Back to pollList
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
