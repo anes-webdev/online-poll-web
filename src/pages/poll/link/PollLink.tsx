@@ -42,7 +42,7 @@ const PollLink = () => {
   };
 
   useEffect(() => {
-    // if (!isPollLinkDisplayed) navigate(-1);
+    if (!isPollLinkDisplayed) navigate(-1);
     return () => {
       hidePollLink();
     };
