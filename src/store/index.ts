@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './slices/auth';
 import { alertReducer } from './slices/alert';
-// import { pollLinkReducer } from "./pollLink-slice";
+import { pollLinkReducer } from './slices/poll-link';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     alert: alertReducer,
+    pollLink: pollLinkReducer,
   },
 });
 
