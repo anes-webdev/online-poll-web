@@ -30,7 +30,10 @@ const theme = createTheme({
         {
           props: { color: 'action' },
           style: {
-            color: palette.fg.secondary,
+            color: palette.fg.muted,
+            ':hover': {
+              color: palette.fg.secondary,
+            },
           },
         },
       ],
