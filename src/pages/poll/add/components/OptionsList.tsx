@@ -1,14 +1,15 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import type { Option } from '..';
-import { Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { palette } from '../../../../theme/palette';
 
 type OptionProps = {
   optionName: string;
+  disabled: boolean;
   deleteOption: (value: string) => void;
 };
 
-const Option = ({ deleteOption, optionName }: OptionProps) => {
+const Option = ({ deleteOption, optionName, disabled }: OptionProps) => {
   const onDeleteButtonClick = () => {
     deleteOption(optionName);
   };
@@ -17,9 +18,9 @@ const Option = ({ deleteOption, optionName }: OptionProps) => {
       <Typography color="textSecondary" className="w-10/12">
         {optionName}
       </Typography>
-      <button type="button" onClick={onDeleteButtonClick}>
+      <IconButton onClick={onDeleteButtonClick} disabled={disabled}>
         <DeleteIcon color="action" />
-      </button>
+      </IconButton>
     </li>
   );
 };
@@ -28,19 +29,30 @@ type OptionListProps = {
   options: Option[];
   error: boolean;
   deleteOption: (value: string) => void;
+  disabled: boolean;
 };
 
-const OptionList = ({ options, deleteOption, error }: OptionListProps) => {
+const OptionList = ({
+  options,
+  deleteOption,
+  error,
+  disabled,
+}: OptionListProps) => {
   const optionList = options.map(({ optionName }, index) => {
     return (
-      <Option key={index} deleteOption={deleteOption} optionName={optionName} />
+      <Option
+        key={index}
+        deleteOption={deleteOption}
+        optionName={optionName}
+        disabled={disabled}
+      />
     );
   });
 
   return (
     <div
       style={error ? { border: `1px solid ${palette.status.error}` } : {}}
-      className="poll-options-list-container border-border-default"
+      className={`poll-options-list-container border-border-default ${disabled ? 'opacity-60' : ''}`}
     >
       {options.length === 0 && (
         <Typography

@@ -5,7 +5,7 @@ const TITLE_LENGTH_ERROR_MESSAGE = 'Title length should be between 3 and 20';
 const DESCRIPTION_LENGTH_ERROR_MESSAGE =
   'Description length should be between 5 and 255';
 
-export const createPollSchema = z.object({
+const pollSchemaCommonFields = {
   title: z
     .string()
     .min(3, TITLE_LENGTH_ERROR_MESSAGE)
@@ -16,13 +16,22 @@ export const createPollSchema = z.object({
     .min(5, DESCRIPTION_LENGTH_ERROR_MESSAGE)
     .max(20, DESCRIPTION_LENGTH_ERROR_MESSAGE)
     .nonempty('Can not be empty'),
-  options: z
-    .array(
-      z.object({
-        optionName: z.string(),
-      }),
-    )
-    .min(2, 'At least two options are needed'),
+};
+
+const pollOptionsSchema = z.array(
+  z.object({
+    optionName: z.string(),
+  }),
+);
+
+export const editPollSchema = z.object({
+  ...pollSchemaCommonFields,
+  options: pollOptionsSchema,
+});
+
+export const createPollSchema = z.object({
+  ...pollSchemaCommonFields,
+  options: pollOptionsSchema.min(2, 'At least two options are needed'),
 });
 
 export type CreatePollData = z.infer<typeof createPollSchema>;

@@ -2,30 +2,46 @@ import './styles.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import OptionList from './components/OptionsList';
-import { useState } from 'react';
-import { Link } from 'react-router';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router';
 import { FormHelperText, Tooltip, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import InfoIcon from '@mui/icons-material/Info';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { APP_ROUTES } from '../../../constants/routes';
 import {
   createPollSchema,
+  editPollSchema,
   type CreatePollData,
 } from '../../../schemas/createPollSchema';
 import { usePoll } from '../../../network/hooks/main/usePoll';
 import { useAlert } from '../../../hooks/useAlert';
 import { usePollLink } from '../../../hooks/usePollLink';
+import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 
 // Todo: should I style form tag itself or I should use a div container for it?!
 // Todo: Handle background colors
+// Todo: search if 'create poll' is better or 'add poll'
+// Todo: Try to change poll link page into a modal
 
 export type Option = { optionName: string };
 
 const CreatePoll = () => {
   const alert = useAlert();
-  const { createPoll } = usePoll();
+  const { pathname } = useLocation();
   const { showPollLink } = usePollLink();
+  const { createPoll, editPoll } = usePoll();
+  const params = useParams<{ pollSlug: string }>() || '';
+  const pollSlug = (params.pollSlug || '') as string;
+  const isEditPage = pathname === APP_ROUTES.EDIT_POLL.build(pollSlug || '');
+  const { data: poll, isLoading, error } = useGetPoll(pollSlug, isEditPage);
+
+  const [optionInput, setOptionInput] = useState('');
+  const [optionInputError, setOptionInputError] = useState('');
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const {
     watch,
@@ -34,7 +50,7 @@ const CreatePoll = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<CreatePollData>({
-    resolver: zodResolver(createPollSchema),
+    resolver: zodResolver(isEditPage ? editPollSchema : createPollSchema),
     defaultValues: {
       title: '',
       description: '',
@@ -42,9 +58,19 @@ const CreatePoll = () => {
     },
   });
 
-  const [optionInput, setOptionInput] = useState('');
-  const [optionInputError, setOptionInputError] = useState('');
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (poll && isEditPage) {
+      const { title, description, options } = poll;
+      setValue('title', title);
+      setValue('description', description);
+      setValue(
+        'options',
+        options.map(({ optionName }) => {
+          return { optionName };
+        }),
+      );
+    }
+  }, [isEditPage, poll, setValue]);
 
   const isNewOptionValid = (value: string) => {
     let isValid = true;
@@ -87,16 +113,28 @@ const CreatePoll = () => {
   };
 
   const onFormSubmit = async (data: CreatePollData) => {
-    setLoading(true);
+    const { title, description } = data;
+    setSubmitLoading(true);
     try {
-      const pollSlug = await createPoll(data);
-      showPollLink(pollSlug, 'The poll successfully created');
+      if (isEditPage) {
+        await editPoll(pollSlug, { title, description });
+        showPollLink(pollSlug, 'The poll successfully updated');
+      }
+      const createdPollSlug = await createPoll(data);
+      showPollLink(createdPollSlug, 'The poll successfully created');
     } catch (error: any) {
       alert(error.response.message, 'error');
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) {
+    // Todo: display icon and better text message:
+    // Todo: write a wrapper to handle loading and error:
+    return <Typography>{error.message || DEFAULT_ERROR}</Typography>;
+  }
 
   return (
     <div className="poll-form-container sm:border-border-default">
@@ -107,7 +145,7 @@ const CreatePoll = () => {
           </Link>
         </Tooltip>
         <Typography className="text-center" variant="h5" color="textSecondary">
-          Create Poll
+          {isEditPage ? 'Edit' : 'Create'} Poll
         </Typography>
         <div className="flex flex-col mt-6 lg:mt-10">
           <TextField
@@ -130,8 +168,22 @@ const CreatePoll = () => {
             rows={4}
           />
           <FormHelperText error>{errors.description?.message}</FormHelperText>
+          {isEditPage && (
+            <div className="mt-3!">
+              <InfoIcon color="action" className="text-lg!" />
+              <Typography
+                component="span"
+                variant="caption"
+                color="textMuted"
+                className="ml-1!"
+              >
+                Updating options is not possible in edit mode
+              </Typography>
+            </div>
+          )}
           <div className="flex justify-between items-center mt-4">
             <TextField
+              disabled={isEditPage}
               error={!!optionInputError}
               className="w-8/12"
               id="outlined-basic"
@@ -145,6 +197,7 @@ const CreatePoll = () => {
             />
             <div className="w-3/12">
               <Button
+                disabled={isEditPage}
                 onClick={() => {
                   addOption(optionInput);
                 }}
@@ -157,6 +210,7 @@ const CreatePoll = () => {
           </div>
           <FormHelperText error>{optionInputError}</FormHelperText>
           <OptionList
+            disabled={isEditPage}
             error={!!errors.options}
             options={watch('options')}
             deleteOption={deleteOption}
@@ -165,12 +219,12 @@ const CreatePoll = () => {
             {errors.options?.message}
           </FormHelperText>
           <Button
-            loading={loading}
+            loading={submitLoading}
             className="w-full h-11 mt-5! lg:mt-6!"
             variant="contained"
             type="submit"
           >
-            Create
+            {isEditPage ? 'Edit' : 'Create'}
           </Button>
         </div>
       </form>

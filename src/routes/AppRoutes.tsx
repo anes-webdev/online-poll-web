@@ -14,8 +14,8 @@ const AppRoutes = () => {
       <Route path={APP_ROUTES.POLLS} element={<PollsList />} />
       <Route path={APP_ROUTES.LANDING} element={<Landing />} />
       <Route path={APP_ROUTES.ADD_POLL} element={<CreatePoll />} />
+      <Route path={APP_ROUTES.EDIT_POLL.PATH} element={<CreatePoll />} />
       <Route path={APP_ROUTES.POLL_LINK.PATH} element={<PollLink />} />
-      {/* <Route path="/editPoll/:pollLink" element={<EditPollPage />} /> */}
       {/* <Route path="/pollDetails/:pollLink" element={<PollDetailsPage />} /> */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

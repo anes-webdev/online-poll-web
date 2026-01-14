@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { DEFAULT_ERROR } from '../../constants/errorMessages';
 
 const ALERT_DEFAULT_DELAY = 5000;
-const DEFAULT_ERROR = 'Something went wrong';
 
 export type AlertType = 'success' | 'error' | 'warning' | undefined;
 
