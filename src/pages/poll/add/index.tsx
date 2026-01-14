@@ -14,7 +14,7 @@ import {
   createPollSchema,
   editPollSchema,
   type CreatePollData,
-} from '../../../schemas/createPollSchema';
+} from '../../../schemas/pollSchema';
 import { usePoll } from '../../../network/hooks/main/usePoll';
 import { useAlert } from '../../../hooks/useAlert';
 import { usePollLink } from '../../../hooks/usePollLink';
