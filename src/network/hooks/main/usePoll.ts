@@ -1,7 +1,7 @@
 // Add other requests
 // Add api urls as constants
 
-import type { CreatePollData } from '../../../schemas/createPollSchema';
+import type { CreatePollData } from '../../../schemas/pollSchema';
 import {
   CREATE_POLL_API,
   DELETE_POLL_API,
@@ -58,12 +58,4 @@ export const usePoll = () => {
   return { getPolls, getPoll, createPoll, deletePoll, editPoll };
 };
 
-// export const getPolls = async (): Promise<Poll[]> => {
-//   const { data } = await api<Poll[]>('get', '/poll/find-all');
-//   return data;
-// };
 
-// export const deletePoll = async (pollSlug?: string): Promise<any> => {
-//   const { data } = await api('delete', `/poll/delete/${pollSlug}`);
-//   return data;
-// };
