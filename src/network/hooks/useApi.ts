@@ -6,11 +6,13 @@ import { authAction } from '../../store/slices/auth';
 import { useNavigate } from 'react-router';
 import { APP_ROUTES } from '../../constants/routes';
 import { useAuth } from '../../hooks/useAuth';
+import { useAlert } from '../../hooks/useAlert';
 
 export const useApi = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { token } = useAuth();
+  const alert = useAlert();
 
   const api = async <T>(
     method: 'get' | 'post' | 'put' | 'patch' | 'delete',
@@ -32,7 +34,8 @@ export const useApi = () => {
         if (error.status === 403) {
           dispatch(authAction.logout());
           navigate(APP_ROUTES.LANDING);
-          // Todo: display logout snackbar
+          // Todo: display a better message:
+          alert('Session expired', 'error');
         }
         throw new AxiosError(message, code, undefined, undefined, response);
       });
