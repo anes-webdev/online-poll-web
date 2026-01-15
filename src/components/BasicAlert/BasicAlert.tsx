@@ -17,7 +17,7 @@ export const BasicAlert = () => {
 
   if (isDisplayed) {
     return (
-      <div className="fixed right-4 top-20 z-2000! rounded-md overflow-hidden">
+      <div className="fixed right-4 top-20 z-2000! rounded-md overflow-hidden min-w-72">
         <Alert
           variant="filled"
           severity={type}
