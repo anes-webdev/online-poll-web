@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import PollItem from './components/PollItem';
-import Button from '../../../components/button/Button';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
-import { Skeleton } from '@mui/material';
+import { Button, Skeleton, Typography } from '@mui/material';
 import { usePoll } from '../../../network/hooks/main/usePoll';
 import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
 import { useAlert } from '../../../hooks/useAlert';
@@ -90,9 +89,15 @@ const PollList = () => {
             </Button>
             {/* Todo: handle this error and refactor it: */}
             {error && (
-              <h2 className="text-center text-gray-600 text-xl mt-4">
-                {error?.message}
-              </h2>
+              <>
+                <Typography
+                  color="textSecondary"
+                  className="text-center mt-4"
+                  variant="h5"
+                >
+                  {error?.message}
+                </Typography>
+              </>
             )}
             <div className="mt-5">{pollsList}</div>
           </>

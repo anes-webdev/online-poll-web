@@ -1,5 +1,5 @@
+import { Button } from '@mui/material';
 import { Link } from 'react-router';
-import Button from '../../../components/button/Button';
 
 type NavbarItemProps = {
   label: string;
