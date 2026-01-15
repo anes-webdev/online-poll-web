@@ -57,5 +57,3 @@ export const usePoll = () => {
 
   return { getPolls, getPoll, createPoll, deletePoll, editPoll };
 };
-
-
