@@ -9,19 +9,11 @@ import { APP_ROUTES } from '../../../../constants/routes';
 import { Typography } from '@mui/material';
 import '../styles.css';
 import { useAlert } from '../../../../hooks/useAlert';
+import type { Poll } from '../../../../network/hooks/main/usePoll';
 // import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 // Todo: add mandatory key prop into map function as eslint rule.
 // Todo: change poll item name.
-
-type Poll = {
-  id: number;
-  title: string;
-  description: string;
-  createdAt: string;
-  link: string;
-  participantsCount: number;
-};
 
 type PollItemProps = {
   deletePoll: (pollSlug: string) => void;
@@ -35,7 +27,7 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
 
   const [shareLinkToolTipMsg, setShareLinkToolTipMsg] =
     useState('Copy poll link');
-  const { title, description, participantsCount, link, createdAt } = poll;
+  const { title, description, participants, link, createdAt } = poll;
   const createdDate = createdAt.substring(0, 10);
   const createdTime = createdAt.substring(11, 16);
 
@@ -61,7 +53,7 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
       // Todo: Move these classes into separate css file:
       // Todo: check if its ok for div to have an onClick action:
       onClick={navigateToPollView}
-      className="poll-item-container border-border-default hover:border-fg-primary"
+      className="poll-item-container border-border-default hover:shadow-md"
     >
       <div className="poll-item-head">
         <Typography className="text-left" variant="h6" color="textPrimary">
@@ -92,11 +84,14 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
         {description}
       </Typography>
       <div className="flex justify-between items-center mt-2 md:mt-3">
-        <div className="flex items-center">
-          <PeopleIcon color="action" />
-          {/* Todo: Cal participants counts: */}
-          <Typography color="textSecondary">{participantsCount}</Typography>
-        </div>
+        <Tooltip title="Participants" placement="right">
+          <div>
+            <PeopleIcon color="action" className="mr-2 text-lg!" />
+            <Typography component="span" color="textMuted" variant="body2">
+              {participants.length}
+            </Typography>
+          </div>
+        </Tooltip>
         <Typography color="textMuted" variant="caption">
           {createdDate}
           &nbsp;&nbsp;

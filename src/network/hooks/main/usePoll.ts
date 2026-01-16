@@ -11,17 +11,23 @@ import {
 } from '../../api';
 import { useApi } from '../useApi';
 
+export type Option = {
+  id: number;
+  optionName: string;
+};
+
 export type Poll = {
   id: number;
   title: string;
   description: string;
   createdAt: string;
   link: string;
-  participantsCount: number;
-  options: {
+  participants: {
     id: number;
-    optionName: string;
+    name: string;
+    choices: Option[];
   }[];
+  options: Option[];
 };
 
 export const usePoll = () => {
