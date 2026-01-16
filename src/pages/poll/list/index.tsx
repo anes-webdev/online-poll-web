@@ -10,6 +10,7 @@ import { useAlert } from '../../../hooks/useAlert';
 
 // Todo: add search and sort
 // Todo: change mui red color - Its too dark
+// Todo: Add dayjs to the project and handle default sort of polls list
 
 const PollList = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const PollList = () => {
       setDeletePollLoading(true);
       await deletePoll(deletingPoll);
       closeDeleteModal();
-      alert('Poll successFully deleted', 'success');
+      alert('Poll successfully deleted', 'success');
       refetch();
     } catch (error: any) {
       alert(error.response.data, 'error');

@@ -1,8 +1,6 @@
 import Dialog from '@mui/material/Dialog';
 import { Box, Button, Typography } from '@mui/material';
 
-// Todo: change mui button imports
-
 type DeleteModalProps = {
   isOpen: boolean;
   onClose: () => void;

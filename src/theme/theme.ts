@@ -101,7 +101,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
-          '-webkit-transform': 'unset',
+          WebkitTransform: 'unset',
         },
       },
     },
