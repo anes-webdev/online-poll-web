@@ -21,6 +21,7 @@ import { usePollLink } from '../../../hooks/usePollLink';
 import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
+import '../../../index.css';
 
 // Todo: should I style form tag itself or I should use a div container for it?!
 // Todo: Handle background colors
@@ -137,7 +138,7 @@ const CreatePoll = () => {
   }
 
   return (
-    <div className="poll-form-container sm:border-border-default">
+    <div className="form-container sm:border-border-default">
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Tooltip placement="top" title="Back to poll list">
           <Link to={APP_ROUTES.POLLS}>

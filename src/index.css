@@ -21,3 +21,9 @@ body {
 button {
   cursor: pointer;
 }
+/* Check if is this location or these styles correct or not!? */
+@layer components {
+  .form-container {
+    @apply max-w-90 sm:max-w-104 mx-auto px-1 sm:px-8 py-6 sm:py-8 sm:border rounded-lg sm:shadow-sm;
+  }
+}

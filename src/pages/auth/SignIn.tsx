@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { authAction } from '../../store/slices/auth';
 import { Button, FormHelperText, Typography } from '@mui/material';
-import './styles.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -11,6 +10,7 @@ import { APP_ROUTES } from '../../constants/routes';
 import { useSignIn } from '../../network/hooks/main/useSignIn';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAlert } from '../../hooks/useAlert';
+import '../../index.css';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const SignIn = () => {
 
   return (
     // Todo: move border-default class into separate css file:
-    <div className="sign-in-form-container sm:border-border-default">
+    <div className="form-container sm:border-border-default">
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Typography className="text-center" variant="h5" color="textSecondary">
           Sign in

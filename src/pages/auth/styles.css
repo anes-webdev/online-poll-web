@@ -1,7 +1,0 @@
-@reference "tailwindcss";
-
-@layer components {
-  .sign-in-form-container {
-    @apply max-w-90 sm:max-w-104 mx-auto px-1 sm:p-8 py-6 sm:border rounded-lg sm:shadow-sm;
-  }
-}
