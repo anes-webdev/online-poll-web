@@ -26,7 +26,7 @@ const Option = ({ deleteOption, optionName, disabled }: OptionProps) => {
 };
 
 type OptionListProps = {
-  options: Option[];
+  options: { optionName: string }[];
   error: boolean;
   deleteOption: (value: string) => void;
   disabled: boolean;

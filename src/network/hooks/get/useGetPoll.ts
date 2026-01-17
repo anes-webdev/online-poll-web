@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { usePoll, type Poll } from '../main/usePoll';
 
-export const useGetPoll = (pollSlug: string, enabled: boolean) => {
+export const useGetPoll = (pollSlug: string, enabled: boolean = true) => {
   const { getPoll } = usePoll();
   return useQuery({
     enabled: enabled,

@@ -28,8 +28,6 @@ import '../../../index.css';
 // Todo: search if 'create poll' is better or 'add poll'
 // Todo: Try to change poll link page into a modal
 
-export type Option = { optionName: string };
-
 const CreatePoll = () => {
   const alert = useAlert();
   const { pathname } = useLocation();
@@ -98,7 +96,7 @@ const CreatePoll = () => {
     if (!isNewOptionValid(value)) return;
     setOptionInput('');
     setOptionInputError('');
-    const option: Option = {
+    const option = {
       optionName: value,
     };
     const updatedOptions = [option, ...watch('options')];

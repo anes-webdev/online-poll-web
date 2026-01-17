@@ -8,12 +8,22 @@ import {
   EDIT_POLL_API,
   GET_POLL_API,
   GET_POLL_LIST_API,
+  VOTE_API,
 } from '../../api';
 import { useApi } from '../useApi';
+
+// Todo: move these types into separate file:
 
 export type Option = {
   id: number;
   optionName: string;
+  participants?: Participant[];
+};
+
+export type Participant = {
+  id: number;
+  name: string;
+  choices: Option[];
 };
 
 export type Poll = {
@@ -22,11 +32,7 @@ export type Poll = {
   description: string;
   createdAt: string;
   link: string;
-  participants: {
-    id: number;
-    name: string;
-    choices: Option[];
-  }[];
+  participants: Participant[];
   options: Option[];
 };
 
@@ -61,5 +67,13 @@ export const usePoll = () => {
     return data;
   };
 
-  return { getPolls, getPoll, createPoll, deletePoll, editPoll };
+  const registerVote = async (
+    options: string,
+    formData: { name: string },
+  ): Promise<any> => {
+    const { data } = await api('put', VOTE_API(options), formData);
+    return data;
+  };
+
+  return { getPolls, getPoll, createPoll, deletePoll, editPoll, registerVote };
 };

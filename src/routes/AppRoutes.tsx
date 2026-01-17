@@ -7,6 +7,7 @@ import CreatePoll from '../pages/poll/add';
 import PollLink from '../pages/poll/link/PollLink';
 import NotFoundPage from '../pages/not-found/NotFoundPage';
 import { useAuth } from '../hooks/useAuth';
+import PollView from '../pages/poll/view';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -15,7 +16,7 @@ const AppRoutes = () => {
       <Route path={APP_ROUTES.SIGN_IN} element={<SignIn />} />
       <Route path={APP_ROUTES.LANDING} element={<Landing />} />
       <Route path={APP_ROUTES.POLL_LINK.PATH} element={<PollLink />} />
-      {/* <Route path="/pollDetails/:pollLink" element={<PollDetailsPage />} /> */}
+      <Route path={APP_ROUTES.POLL_VIEW.PATH} element={<PollView />} />
       {isAuthenticated && (
         <>
           <Route path={APP_ROUTES.POLLS} element={<PollsList />} />
