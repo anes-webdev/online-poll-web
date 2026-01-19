@@ -34,4 +34,10 @@ export const createPollSchema = z.object({
   options: pollOptionsSchema.min(2, 'At least two options are needed'),
 });
 
+export const registerVoteSchema = z.object({
+  name: z.string().max(20).nonempty('Can not be empty'),
+  choices: z.array(z.number()).min(0).nonempty('No option selected'),
+});
+
 export type CreatePollData = z.infer<typeof createPollSchema>;
+export type RegisterVoteData = z.infer<typeof registerVoteSchema>;

@@ -13,16 +13,23 @@ type ChoiceCellProps = {
 };
 
 const ChoiceCell = ({ isSelected }: ChoiceCellProps) => {
-  const backgroundColor = (isSelected ? 'bg-green' : 'bg-red') + '-200';
-  const iconColor = (isSelected ? 'text-green' : 'text-red') + '-600';
+  // Todo: handle these colors by palette - use hash:
+  const backgroundColor = isSelected
+    ? 'oklch(92.5% 0.084 155.995)'
+    : 'oklch(88.5% 0.062 18.334)';
   const icon = isSelected ? (
-    <DoneIcon className={iconColor} />
+    <DoneIcon className="text-green-600" />
   ) : (
-    <CloseIcon className={iconColor} />
+    <CloseIcon className="text-red-600" />
   );
   return (
     <td className="text-center">
-      <div className={`poll-table-cell ${backgroundColor}`}>{icon}</div>
+      <div
+        style={{ backgroundColor: backgroundColor }}
+        className="poll-table-cell"
+      >
+        {icon}
+      </div>
     </td>
   );
 };
@@ -34,15 +41,11 @@ type NameCellProps = {
 const NameCell = ({ name }: NameCellProps) => {
   const [isToolTipDisplayed, setIsToolTipDisplayed] = useState(false);
 
-  if (name.trim().length > 16) {
-    name = name.trim().substring(0, 16);
-  }
-
   const onParticipantNameClick = () => {
     setIsToolTipDisplayed(true);
     setTimeout(() => {
       setIsToolTipDisplayed(false);
-    }, 2000);
+    }, 3000);
   };
 
   return (
@@ -57,7 +60,8 @@ const NameCell = ({ name }: NameCellProps) => {
         open={isToolTipDisplayed}
       >
         <div className="poll-table-cell bg-blue-100">
-          <Typography color="textPrimary" className="limit-line-1!">
+          {/* Handle this by truncated text */}
+          <Typography color="textPrimary" className="participant-name">
             {name}
           </Typography>
         </div>
@@ -78,7 +82,7 @@ const ChoicesRow = ({ options, participantId }: ChoicesRowProps) => {
         const isSelected = option.participants?.some(
           ({ id }) => id === participantId,
         ) as boolean;
-        return <ChoiceCell isSelected={isSelected} />;
+        return <ChoiceCell key={option.id} isSelected={isSelected} />;
       })}
     </>
   );
@@ -92,11 +96,11 @@ type TableBodyProps = {
 export const TableBody = ({ participants, options }: TableBodyProps) => {
   return (
     <tbody>
-      {participants.map((participant, index) => {
+      {participants.map(({ id, name }, index) => {
         return (
           <tr key={index}>
-            <NameCell name={participant.name} />
-            <ChoicesRow options={options} participantId={participant.id} />
+            <NameCell name={name} />
+            <ChoicesRow options={options} participantId={id} />
           </tr>
         );
       })}

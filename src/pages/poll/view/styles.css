@@ -4,14 +4,13 @@
   .poll-table-cell {
     @apply px-4 py-2 m-0.75 rounded-lg;
   }
-}
-
-
-.limit-line-1 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
+  .participant-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    letter-spacing: unset !important;
+  }
 }
