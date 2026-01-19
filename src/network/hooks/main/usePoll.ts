@@ -71,7 +71,7 @@ export const usePoll = () => {
     options: string,
     formData: { name: string },
   ): Promise<any> => {
-    const { data } = await api('put', VOTE_API(options), formData);
+    const { data } = await api('post', VOTE_API(options), formData);
     return data;
   };
 
