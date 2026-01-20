@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { useParams } from 'react-router';
-// import './PollDetails.css';
 import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useAlert } from '../../../hooks/useAlert';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import { usePoll } from '../../../network/hooks/main/usePoll';
 import { usePollLink } from '../../../hooks/usePollLink';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import { TableHead } from './components/TableHead';
 import { TableBody } from './components/TableBody';
 import {
@@ -17,9 +15,8 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import TableFooter from './components/TableFooter';
-
-// Todo: Handle redundant votes:
-// Todo: refactor localStorage part:
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import { useStoreVotes } from '../../../hooks/useStoreVotes';
 
 const PollView = () => {
   const alert = useAlert();
@@ -27,12 +24,9 @@ const PollView = () => {
   const { showPollLink } = usePollLink();
   const params = useParams<{ pollSlug: string }>();
   const pollSlug = params.pollSlug as string;
-  const savedVotes = JSON.parse(localStorage.getItem('votes') || '[]');
-  const alreadyVoted =
-    Array.isArray(savedVotes) && savedVotes.includes(pollSlug);
-
+  const { prevVotes, addVote } = useStoreVotes();
+  const alreadyVoted = prevVotes.includes(pollSlug);
   const [submitLoading, setSubmitLoading] = useState(false);
-
   const { data: poll, isLoading, error } = useGetPoll(pollSlug);
 
   const methods = useForm<RegisterVoteData>({
@@ -45,24 +39,14 @@ const PollView = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { handleSubmit, formState } = methods;
   type FormErrorsType = typeof formState.errors;
-  // const str = JSON.stringify(['test']);
-  // console.log(JSON.parse(str));
 
   const onSaveButtonClick = async (formData: RegisterVoteData) => {
     const { name, choices } = formData;
-    const reqBody = {
-      name: name,
-    };
-
     setSubmitLoading(true);
     try {
-      await registerVote(choices.toString(), reqBody);
+      await registerVote(choices.toString(), { name });
       showPollLink(pollSlug, 'The vote successfully registered');
-      const savedVotes = JSON.parse(localStorage.getItem('votes') || '[]');
-      localStorage.setItem(
-        'votes',
-        JSON.stringify(savedVotes ? [...savedVotes, pollSlug] : [pollSlug]),
-      );
+      addVote(pollSlug);
     } catch (error: any) {
       alert(error.response.message || DEFAULT_ERROR, 'error');
     } finally {

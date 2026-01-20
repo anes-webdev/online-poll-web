@@ -1,9 +1,10 @@
 import Checkbox from '@mui/material/Checkbox';
 import type { ChangeEvent } from 'react';
 import type { Option, Poll } from '../../../../network/hooks/main/usePoll';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import type { RegisterVoteData } from '../../../../schemas/pollSchema';
+import InfoIcon from '@mui/icons-material/Info';
 
 // Todo: Try to write a wrapper for each cell with common styles:
 
@@ -12,9 +13,10 @@ type CheckBoxClickHandler = (isChecked: boolean, optionId: number) => void;
 type CheckBoxProps = {
   onCheckBoxClick: CheckBoxClickHandler;
   option: Option;
+  disabled: boolean;
 };
 
-const CheckBoxCell = ({ onCheckBoxClick, option }: CheckBoxProps) => {
+const CheckBoxCell = ({ onCheckBoxClick, option, disabled }: CheckBoxProps) => {
   const onCheckBoxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
     onCheckBoxClick(checked, +value);
@@ -22,7 +24,11 @@ const CheckBoxCell = ({ onCheckBoxClick, option }: CheckBoxProps) => {
   return (
     <td className="text-center">
       <div className="poll-table-cell py-0 px-0 bg-gray-100">
-        <Checkbox onChange={onCheckBoxChange} value={option.id} />
+        <Checkbox
+          onChange={onCheckBoxChange}
+          value={option.id}
+          disabled={disabled}
+        />
       </div>
     </td>
   );
@@ -49,9 +55,14 @@ const VoteNumbersRow = ({ options }: VoteNumbersRowProps) => {
 type SelectionRowProps = {
   options: Option[];
   onCheckBoxClick: CheckBoxClickHandler;
+  disabled: boolean;
 };
 
-const SelectionRow = ({ options, onCheckBoxClick }: SelectionRowProps) => {
+const SelectionRow = ({
+  options,
+  onCheckBoxClick,
+  disabled,
+}: SelectionRowProps) => {
   return (
     <>
       {options.map((option) => {
@@ -59,6 +70,7 @@ const SelectionRow = ({ options, onCheckBoxClick }: SelectionRowProps) => {
           <CheckBoxCell
             key={option.id}
             option={option}
+            disabled={disabled}
             onCheckBoxClick={onCheckBoxClick}
           />
         );
@@ -95,6 +107,16 @@ const TableFooter = ({
   return (
     <tfoot>
       <tr>
+        {disabled && (
+          <div className="my-1">
+            <InfoIcon color="action" className="text-lg! mr-1" />
+            <Typography color="textMuted" variant="caption">
+              You've already voted
+            </Typography>
+          </div>
+        )}
+      </tr>
+      <tr>
         <td>
           <div className="poll-table-cell px-0 py-1">
             <TextField
@@ -109,6 +131,7 @@ const TableFooter = ({
           </div>
         </td>
         <SelectionRow
+          disabled={disabled}
           options={poll.options}
           onCheckBoxClick={onCheckBoxClick}
         />
@@ -118,6 +141,7 @@ const TableFooter = ({
         <td>
           <form onSubmit={onSubmit}>
             <Button
+              disabled={disabled}
               loading={submitLoading}
               type="submit"
               className="w-1/3 h-9"
