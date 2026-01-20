@@ -34,8 +34,7 @@ export const useApi = () => {
         if (error.status === 403) {
           dispatch(authAction.logout());
           navigate(APP_ROUTES.LANDING);
-          // Todo: display a better message:
-          alert('Session expired', 'error');
+          alert('Session expired. Please sign in again to continue.', 'error');
         }
         throw new AxiosError(message, code, undefined, undefined, response);
       });
