@@ -118,9 +118,10 @@ const CreatePoll = () => {
       if (isEditPage) {
         await editPoll(pollSlug, { title, description });
         showPollLink(pollSlug, 'The poll successfully updated');
+      } else {
+        const createdPollSlug = await createPoll(data);
+        showPollLink(createdPollSlug, 'The poll successfully created');
       }
-      const createdPollSlug = await createPoll(data);
-      showPollLink(createdPollSlug, 'The poll successfully created');
     } catch (error: any) {
       alert(error.response.message, 'error');
     } finally {

@@ -14,7 +14,7 @@ const pollSchemaCommonFields = {
   description: z
     .string()
     .min(5, DESCRIPTION_LENGTH_ERROR_MESSAGE)
-    .max(20, DESCRIPTION_LENGTH_ERROR_MESSAGE)
+    .max(255, DESCRIPTION_LENGTH_ERROR_MESSAGE)
     .nonempty('Can not be empty'),
 };
 
