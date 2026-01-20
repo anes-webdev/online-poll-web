@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import pollImage from '../../assets/Poll.webp';
+import pollImage from '../../assets/poll.webp';
 import { useNavigate } from 'react-router';
 import { APP_ROUTES } from '../../constants/routes';
 import { Typography } from '@mui/material';
