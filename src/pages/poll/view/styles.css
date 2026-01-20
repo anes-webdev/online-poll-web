@@ -4,6 +4,15 @@
   .poll-table-cell {
     @apply px-4 py-2 m-0.75 rounded-lg;
   }
+  .poll-view-container {
+    @apply max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto;
+  }
+  .vote-table-container {
+    @apply mt-8 overflow-scroll sm:overflow-auto;
+  }
+  .poll-description {
+    @apply mt-5! font-normal! text-lg!;
+  }
   .participant-name {
     overflow: hidden;
     text-overflow: ellipsis;

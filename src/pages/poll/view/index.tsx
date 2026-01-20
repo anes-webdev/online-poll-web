@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
 import { Button, Typography } from '@mui/material';
 import { useAlert } from '../../../hooks/useAlert';
@@ -17,10 +17,16 @@ import { FormProvider, useForm } from 'react-hook-form';
 import TableFooter from './components/TableFooter';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import { useStoreVotes } from '../../../hooks/useStoreVotes';
+import './styles.css';
+import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
+import { useAuth } from '../../../hooks/useAuth';
+import { APP_ROUTES } from '../../../constants/routes';
 
 const PollView = () => {
   const alert = useAlert();
+  const { isAuthenticated } = useAuth();
   const { registerVote } = usePoll();
+  const navigate = useNavigate();
   const { showPollLink } = usePollLink();
   const params = useParams<{ pollSlug: string }>();
   const pollSlug = params.pollSlug as string;
@@ -63,52 +69,53 @@ const PollView = () => {
     }
   };
 
-  // Todo:Handle loading with skeleton:
+  const navigateToPollList = () => {
+    navigate(APP_ROUTES.POLLS);
+  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  // Todo: Handle these errors:
-  if (error?.message) {
-    return (
-      <div className="max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto">
-        <h2 className="text-center text-gray-600 text-xl">{error.message}</h2>
-      </div>
-    );
-  }
 
-  if (!poll) {
+  if (error?.message || !poll) {
     return (
-      <div className="max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto">
-        <h2 className="text-center text-gray-600 text-xl"> No data </h2>
-      </div>
+      <ErrorSection message={DEFAULT_ERROR}>
+        {isAuthenticated && (
+          <div className="flex justify-center">
+            <Button onClick={navigateToPollList} variant="contained">
+              Back to poll list
+            </Button>
+          </div>
+        )}
+      </ErrorSection>
     );
   }
 
   const { options, participants } = poll;
 
   return (
-    <div className="max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
+    <div className="poll-view-container">
       <div className="md:px-4">
         <Typography variant="h4" className="font-thin!" color="textPrimary">
           {poll.title}
         </Typography>
-        <Typography className="mt-5! font-normal! text-lg!" color="textPrimary">
+        <Typography className="poll-description" color="textPrimary">
           {poll.description}
         </Typography>
       </div>
-      <div className="mt-8 overflow-scroll sm:overflow-auto">
-        <table className="mx-auto">
-          <TableHead options={options} />
-          <TableBody options={options} participants={participants} />
-          <FormProvider {...methods}>
+      <div className="vote-table-container">
+        <FormProvider {...methods}>
+          <table className="mx-auto">
+            <TableHead options={options} />
+            <TableBody options={options} participants={participants} />
             <TableFooter
               disabled={alreadyVoted}
               poll={poll}
               submitLoading={submitLoading}
               onSubmit={handleSubmit(onSaveButtonClick, onSubmitError)}
             />
-          </FormProvider>
-        </table>
+          </table>
+        </FormProvider>
       </div>
     </div>
   );

@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router';
 import PollItem from './components/PollItem';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
-import { Button, Skeleton, Typography } from '@mui/material';
+import { Button, Skeleton } from '@mui/material';
 import { usePoll } from '../../../network/hooks/main/usePoll';
 import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
 import { useAlert } from '../../../hooks/useAlert';
+import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
+import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 
 // Todo: add search and sort
 // Todo: change mui red color - Its too dark
@@ -23,7 +25,6 @@ const PollList = () => {
   const closeDeleteModal = () => setDeletingPoll('');
 
   const { data: polls, isLoading, error, refetch } = useGetPolls();
-  const emptyList = polls?.length === 0;
 
   const onDeletePollIconClick = (pollSlug: string) => setDeletingPoll(pollSlug);
   const onEditPollIconClick = (pollSlug: string) =>
@@ -60,49 +61,49 @@ const PollList = () => {
   // Todo: replace this array:
   const skeletonArr = [1, 2, 3];
 
-  const loadingSkeleton = (
-    <div className="flex flex-col gap-3">
-      <Skeleton className="w-30! h-10! mb-2!" />
-      {skeletonArr.map((item, index) => {
-        return <Skeleton key={index} className="h-36! w-full!" />;
-      })}
-    </div>
-  );
+  if (isLoading) {
+    return (
+      <div className="max-w-3xl mx-auto flex flex-col gap-3">
+        <Skeleton className="w-30! h-10! mb-2!" />
+        {skeletonArr.map((item, index) => {
+          return <Skeleton key={index} className="h-36! w-full!" />;
+        })}
+      </div>
+    );
+  }
 
-  // Todo: add empty section here:
-  if (emptyList) {
-    // Do something here
+  if (error) {
+    return <ErrorSection message={DEFAULT_ERROR} />;
+  }
+
+  if (polls?.length === 0) {
+    return (
+      <ErrorSection message="There are no polls here">
+        <Button
+          onClick={navigateToCreatePoll}
+          variant="outlined"
+          color="neutral"
+          className="mt-6"
+        >
+          Create Poll
+        </Button>
+      </ErrorSection>
+    );
   }
 
   return (
     <>
       <div className="max-w-3xl mx-auto">
-        {isLoading ? (
-          loadingSkeleton
-        ) : (
-          <>
-            <Button
-              onClick={navigateToCreatePoll}
-              variant="outlined"
-              color="neutral"
-            >
-              Create Poll
-            </Button>
-            {/* Todo: handle this error and refactor it: */}
-            {error && (
-              <>
-                <Typography
-                  color="textSecondary"
-                  className="text-center mt-4"
-                  variant="h5"
-                >
-                  {error?.message}
-                </Typography>
-              </>
-            )}
-            <div className="mt-5">{pollsList}</div>
-          </>
-        )}
+        <>
+          <Button
+            onClick={navigateToCreatePoll}
+            variant="outlined"
+            color="neutral"
+          >
+            Create Poll
+          </Button>
+          <div className="mt-5">{pollsList}</div>
+        </>
       </div>
       {showDeleteModal && (
         <DeleteModal

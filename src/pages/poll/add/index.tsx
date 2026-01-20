@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import OptionList from './components/OptionsList';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router';
+import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { FormHelperText, Tooltip, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import InfoIcon from '@mui/icons-material/Info';
@@ -22,6 +22,7 @@ import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import '../../../index.css';
+import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 
 // Todo: should I style form tag itself or I should use a div container for it?!
 // Todo: Handle background colors
@@ -30,6 +31,7 @@ import '../../../index.css';
 
 const CreatePoll = () => {
   const alert = useAlert();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { showPollLink } = usePollLink();
   const { createPoll, editPoll } = usePoll();
@@ -129,11 +131,20 @@ const CreatePoll = () => {
     }
   };
 
+  const navigateToPollList = () => {
+    navigate(APP_ROUTES.POLLS);
+  };
+
   if (isLoading) return <LoadingSpinner />;
+
   if (error) {
-    // Todo: display icon and better text message:
-    // Todo: write a wrapper to handle loading and error:
-    return <Typography>{error.message || DEFAULT_ERROR}</Typography>;
+    return (
+      <ErrorSection message={DEFAULT_ERROR}>
+        <Button onClick={navigateToPollList} variant="contained">
+          Back to polls list
+        </Button>
+      </ErrorSection>
+    );
   }
 
   return (
