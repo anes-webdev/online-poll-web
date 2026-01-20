@@ -58,14 +58,11 @@ const PollList = () => {
     );
   });
 
-  // Todo: replace this array:
-  const skeletonArr = [1, 2, 3];
-
   if (isLoading) {
     return (
       <div className="max-w-3xl mx-auto flex flex-col gap-3">
         <Skeleton className="w-30! h-10! mb-2!" />
-        {skeletonArr.map((item, index) => {
+        {[...Array(3)].map((item, index) => {
           return <Skeleton key={index} className="h-36! w-full!" />;
         })}
       </div>
