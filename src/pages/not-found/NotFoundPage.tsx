@@ -2,8 +2,6 @@ import { Button } from '@mui/material';
 import { ErrorSection } from '../../components/ErrorSection/ErrorSection';
 import { useNavigate } from 'react-router';
 
-// Todo: add an icon here:
-
 const NotFoundPage = () => {
   const navigate = useNavigate();
   return (

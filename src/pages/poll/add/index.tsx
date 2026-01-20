@@ -24,10 +24,8 @@ import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import '../../../index.css';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 
-// Todo: should I style form tag itself or I should use a div container for it?!
 // Todo: Handle background colors
 // Todo: search if 'create poll' is better or 'add poll'
-// Todo: Try to change poll link page into a modal
 
 const CreatePoll = () => {
   const alert = useAlert();
