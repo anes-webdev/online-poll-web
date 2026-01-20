@@ -1,7 +1,7 @@
 import Checkbox from '@mui/material/Checkbox';
 import type { ChangeEvent } from 'react';
 import type { Option, Poll } from '../../../../network/hooks/main/usePoll';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, Tooltip, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import type { RegisterVoteData } from '../../../../schemas/pollSchema';
 import InfoIcon from '@mui/icons-material/Info';
@@ -21,14 +21,17 @@ const CheckBoxCell = ({ onCheckBoxClick, option, disabled }: CheckBoxProps) => {
     const { value, checked } = event.target;
     onCheckBoxClick(checked, +value);
   };
+  const { id, optionName } = option;
   return (
     <td className="text-center">
       <div className="poll-table-cell py-0 px-0 bg-gray-100">
-        <Checkbox
-          onChange={onCheckBoxChange}
-          value={option.id}
-          disabled={disabled}
-        />
+        <Tooltip title={optionName} placement="top">
+          <Checkbox
+            onChange={onCheckBoxChange}
+            value={id}
+            disabled={disabled}
+          />
+        </Tooltip>
       </div>
     </td>
   );
