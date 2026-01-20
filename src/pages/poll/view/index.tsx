@@ -36,9 +36,8 @@ const PollView = () => {
       choices: [],
     },
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { handleSubmit, formState } = methods;
-  type FormErrorsType = typeof formState.errors;
+
+  const { handleSubmit } = methods;
 
   const onSaveButtonClick = async (formData: RegisterVoteData) => {
     const { name, choices } = formData;
@@ -54,8 +53,14 @@ const PollView = () => {
     }
   };
 
-  const onSubmitError = (errors: FormErrorsType) => {
-    console.log(errors);
+  const onSubmitError = (errors: any) => {
+    for (const key in errors) {
+      const errorMessage = errors[key]?.message;
+      if (errorMessage) {
+        alert(errorMessage, 'error');
+        break;
+      }
+    }
   };
 
   // Todo:Handle loading with skeleton:
