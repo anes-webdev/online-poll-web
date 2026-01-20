@@ -10,7 +10,7 @@ import { Typography } from '@mui/material';
 import '../styles.css';
 import { useAlert } from '../../../../hooks/useAlert';
 import type { Poll } from '../../../../network/hooks/main/usePoll';
-// import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { APP_BASE_URL } from '../../../../constants/baseUrls';
 
 // Todo: add mandatory key prop into map function as eslint rule.
 // Todo: change poll item name.
@@ -30,16 +30,18 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
   const { title, description, participants, link, createdAt } = poll;
   const createdDate = createdAt.substring(0, 10);
   const createdTime = createdAt.substring(11, 16);
+  const pollViewRoute = APP_ROUTES.POLL_VIEW.build(link);
 
   const onShareIconClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
+    navigator.clipboard.writeText(APP_BASE_URL + pollViewRoute);
     setShareLinkToolTipMsg('Copied!');
     setTimeout(() => {
       setShareLinkToolTipMsg('Copy poll link');
     }, 2000);
     alert('Poll link copied', 'success');
   };
-  const navigateToPollView = () => navigate(APP_ROUTES.POLL_VIEW.build(link));
+  const navigateToPollView = () => navigate(pollViewRoute);
   const onEditPollClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     editPoll(link);
@@ -51,7 +53,6 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
   return (
     <div
       // Todo: Move these classes into separate css file:
-      // Todo: check if its ok for div to have an onClick action:
       onClick={navigateToPollView}
       className="poll-item-container border-border-default hover:shadow-md"
     >
@@ -60,14 +61,11 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
           {title}
         </Typography>
         <div className="flex gap-4">
-          {/* Todo: handle copy to clipboard */}
-          {/* <CopyToClipboard text={pollLink}> */}
           <button onClick={onShareIconClick}>
             <Tooltip placement="top" title={shareLinkToolTipMsg}>
               <ShareIcon color="action" />
             </Tooltip>
           </button>
-          {/* </CopyToClipboard> */}
           <button onClick={onEditPollClick}>
             <Tooltip placement="top" title="Edit poll">
               <EditIcon color="action" />
