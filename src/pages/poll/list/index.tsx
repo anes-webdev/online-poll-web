@@ -105,7 +105,7 @@ const PollList = () => {
       {showDeleteModal && (
         <DeleteModal
           title="Are you sure you want to delete this poll?"
-          description="All data related to this poll includes participants and options will be lost"
+          description="All data related to this poll including participants and options will be lost"
           isOpen={showDeleteModal}
           onConfirm={onDeletePoll}
           confirmLoading={deletePollLoading}
