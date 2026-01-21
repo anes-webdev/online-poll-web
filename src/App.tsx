@@ -1,15 +1,16 @@
 import { BasicAlert } from './components/BasicAlert/BasicAlert';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import MainLayout from './layouts/MainLayout';
 import AppRoutes from './routes/AppRoutes';
 
 function App() {
   return (
-    <>
+    <ErrorBoundary>
       <MainLayout>
         <AppRoutes />
       </MainLayout>
       <BasicAlert />
-    </>
+    </ErrorBoundary>
   );
 }
 
