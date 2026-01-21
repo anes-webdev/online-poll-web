@@ -1,4 +1,4 @@
-import { Alert } from '@mui/material';
+import { Alert, Snackbar } from '@mui/material';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { alertAction } from '../../store/slices/alert';
@@ -9,27 +9,23 @@ export const BasicAlert = () => {
     (state) => state.alert,
   );
 
-  if (isDisplayed === true) {
-    setTimeout(() => {
-      dispatch(alertAction.hideAlert());
-    }, delay);
-  }
+  const handleClose = () => {
+    dispatch(alertAction.hideAlert());
+  };
 
-  if (isDisplayed) {
-    return (
-      <div className="fixed right-4 top-20 z-2000! rounded-md overflow-hidden min-w-72">
-        <Alert
-          variant="filled"
-          severity={type}
-          onClose={() => {
-            dispatch(alertAction.hideAlert());
-          }}
-        >
-          {message}
-        </Alert>
-      </div>
-    );
-  }
-
-  return null;
+  return (
+    <Snackbar
+      open={isDisplayed}
+      autoHideDuration={delay}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      onClose={handleClose}
+    >
+      <Alert variant="filled" severity={type} onClose={handleClose}>
+        {message}
+      </Alert>
+    </Snackbar>
+  );
 };

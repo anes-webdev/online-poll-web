@@ -38,8 +38,8 @@ const alertSlice = createSlice({
       state.message = showDefaultError ? DEFAULT_ERROR : message || '';
       state.delay = delay || ALERT_DEFAULT_DELAY;
     },
-    hideAlert() {
-      return initialState;
+    hideAlert(state) {
+      state.isDisplayed = false;
     },
   },
 });
