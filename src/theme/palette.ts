@@ -7,7 +7,6 @@ export const palette = {
   //     default: colors.neutral[50],
   //     surface: "#ffffff",
   //   },
-
   fg: {
     primary: colors.neutral[900],
     secondary: colors.neutral[600],
@@ -20,14 +19,9 @@ export const palette = {
 
   primary: {
     main: colors.brand.primary,
-    //   hover: '#1d4ed8',
-    //   contrast: '#ffffff',
   },
 
   status: {
-    // success: colors.semantic.success,
-    // warning: colors.semantic.warning,
     error: colors.semantic.error,
-    // info: colors.semantic.info,
   },
 };
