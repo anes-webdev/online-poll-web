@@ -3,7 +3,7 @@ import { FOOTER_LINKS, type FooterLinkType } from '../../constants/footerLinks';
 import './styles.css';
 import type { Ref } from 'react';
 
-const FooterLink = ({ href, icon: Icon, tooltipTitle, id }: FooterLinkType) => {
+const FooterLink = ({ href, icon: Icon, tooltipTitle }: FooterLinkType) => {
   return (
     <Tooltip placement="top" title={tooltipTitle}>
       <a target="blank" href={href}>
