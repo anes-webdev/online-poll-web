@@ -8,16 +8,18 @@ type CheckBoxProps = {
 };
 
 const OptionCell = ({ option }: CheckBoxProps) => {
-  // Todo: use truncated text here:
-  let { optionName } = option;
-  if (optionName.trim().length > 10) {
-    optionName = optionName.trim().substring(0, 10) + '..';
+  const { optionName } = option;
+  let truncated = optionName;
+  if (optionName.trim().length > 12) {
+    truncated = optionName.trim().substring(0, 12) + '...';
   }
   return (
     <Tooltip placement="top" title={optionName}>
       <th className="text-center">
         <div className="poll-table-cell py-2.5 bg-gray-200">
-          <Typography color="textPrimary">{optionName}</Typography>
+          <Typography color="textPrimary" noWrap>
+            {truncated}
+          </Typography>
         </div>
       </th>
     </Tooltip>

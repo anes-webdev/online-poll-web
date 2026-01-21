@@ -2,7 +2,7 @@
 
 @layer components {
   .poll-table-cell {
-    @apply px-4 py-2 m-0.75 rounded-lg min-w-18!;
+    @apply px-4 py-2 m-0.75 rounded-lg min-w-20!;
   }
   .poll-view-container {
     @apply max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto;
@@ -14,11 +14,11 @@
     @apply mt-5! font-normal! text-lg!;
   }
   .participant-name {
+    line-clamp: 1;
     overflow: hidden;
-    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    line-clamp: 1;
+    text-overflow: ellipsis;
     -webkit-box-orient: vertical;
     letter-spacing: unset !important;
   }
