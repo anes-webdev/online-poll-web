@@ -15,6 +15,7 @@ export const BasicAlert = () => {
 
   return (
     <Snackbar
+      className="fixed! top-15! md:top-20!"
       open={isDisplayed}
       autoHideDuration={delay}
       anchorOrigin={{
