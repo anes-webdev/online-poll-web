@@ -31,6 +31,7 @@ const PollLink = () => {
   };
 
   const onCopyButtonClick = () => {
+    navigator.clipboard.writeText(pollLink);
     setCopyLinkIconToolTipMsg('Copied!');
     alert('Poll link copied', 'success');
     setTimeout(() => {
@@ -66,13 +67,11 @@ const PollLink = () => {
           aria-readonly
         />
         <div className="copy-icon">
-          {/* <CopyToClipboard text={pollLink}> */}
           <button onClick={onCopyButtonClick}>
             <Tooltip placement="top" title={copyLinkIconToolTipMsg}>
               <ContentCopyIcon color="action" />
             </Tooltip>
           </button>
-          {/* </CopyToClipboard> */}
         </div>
       </div>
       {isAuthenticated && (
