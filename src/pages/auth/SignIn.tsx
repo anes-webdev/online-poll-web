@@ -11,6 +11,7 @@ import { useSignIn } from '../../network/hooks/main/useSignIn';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAlert } from '../../hooks/useAlert';
 import '../../index.css';
+import { DEFAULT_ERROR } from '../../constants/errorMessages';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -48,12 +49,13 @@ const SignIn = () => {
       dispatch(authAction.login(token));
       navigate(APP_ROUTES.POLLS);
     } catch (error: any) {
-      if (error.status === 404) {
+      // Todo: When user pass is incorrect the response is 500!
+      if (error.status === 404 || error.status === 500) {
         setError('username', { message: 'Incorrect username' });
         setError('password', { message: 'Incorrect password' });
         alert('Username or password is incorrect', 'error');
       } else {
-        alert(error.response.data, 'error');
+        alert(DEFAULT_ERROR, 'error');
       }
     } finally {
       setIsLoading(false);
