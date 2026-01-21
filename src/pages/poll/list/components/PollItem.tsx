@@ -30,10 +30,11 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
   const createdDate = createdAt.substring(0, 10);
   const createdTime = createdAt.substring(11, 16);
   const pollViewRoute = APP_ROUTES.POLL_VIEW.build(link);
+  const pollLink = APP_BASE_URL + pollViewRoute;
 
   const onShareIconClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(APP_BASE_URL + pollViewRoute);
+    navigator.clipboard.writeText(pollLink);
     setShareLinkToolTipMsg('Copied!');
     setTimeout(() => {
       setShareLinkToolTipMsg('Copy poll link');
