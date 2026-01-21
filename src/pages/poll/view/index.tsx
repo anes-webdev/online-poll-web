@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
-import { Button, Typography } from '@mui/material';
+import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { useAlert } from '../../../hooks/useAlert';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import { usePoll } from '../../../network/hooks/main/usePoll';
@@ -21,6 +21,7 @@ import './styles.css';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 import { useAuth } from '../../../hooks/useAuth';
 import { APP_ROUTES } from '../../../constants/routes';
+import ArrowBack from '@mui/icons-material/ArrowBackIos';
 
 const PollView = () => {
   const alert = useAlert();
@@ -73,6 +74,10 @@ const PollView = () => {
     navigate(APP_ROUTES.POLLS);
   };
 
+  const navigateToPolls = () => {
+    navigate(APP_ROUTES.POLLS);
+  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -96,7 +101,16 @@ const PollView = () => {
   return (
     <div className="poll-view-container">
       <div className="md:px-4">
-        <Typography variant="h4" className="font-thin!" color="textPrimary">
+        <Tooltip title="Back to poll list" placement="top">
+          <IconButton onClick={navigateToPolls} disableRipple>
+            <ArrowBack color="action" />
+          </IconButton>
+        </Tooltip>
+        <Typography
+          variant="h4"
+          className="font-thin! mt-4!"
+          color="textPrimary"
+        >
           {poll.title}
         </Typography>
         <Typography className="poll-description" color="textPrimary">
