@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-// Todo: update these error messages:
-const TITLE_LENGTH_ERROR_MESSAGE = 'Title length should be between 3 and 20';
+const TITLE_LENGTH_ERROR_MESSAGE =
+  'Title must be between 3 and 20 characters long.';
 const DESCRIPTION_LENGTH_ERROR_MESSAGE =
-  'Description length should be between 5 and 255';
+  'Description must be between 5 and 255 characters long.';
 
 const pollSchemaCommonFields = {
   title: z
