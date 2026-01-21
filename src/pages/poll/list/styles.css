@@ -3,9 +3,9 @@
 
 @layer components {
   .poll-item-container {
-    @apply border transition p-4 mt-3 rounded-lg cursor-pointer shadow-sm;
+    @apply border transition p-4 mt-3 rounded-lg cursor-pointer border-border-default hover:shadow-md;
   }
     .poll-item-head {
-    @apply flex justify-between items-center flex-wrap gap-1 border-border-default hover:shadow-md;
+    @apply flex justify-between items-center flex-wrap gap-1;
   }
 }
