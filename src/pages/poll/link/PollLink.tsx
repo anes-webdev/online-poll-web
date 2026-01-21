@@ -49,7 +49,7 @@ const PollLink = () => {
   }, [hidePollLink, isPollLinkDisplayed, navigate]);
 
   return (
-    <div className="poll-link-container border-border-default">
+    <div className="poll-link-container">
       <Tooltip placement="top" title="Back">
         <button onClick={onBackButtonClick} className="absolute">
           <ArrowBackIosIcon className="absolute" color="action" />

@@ -1,5 +1,4 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import type { Option } from '..';
 import { IconButton, Typography } from '@mui/material';
 import { palette } from '../../../../theme/palette';
 
@@ -14,7 +13,7 @@ const Option = ({ deleteOption, optionName, disabled }: OptionProps) => {
     deleteOption(optionName);
   };
   return (
-    <li className="poll-option-container border-border-default">
+    <li className="poll-option-container">
       <Typography color="textSecondary" className="w-10/12">
         {optionName}
       </Typography>
@@ -52,7 +51,7 @@ const OptionList = ({
   return (
     <div
       style={error ? { border: `1px solid ${palette.status.error}` } : {}}
-      className={`poll-options-list-container border-border-default ${disabled ? 'opacity-60' : ''}`}
+      className={`poll-options-list-container ${disabled ? 'opacity-60' : ''}`}
     >
       {options.length === 0 && (
         <Typography

@@ -1,8 +1,9 @@
 @reference "tailwindcss";
+@config "../../../../tailwind.config.ts";
 
 @layer components {
   .poll-link-container {
-    @apply max-w-md md:max-w-lg mx-auto py-6 px-4 md:p-8 border rounded-lg shadow-sm;
+    @apply max-w-md md:max-w-lg mx-auto py-6 px-4 md:p-8 border rounded-lg shadow-sm border-border-default;
   }
   .copy-icon {
     @apply flex justify-center items-center absolute top-3.5 w-10 right-2 bg-white z-10;

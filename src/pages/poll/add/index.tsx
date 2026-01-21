@@ -146,7 +146,7 @@ const CreatePoll = () => {
   }
 
   return (
-    <div className="form-container sm:border-border-default">
+    <div className="form-container">
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Tooltip placement="top" title="Back to poll list">
           <Link to={APP_ROUTES.POLLS}>

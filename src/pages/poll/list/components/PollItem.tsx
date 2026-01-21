@@ -54,7 +54,7 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
     <div
       // Todo: Move these classes into separate css file:
       onClick={navigateToPollView}
-      className="poll-item-container border-border-default hover:shadow-md"
+      className="poll-item-container"
     >
       <div className="poll-item-head">
         <Typography className="text-left" variant="h6" color="textPrimary">
