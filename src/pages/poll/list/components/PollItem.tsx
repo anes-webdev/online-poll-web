@@ -13,7 +13,6 @@ import type { Poll } from '../../../../network/hooks/main/usePoll';
 import { APP_BASE_URL } from '../../../../constants/baseUrls';
 
 // Todo: add mandatory key prop into map function as eslint rule.
-// Todo: change poll item name.
 
 type PollItemProps = {
   deletePoll: (pollSlug: string) => void;
@@ -51,11 +50,7 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
     deletePoll(link);
   };
   return (
-    <div
-      // Todo: Move these classes into separate css file:
-      onClick={navigateToPollView}
-      className="poll-item-container"
-    >
+    <div onClick={navigateToPollView} className="poll-item-container">
       <div className="poll-item-head">
         <Typography className="text-left" variant="h6" color="textPrimary">
           {title}

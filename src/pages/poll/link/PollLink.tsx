@@ -13,9 +13,6 @@ import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { usePollLink } from '../../../hooks/usePollLink';
 import './styles.css';
 
-// Todo: Search about the right folder of redux hooks
-// Todo: try to write a wrapper component like a card for forms, links, ...
-
 const PollLink = () => {
   const alert = useAlert();
   const navigate = useNavigate();

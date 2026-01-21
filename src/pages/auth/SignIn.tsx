@@ -61,7 +61,6 @@ const SignIn = () => {
   };
 
   return (
-    // Todo: move border-default class into separate css file:
     <div className="form-container">
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Typography className="text-center" variant="h5" color="textSecondary">

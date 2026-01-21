@@ -25,7 +25,6 @@ import '../../../index.css';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 
 // Todo: Handle background colors
-// Todo: search if 'create poll' is better or 'add poll'
 
 const CreatePoll = () => {
   const alert = useAlert();
