@@ -6,8 +6,6 @@ import { useFormContext } from 'react-hook-form';
 import type { RegisterVoteData } from '../../../../schemas/pollSchema';
 import InfoIcon from '@mui/icons-material/Info';
 
-// Todo: Try to write a wrapper for each cell with common styles:
-
 type CheckBoxClickHandler = (isChecked: boolean, optionId: number) => void;
 
 type CheckBoxProps = {
