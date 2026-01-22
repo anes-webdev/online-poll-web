@@ -4,16 +4,17 @@ const TITLE_LENGTH_ERROR_MESSAGE =
   'Title must be between 3 and 20 characters long.';
 const DESCRIPTION_LENGTH_ERROR_MESSAGE =
   'Description must be between 5 and 255 characters long.';
+const NOT_EMPTY_ERROR_MESSAGE = 'The field can not be empty';
 
 const pollSchemaCommonFields = {
   title: z
     .string()
-    .nonempty('The field can not be empty')
+    .nonempty(NOT_EMPTY_ERROR_MESSAGE)
     .min(3, TITLE_LENGTH_ERROR_MESSAGE)
     .max(20, TITLE_LENGTH_ERROR_MESSAGE),
   description: z
     .string()
-    .nonempty('The field can not be empty')
+    .nonempty(NOT_EMPTY_ERROR_MESSAGE)
     .min(5, DESCRIPTION_LENGTH_ERROR_MESSAGE)
     .max(255, DESCRIPTION_LENGTH_ERROR_MESSAGE),
 };
@@ -37,8 +38,8 @@ export const createPollSchema = z.object({
 export const registerVoteSchema = z.object({
   name: z
     .string()
-    .max(20, 'Name field must be less than 20 characters long')
-    .nonempty('The name field can not be empty'),
+    .nonempty('The name field can not be empty')
+    .max(20, 'Name field must be less than 20 characters long'),
   choices: z.array(z.number()).min(0).nonempty('No option selected'),
 });
 
