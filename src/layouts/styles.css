@@ -2,6 +2,6 @@
 
 @layer components {
   main {
-    @apply mx-auto py-12 sm:py-16 md:py-18 px-4 sm:px-8! min-h-fit!;
+    @apply mx-auto py-12 sm:py-14 md:pb-18 px-4 sm:px-8! min-h-fit!;
   }
 }

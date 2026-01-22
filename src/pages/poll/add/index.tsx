@@ -178,7 +178,7 @@ const CreatePoll = () => {
           <FormHelperText error>{errors.description?.message}</FormHelperText>
           {isEditPage && (
             <div className="mt-3!">
-              <InfoIcon color="action" className="text-lg!" />
+              <InfoIcon color="info" className="text-lg!" />
               <Typography
                 component="span"
                 variant="caption"

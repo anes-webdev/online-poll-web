@@ -56,20 +56,20 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
         <Typography className="text-left" variant="h6" color="textPrimary">
           {title}
         </Typography>
-        <div className="flex gap-4">
+        <div className="flex gap-4.5">
           <button onClick={onShareIconClick}>
             <Tooltip placement="top" title={shareLinkToolTipMsg}>
-              <ShareIcon color="action" />
+              <ShareIcon color="action" className="text-xl!" />
             </Tooltip>
           </button>
           <button onClick={onEditPollClick}>
             <Tooltip placement="top" title="Edit poll">
-              <EditIcon color="action" />
+              <EditIcon color="action" className="text-xl!" />
             </Tooltip>
           </button>
           <button onClick={onDeletePollClick}>
             <Tooltip placement="top" title="Delete poll">
-              <DeleteIcon color="action" />
+              <DeleteIcon color="action" className="text-xl!" />
             </Tooltip>
           </button>
         </div>

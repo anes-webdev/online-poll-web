@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
-import { Button, IconButton, Tooltip, Typography } from '@mui/material';
+import { Button, Tooltip, Typography } from '@mui/material';
 import { useAlert } from '../../../hooks/useAlert';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import { usePoll } from '../../../network/hooks/main/usePoll';
@@ -117,12 +117,19 @@ const PollView = () => {
 
   return (
     <div className="poll-view-container">
-      <div className="md:px-4">
+      <div>
         {isAuthenticated && (
           <Tooltip title="Back to poll list" placement="top">
-            <IconButton onClick={navigateToPolls} disableRipple>
-              <ArrowBack color="action" />
-            </IconButton>
+            <Button
+              onClick={navigateToPolls}
+              disableRipple
+              className="px-0!"
+              variant="navbar"
+              color="neutral"
+              startIcon={<ArrowBack color="inherit" />}
+            >
+              Back
+            </Button>
           </Tooltip>
         )}
         <Typography

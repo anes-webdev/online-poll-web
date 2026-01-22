@@ -36,6 +36,12 @@ const theme = createTheme({
             },
           },
         },
+        {
+          props: { color: 'info' },
+          style: {
+            color: palette.fg.muted,
+          },
+        },
       ],
     },
     MuiIconButton: {

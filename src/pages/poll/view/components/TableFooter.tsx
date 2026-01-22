@@ -110,7 +110,7 @@ const TableFooter = ({
       <tr>
         {disabled && (
           <div className="my-1">
-            <InfoIcon color="action" className="text-lg! mr-1" />
+            <InfoIcon color="info" className="text-lg! mr-1" />
             <Typography color="textMuted" variant="caption">
               You've already voted
             </Typography>

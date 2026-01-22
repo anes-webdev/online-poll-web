@@ -13,7 +13,6 @@ import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 // Todo: add search and sort
 // Todo: change mui red color - Its too dark
 // Todo: Add dayjs to the project and handle default sort of polls list
-// Todo: remove hover from all icons - And add it when its really needed
 
 const PollList = () => {
   const navigate = useNavigate();
