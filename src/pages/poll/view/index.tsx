@@ -46,8 +46,25 @@ const PollView = () => {
 
   const { handleSubmit } = methods;
 
+  const checkNameUniqueness = (name: string) => {
+    return {
+      isUnique: !poll?.participants.some(
+        ({ name: participantName }) =>
+          participantName.toLowerCase() === name.toLowerCase(),
+      ),
+    };
+  };
+
   const onSaveButtonClick = async (formData: RegisterVoteData) => {
     const { name, choices } = formData;
+    if (!checkNameUniqueness(name).isUnique) {
+      // Todo: check this error message:
+      alert(
+        'Some one has voted with this name, Enter a different name',
+        'error',
+      );
+      return;
+    }
     setSubmitLoading(true);
     try {
       await registerVote(choices.toString(), { name });
@@ -88,7 +105,7 @@ const PollView = () => {
         {isAuthenticated && (
           <div className="flex justify-center">
             <Button onClick={navigateToPollList} variant="contained">
-              Back to poll list
+              Back to polls list
             </Button>
           </div>
         )}
@@ -101,11 +118,13 @@ const PollView = () => {
   return (
     <div className="poll-view-container">
       <div className="md:px-4">
-        <Tooltip title="Back to poll list" placement="top">
-          <IconButton onClick={navigateToPolls} disableRipple>
-            <ArrowBack color="action" />
-          </IconButton>
-        </Tooltip>
+        {isAuthenticated && (
+          <Tooltip title="Back to poll list" placement="top">
+            <IconButton onClick={navigateToPolls} disableRipple>
+              <ArrowBack color="action" />
+            </IconButton>
+          </Tooltip>
+        )}
         <Typography
           variant="h4"
           className="font-thin! mt-4!"
