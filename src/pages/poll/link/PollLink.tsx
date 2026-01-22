@@ -53,7 +53,7 @@ const PollLink = () => {
           <ArrowBackIosIcon className="absolute" color="action" />
         </button>
       </Tooltip>
-      <Typography color="success" className="text-center text-xl! mx-9">
+      <Typography color="success" className="text-center text-xl! mx-8!">
         {pollLinkMessage}
       </Typography>
       <Typography color="textSecondary" className="text-center text-xl! mt-6!">
