@@ -82,7 +82,7 @@ const PollLink = () => {
             }}
             variant="contained"
           >
-            Back to pollList
+            Back to polls list
           </Button>
         </div>
       )}
