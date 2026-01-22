@@ -35,7 +35,10 @@ export const createPollSchema = z.object({
 });
 
 export const registerVoteSchema = z.object({
-  name: z.string().max(20).nonempty('The name field can not be empty'),
+  name: z
+    .string()
+    .max(20, 'Name field must be less than 20 characters long')
+    .nonempty('The name field can not be empty'),
   choices: z.array(z.number()).min(0).nonempty('No option selected'),
 });
 
