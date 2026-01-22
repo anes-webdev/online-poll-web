@@ -8,14 +8,14 @@ const DESCRIPTION_LENGTH_ERROR_MESSAGE =
 const pollSchemaCommonFields = {
   title: z
     .string()
+    .nonempty('The field can not be empty')
     .min(3, TITLE_LENGTH_ERROR_MESSAGE)
-    .max(20, TITLE_LENGTH_ERROR_MESSAGE)
-    .nonempty('Can not be empty'),
+    .max(20, TITLE_LENGTH_ERROR_MESSAGE),
   description: z
     .string()
+    .nonempty('The field can not be empty')
     .min(5, DESCRIPTION_LENGTH_ERROR_MESSAGE)
-    .max(255, DESCRIPTION_LENGTH_ERROR_MESSAGE)
-    .nonempty('Can not be empty'),
+    .max(255, DESCRIPTION_LENGTH_ERROR_MESSAGE),
 };
 
 const pollOptionsSchema = z.array(
