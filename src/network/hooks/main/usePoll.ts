@@ -1,6 +1,3 @@
-// Add other requests
-// Add api urls as constants
-
 import type { CreatePollData } from '../../../schemas/pollSchema';
 import {
   CREATE_POLL_API,
