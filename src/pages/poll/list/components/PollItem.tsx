@@ -27,8 +27,18 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
   const [shareLinkToolTipMsg, setShareLinkToolTipMsg] =
     useState('Copy poll link');
   const { title, description, participants, link, createdAt } = poll;
-  const createdDate = createdAt.substring(0, 10);
-  const createdTime = createdAt.substring(11, 16);
+
+  // Todo: Handle this with dayjs:
+  const localDate = new Date(createdAt);
+  const formattedCreateDate = localDate.toLocaleString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
+
   const pollViewRoute = APP_ROUTES.POLL_VIEW.build(link);
   const pollLink = APP_BASE_URL + pollViewRoute;
 
@@ -87,9 +97,10 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
           </div>
         </Tooltip>
         <Typography color="textMuted" variant="caption">
-          {createdDate}
+          {formattedCreateDate}
+          {/* {createdDate}
           &nbsp;&nbsp;
-          {createdTime}
+          {createdTime} */}
         </Typography>
       </div>
     </div>
