@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router';
 import PollItem from './components/PollItem';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
-import { Button, Skeleton } from '@mui/material';
-import { usePoll } from '../../../network/hooks/main/usePoll';
+import { Skeleton } from '@mui/material';
+import { usePoll, type Poll } from '../../../network/hooks/main/usePoll';
 import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
 import { useAlert } from '../../../hooks/useAlert';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
+import { CreatePollButton } from './components/CreatePollButton';
+import { FilterSection } from './components/FilterSection';
+import {
+  SORT_OPTIONS,
+  type SortByField,
+  type SortOrderField,
+} from './constants/sortOptions';
+import { generateOptionValue } from './utils/generateOptionValue';
+import { SearchNoResults } from './components/SearchNoResults';
 
-// Todo: add search and sort
 // Todo: change mui red color - Its too dark
-// Todo: Add dayjs to the project and handle default sort of polls list
 
 const PollList = () => {
   const navigate = useNavigate();
@@ -47,7 +54,42 @@ const PollList = () => {
     }
   };
 
-  const pollsList = polls?.map((poll, index) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const orderByInitialValue = generateOptionValue(SORT_OPTIONS[0]);
+  const [sortInput, setSortInput] = useState(orderByInitialValue);
+  const onSearch = useCallback((value: string) => setSearchQuery(value), []);
+  const onSort = useCallback((value: string) => {
+    setSortInput(value);
+  }, []);
+
+  const destructureSortInput = (
+    value: string,
+  ): { sortBy: SortByField; sortOrder: SortOrderField } => {
+    const parts = value.split('_');
+    const sortOrder = parts.pop() as SortOrderField;
+    const sortBy = parts.join('_') as SortByField;
+    return { sortBy, sortOrder };
+  };
+
+  const applySearchAndSort = (polls: Poll[] | undefined) => {
+    const { sortBy, sortOrder } = destructureSortInput(sortInput);
+    const findValues = (poll: Poll) => {
+      if (sortBy === 'created_at') return new Date(poll.createdAt).getTime();
+      if (sortBy === 'participants') return poll.participants.length;
+    };
+    const sorted = polls?.sort(
+      (a, b) =>
+        ((findValues(a) as number) - (findValues(b) as number)) *
+        (sortOrder === 'asc' ? 1 : -1),
+    );
+    const filteredAndSorted = sorted?.filter((poll) =>
+      poll.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+
+    return filteredAndSorted;
+  };
+
+  const pollsList = applySearchAndSort(polls)?.map((poll, index) => {
     return (
       <PollItem
         deletePoll={onDeletePollIconClick}
@@ -76,14 +118,7 @@ const PollList = () => {
   if (polls?.length === 0) {
     return (
       <ErrorSection message="There are no polls here">
-        <Button
-          onClick={navigateToCreatePoll}
-          variant="outlined"
-          color="neutral"
-          className="mt-6"
-        >
-          Create Poll
-        </Button>
+        <CreatePollButton onClick={navigateToCreatePoll} className="mt-6" />
       </ErrorSection>
     );
   }
@@ -91,16 +126,14 @@ const PollList = () => {
   return (
     <>
       <div className="max-w-3xl mx-auto">
-        <>
-          <Button
-            onClick={navigateToCreatePoll}
-            variant="outlined"
-            color="neutral"
-          >
-            Create Poll
-          </Button>
-          <div className="mt-5">{pollsList}</div>
-        </>
+        <CreatePollButton onClick={navigateToCreatePoll} />
+        <FilterSection
+          onSearch={onSearch}
+          sortInput={sortInput}
+          onSort={onSort}
+        />
+        {pollsList?.length === 0 && <SearchNoResults />}
+        <div className="mt-3">{pollsList}</div>
       </div>
       {showDeleteModal && (
         <DeleteModal
