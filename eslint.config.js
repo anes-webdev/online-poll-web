@@ -41,7 +41,8 @@ export default defineConfig([
         "error",
         { argsIgnorePattern: "^_" },
       ],
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      'unused-imports/no-unused-imports': 'error',
     },
   },
 ]);
