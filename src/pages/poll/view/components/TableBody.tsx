@@ -1,7 +1,4 @@
-import type {
-  Option,
-  Participant,
-} from '../../../../network/hooks/main/usePoll';
+import type { Option, Participant } from '../../../../network/hooks/main/Poll';
 import { useState } from 'react';
 import { Tooltip, Typography } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';

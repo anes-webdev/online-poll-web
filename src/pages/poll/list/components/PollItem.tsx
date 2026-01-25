@@ -9,7 +9,7 @@ import { APP_ROUTES } from '../../../../constants/routes';
 import { Typography } from '@mui/material';
 import '../styles.css';
 import { useAlert } from '../../../../hooks/useAlert';
-import type { Poll } from '../../../../network/hooks/main/usePoll';
+import type { Poll } from '../../../../network/hooks/main/Poll';
 import { APP_BASE_URL } from '../../../../constants/baseUrls';
 
 // Todo: add mandatory key prop into map function as eslint rule.

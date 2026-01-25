@@ -4,7 +4,6 @@ import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
 import { Button, Tooltip, Typography } from '@mui/material';
 import { useAlert } from '../../../hooks/useAlert';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
-import { usePoll } from '../../../network/hooks/main/usePoll';
 import { usePollLink } from '../../../hooks/usePollLink';
 import { TableHead } from './components/TableHead';
 import { TableBody } from './components/TableBody';
@@ -22,11 +21,11 @@ import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 import { useAuth } from '../../../hooks/useAuth';
 import { APP_ROUTES } from '../../../constants/routes';
 import ArrowBack from '@mui/icons-material/ArrowBackIos';
+import { registerVote } from '../../../network/hooks/main/Poll';
 
 const PollView = () => {
   const alert = useAlert();
   const { isAuthenticated } = useAuth();
-  const { registerVote } = usePoll();
   const navigate = useNavigate();
   const { showPollLink } = usePollLink();
   const params = useParams<{ pollSlug: string }>();

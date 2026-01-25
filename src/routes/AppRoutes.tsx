@@ -11,6 +11,7 @@ import PollView from '../pages/poll/view';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
+  // Todo: Handle auto navigate into sign in when the user is not authorized and navigates to some pages like polls
   return (
     <Routes>
       <Route path={APP_ROUTES.SIGN_IN} element={<SignIn />} />

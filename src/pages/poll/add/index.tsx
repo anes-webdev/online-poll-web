@@ -15,7 +15,6 @@ import {
   editPollSchema,
   type CreatePollData,
 } from '../../../schemas/pollSchema';
-import { usePoll } from '../../../network/hooks/main/usePoll';
 import { useAlert } from '../../../hooks/useAlert';
 import { usePollLink } from '../../../hooks/usePollLink';
 import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
@@ -23,6 +22,7 @@ import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import '../../../index.css';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
+import { createPoll, editPoll } from '../../../network/hooks/main/Poll';
 
 // Todo: Handle background colors
 
@@ -31,7 +31,6 @@ const CreatePoll = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { showPollLink } = usePollLink();
-  const { createPoll, editPoll } = usePoll();
   const params = useParams<{ pollSlug: string }>() || '';
   const pollSlug = (params.pollSlug || '') as string;
   const isEditPage = pathname === APP_ROUTES.EDIT_POLL.build(pollSlug || '');

@@ -4,7 +4,7 @@ import PollItem from './components/PollItem';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
 import { Skeleton } from '@mui/material';
-import { usePoll, type Poll } from '../../../network/hooks/main/usePoll';
+import { deletePoll, type Poll } from '../../../network/hooks/main/Poll';
 import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
 import { useAlert } from '../../../hooks/useAlert';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
@@ -23,7 +23,6 @@ import { SearchNoResults } from './components/SearchNoResults';
 
 const PollList = () => {
   const navigate = useNavigate();
-  const { deletePoll } = usePoll();
   const alert = useAlert();
 
   const [deletingPoll, setDeletingPoll] = useState('');
