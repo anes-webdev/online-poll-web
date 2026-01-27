@@ -33,6 +33,8 @@ export type Poll = {
   options: Option[];
 };
 
+// Todo: Refactor, or use something else instead of imports:
+
 export const getPolls = async (): Promise<Poll[]> => {
   const { data } = await apiClient.get<Poll[]>(GET_POLL_LIST_API);
   return data;
