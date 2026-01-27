@@ -71,11 +71,3 @@ export const registerVote = async (
   return data;
 };
 
-export default {
-  getPoll,
-  getPolls,
-  deletePoll,
-  createPoll,
-  editPoll,
-  registerVote,
-};
