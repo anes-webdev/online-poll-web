@@ -1,6 +1,9 @@
 import { SIGN_IN_API } from '../../api';
 import { useApi } from '../useApi';
 
+// Todo: Remove this hook
+// Organize network folder
+
 export const useSignIn = () => {
   const api = useApi();
 
