@@ -1,22 +1,21 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, FormHelperText, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { authAction } from '../../store/slices/auth';
-import { Button, FormHelperText, Typography } from '@mui/material';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { APP_ROUTES } from '../../constants/routes';
-import { useSignIn } from '../../network/hooks/main/useSignIn';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAlert } from '../../hooks/useAlert';
-import '../../index.css';
+import { useNavigate } from 'react-router';
+import { z } from 'zod';
 import { DEFAULT_ERROR } from '../../constants/errorMessages';
+import { APP_ROUTES } from '../../constants/routes';
+import { useAlert } from '../../hooks/useAlert';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import '../../index.css';
+import { signIn } from '../../network/hooks/main/useSignIn';
+import { authAction } from '../../store/slices/auth';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { signIn } = useSignIn();
   const alert = useAlert();
 
   const [isLoading, setIsLoading] = useState(false);
