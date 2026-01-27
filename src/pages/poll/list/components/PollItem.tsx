@@ -1,16 +1,22 @@
-import PeopleIcon from '@mui/icons-material/People';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PeopleIcon from '@mui/icons-material/People';
 import ShareIcon from '@mui/icons-material/Share';
-import { useNavigate } from 'react-router';
-import Tooltip from '@mui/material/Tooltip';
-import { useState, type MouseEventHandler } from 'react';
-import { APP_ROUTES } from '../../../../constants/routes';
 import { Typography } from '@mui/material';
-import '../styles.css';
+import Tooltip from '@mui/material/Tooltip';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+import { useState, type MouseEventHandler } from 'react';
+import { useNavigate } from 'react-router';
+import { APP_BASE_URL } from '../../../../constants/baseUrls';
+import { APP_ROUTES } from '../../../../constants/routes';
 import { useAlert } from '../../../../hooks/useAlert';
 import type { Poll } from '../../../../network/hooks/main/Poll';
-import { APP_BASE_URL } from '../../../../constants/baseUrls';
+import '../styles.css';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 // Todo: add mandatory key prop into map function as eslint rule.
 
@@ -28,16 +34,10 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
     useState('Copy poll link');
   const { title, description, participants, link, createdAt } = poll;
 
-  // Todo: Handle this with dayjs:
-  const localDate = new Date(createdAt);
-  const formattedCreateDate = localDate.toLocaleString('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  });
+  const formattedCreateDate = dayjs
+    .utc(createdAt)
+    .local()
+    .format('MM/DD/YYYY, hh:mm A');
 
   const pollViewRoute = APP_ROUTES.POLL_VIEW.build(link);
   const pollLink = APP_BASE_URL + pollViewRoute;
@@ -98,9 +98,6 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
         </Tooltip>
         <Typography color="textMuted" variant="caption">
           {formattedCreateDate}
-          {/* {createdDate}
-          &nbsp;&nbsp;
-          {createdTime} */}
         </Typography>
       </div>
     </div>
