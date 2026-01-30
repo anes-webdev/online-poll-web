@@ -10,7 +10,7 @@ type ChoiceCellProps = {
 };
 
 const ChoiceCell = ({ isSelected }: ChoiceCellProps) => {
-  const backgroundColor = isSelected ? 'bg-green' : 'bg-red';
+  const backgroundColor = isSelected ? '#bbf7d0' : '#fecaca';
   const icon = isSelected ? (
     <DoneIcon className="text-green-600" />
   ) : (
@@ -18,7 +18,12 @@ const ChoiceCell = ({ isSelected }: ChoiceCellProps) => {
   );
   return (
     <td className="text-center">
-      <div className={`poll-table-cell ${backgroundColor}-200`}>{icon}</div>
+      <div
+        style={{ backgroundColor: backgroundColor }}
+        className="poll-table-cell"
+      >
+        {icon}
+      </div>
     </td>
   );
 };
