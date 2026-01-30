@@ -70,4 +70,3 @@ export const registerVote = async (
   const { data } = await apiClient.post(VOTE_API(options), formData);
   return data;
 };
-

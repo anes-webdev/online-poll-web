@@ -1,12 +1,12 @@
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.tsx';
-import { BrowserRouter } from 'react-router';
-import theme from './theme/theme.ts';
 import { ThemeProvider } from '@mui/material/styles';
-import { Provider } from 'react-redux';
-import store from './store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router';
+import App from './App.tsx';
+import './index.css';
+import store from './store';
+import theme from './theme/theme.ts';
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
@@ -20,3 +20,5 @@ createRoot(document.getElementById('root')!).render(
     </QueryClientProvider>
   </Provider>,
 );
+
+// Todo: check best practice for folder and file names and write notes for them

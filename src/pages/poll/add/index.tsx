@@ -1,30 +1,28 @@
-import './styles.css';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import OptionList from './components/OptionsList';
-import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router';
-import { FormHelperText, Tooltip, Typography } from '@mui/material';
+import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import InfoIcon from '@mui/icons-material/Info';
+import { FormHelperText, Tooltip, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Link, useLocation, useNavigate, useParams } from 'react-router';
+import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import { APP_ROUTES } from '../../../constants/routes';
+import { useAlert } from '../../../hooks/useAlert';
+import { usePollLink } from '../../../hooks/usePollLink';
+import '../../../index.css';
+import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
+import { createPoll, editPoll } from '../../../network/hooks/main/Poll';
 import {
   createPollSchema,
   editPollSchema,
   type CreatePollData,
 } from '../../../schemas/pollSchema';
-import { useAlert } from '../../../hooks/useAlert';
-import { usePollLink } from '../../../hooks/usePollLink';
-import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
-import { DEFAULT_ERROR } from '../../../constants/errorMessages';
-import '../../../index.css';
-import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
-import { createPoll, editPoll } from '../../../network/hooks/main/Poll';
-
-// Todo: Handle background colors
+import OptionList from './components/OptionsList';
+import './styles.css';
 
 const CreatePoll = () => {
   const alert = useAlert();

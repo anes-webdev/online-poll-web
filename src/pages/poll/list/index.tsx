@@ -19,8 +19,6 @@ import {
 import { generateOptionValue } from './utils/generateOptionValue';
 import { SearchNoResults } from './components/SearchNoResults';
 
-// Todo: change mui red color - Its too dark
-
 const PollList = () => {
   const navigate = useNavigate();
   const alert = useAlert();
