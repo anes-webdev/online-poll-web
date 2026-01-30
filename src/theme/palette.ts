@@ -1,12 +1,6 @@
 import { colors } from './colors';
 
-//Todo: remove additional comments
-
 export const palette = {
-  //   background: {
-  //     default: colors.neutral[50],
-  //     surface: "#ffffff",
-  //   },
   fg: {
     primary: colors.neutral[900],
     secondary: colors.neutral[600],
