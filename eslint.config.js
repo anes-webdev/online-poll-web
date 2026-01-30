@@ -4,6 +4,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -15,6 +16,7 @@ export default defineConfig([
     ignores: ['tailwind.config.ts', 'vite.config.ts'],
     plugins: {
       react,
+      'unused-imports': unusedImports,
     },
     extends: [
       js.configs.recommended,
@@ -45,10 +47,9 @@ export default defineConfig([
       'react/jsx-key': 'error',
       quotes: ['error', 'single'],
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
+      '@typescript-eslint/no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'prettier/prettier': 'error',
     },
   },
