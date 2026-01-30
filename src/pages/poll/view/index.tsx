@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
-import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
+import { zodResolver } from '@hookform/resolvers/zod';
+import ArrowBack from '@mui/icons-material/ArrowBackIos';
 import { Button, Tooltip, Typography } from '@mui/material';
-import { useAlert } from '../../../hooks/useAlert';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router';
+import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
+import { APP_ROUTES } from '../../../constants/routes';
+import { useAlert } from '../../../hooks/useAlert';
+import { useAuth } from '../../../hooks/useAuth';
 import { usePollLink } from '../../../hooks/usePollLink';
-import { TableHead } from './components/TableHead';
-import { TableBody } from './components/TableBody';
+import { useStoreVotes } from '../../../hooks/useStoreVotes';
+import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
+import { registerVote } from '../../../network/hooks/main/Poll';
 import {
   registerVoteSchema,
   type RegisterVoteData,
 } from '../../../schemas/pollSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { TableBody } from './components/TableBody';
 import TableFooter from './components/TableFooter';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
-import { useStoreVotes } from '../../../hooks/useStoreVotes';
+import { TableHead } from './components/TableHead';
 import './styles.css';
-import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
-import { useAuth } from '../../../hooks/useAuth';
-import { APP_ROUTES } from '../../../constants/routes';
-import ArrowBack from '@mui/icons-material/ArrowBackIos';
-import { registerVote } from '../../../network/hooks/main/Poll';
 
 const PollView = () => {
   const alert = useAlert();
@@ -57,9 +57,8 @@ const PollView = () => {
   const onSaveButtonClick = async (formData: RegisterVoteData) => {
     const { name, choices } = formData;
     if (!checkNameUniqueness(name).isUnique) {
-      // Todo: check this error message:
       alert(
-        'Some one has voted with this name, Enter a different name',
+        'Someone has already voted with this name. Please enter a different name.',
         'error',
       );
       return;
