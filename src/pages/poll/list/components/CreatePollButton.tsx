@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
 
 type CreatePollButtonProps = {
@@ -11,8 +12,9 @@ export const CreatePollButton = (props: CreatePollButtonProps) => {
     <Button
       onClick={onClick}
       variant="outlined"
-      color="neutral"
+      color="primary"
       className={className}
+      startIcon={<AddIcon />}
     >
       Create Poll
     </Button>
