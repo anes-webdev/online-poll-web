@@ -18,8 +18,6 @@ import '../styles.css';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-// Todo: add mandatory key prop into map function as eslint rule.
-
 type PollItemProps = {
   deletePoll: (pollSlug: string) => void;
   editPoll: (pollSlug: string) => void;

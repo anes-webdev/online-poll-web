@@ -1,6 +1,6 @@
+import SortIcon from '@mui/icons-material/Sort';
 import { MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import SortIcon from '@mui/icons-material/Sort';
 import { SORT_OPTIONS } from '../constants/sortOptions';
 import { generateOptionValue } from '../utils/generateOptionValue';
 
@@ -59,10 +59,10 @@ export const FilterSection = (props: FilterSectionProps) => {
             },
           }}
         >
-          {SORT_OPTIONS.map((sortOption) => {
+          {SORT_OPTIONS.map((sortOption, index) => {
             const { label } = sortOption;
             return (
-              <MenuItem value={generateOptionValue(sortOption)}>
+              <MenuItem key={index} value={generateOptionValue(sortOption)}>
                 <Typography color="textPrimary">{label}</Typography>
               </MenuItem>
             );
