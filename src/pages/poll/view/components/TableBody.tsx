@@ -1,8 +1,8 @@
-import type { Option, Participant } from '../../../../network/hooks/main/Poll';
-import { useState } from 'react';
-import { Tooltip, Typography } from '@mui/material';
-import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from '@mui/icons-material/Done';
+import { Tooltip, Typography } from '@mui/material';
+import { useState } from 'react';
+import type { Option, Participant } from '../../../../network/hooks/main/Poll';
 import '../styles.css';
 
 type ChoiceCellProps = {
@@ -10,10 +10,7 @@ type ChoiceCellProps = {
 };
 
 const ChoiceCell = ({ isSelected }: ChoiceCellProps) => {
-  // Todo: handle these colors by palette - use hash:
-  const backgroundColor = isSelected
-    ? 'oklch(92.5% 0.084 155.995)'
-    : 'oklch(88.5% 0.062 18.334)';
+  const backgroundColor = isSelected ? 'bg-green' : 'bg-red';
   const icon = isSelected ? (
     <DoneIcon className="text-green-600" />
   ) : (
@@ -21,12 +18,7 @@ const ChoiceCell = ({ isSelected }: ChoiceCellProps) => {
   );
   return (
     <td className="text-center">
-      <div
-        style={{ backgroundColor: backgroundColor }}
-        className="poll-table-cell"
-      >
-        {icon}
-      </div>
+      <div className={`poll-table-cell ${backgroundColor}-200`}>{icon}</div>
     </td>
   );
 };
