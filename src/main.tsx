@@ -21,6 +21,5 @@ createRoot(document.getElementById('root')!).render(
   </Provider>,
 );
 
-// Todo: check best practice for folder and file names and write notes for them
 // Todo: Work on performance
 // Todo: update linked in link
