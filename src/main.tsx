@@ -24,3 +24,5 @@ createRoot(document.getElementById('root')!).render(
 // Todo: Work on performance
 // Todo: update linked in link
 // Todo: Add tests
+// Todo: Update readme demo link after deployment
+// Todo: Add some tests later
