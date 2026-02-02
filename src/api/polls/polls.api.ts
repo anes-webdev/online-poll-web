@@ -1,4 +1,3 @@
-import type { CreatePollData } from '../../../schemas/pollSchema';
 import {
   CREATE_POLL_API,
   DELETE_POLL_API,
@@ -6,34 +5,10 @@ import {
   GET_POLL_API,
   GET_POLL_LIST_API,
   VOTE_API,
-} from '../../api';
-import { apiClient } from '../../axios';
-
-// Todo: move these types into separate file:
-
-export type Option = {
-  id: number;
-  optionName: string;
-  participants?: Participant[];
-};
-
-export type Participant = {
-  id: number;
-  name: string;
-  choices: Option[];
-};
-
-export type Poll = {
-  id: number;
-  title: string;
-  description: string;
-  createdAt: string;
-  link: string;
-  participants: Participant[];
-  options: Option[];
-};
-
-// Todo: Refactor, or use something else instead of imports:
+} from '../endpoints';
+import type { CreatePollData } from '../../schemas/pollSchema';
+import { apiClient } from '../client/axios';
+import type { Poll } from './polls.types';
 
 export const getPolls = async (): Promise<Poll[]> => {
   const { data } = await apiClient.get<Poll[]>(GET_POLL_LIST_API);

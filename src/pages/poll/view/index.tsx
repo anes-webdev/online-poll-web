@@ -12,8 +12,6 @@ import { useAlert } from '../../../hooks/useAlert';
 import { useAuth } from '../../../hooks/useAuth';
 import { usePollLink } from '../../../hooks/usePollLink';
 import { useStoreVotes } from '../../../hooks/useStoreVotes';
-import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
-import { registerVote } from '../../../network/hooks/main/Poll';
 import {
   registerVoteSchema,
   type RegisterVoteData,
@@ -22,6 +20,8 @@ import { TableBody } from './components/TableBody';
 import TableFooter from './components/TableFooter';
 import { TableHead } from './components/TableHead';
 import './styles.css';
+import { registerVote } from '../../../api/polls/polls.api';
+import { useGetPoll } from '../../../api/polls/polls.hooks';
 
 const PollView = () => {
   const alert = useAlert();

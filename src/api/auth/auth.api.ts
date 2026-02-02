@@ -1,7 +1,5 @@
-import { SIGN_IN_API } from '../../api';
-import { apiClient } from '../../axios';
-
-// Todo:Organize network folder
+import { SIGN_IN_API } from '../endpoints';
+import { apiClient } from '../client/axios';
 
 export const signIn = async (
   username: string,

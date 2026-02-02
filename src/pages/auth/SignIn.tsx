@@ -10,7 +10,7 @@ import { APP_ROUTES } from '../../constants/routes';
 import { useAlert } from '../../hooks/useAlert';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import '../../styles/global.css';
-import { signIn } from '../../network/hooks/main/useSignIn';
+import { signIn } from '../../api/auth/auth.api';
 import { authAction } from '../../store/slices/auth';
 
 const SignIn = () => {

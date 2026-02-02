@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router';
 import { APP_BASE_URL } from '../../../../constants/baseUrls';
 import { APP_ROUTES } from '../../../../constants/routes';
 import { useAlert } from '../../../../hooks/useAlert';
-import type { Poll } from '../../../../network/hooks/main/Poll';
 import '../styles.css';
+import type { Poll } from '../../../../api/polls/polls.types';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

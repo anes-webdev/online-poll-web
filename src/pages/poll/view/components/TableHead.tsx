@@ -1,5 +1,5 @@
 import Tooltip from '@mui/material/Tooltip';
-import type { Option } from '../../../../network/hooks/main/Poll';
+import type { Option } from '../../../../api/hooks/polls/polls.api';
 import { Typography } from '@mui/material';
 import '../styles.css';
 

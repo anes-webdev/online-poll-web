@@ -14,8 +14,6 @@ import { APP_ROUTES } from '../../../constants/routes';
 import { useAlert } from '../../../hooks/useAlert';
 import { usePollLink } from '../../../hooks/usePollLink';
 import '../../../index.css';
-import { useGetPoll } from '../../../network/hooks/get/useGetPoll';
-import { createPoll, editPoll } from '../../../network/hooks/main/Poll';
 import {
   createPollSchema,
   editPollSchema,
@@ -23,6 +21,8 @@ import {
 } from '../../../schemas/pollSchema';
 import OptionList from './components/OptionsList';
 import '../../../styles/global.css';
+import { useGetPoll } from '../../../api/polls/polls.hooks';
+import { createPoll, editPoll } from '../../../api/polls/polls.api';
 
 const CreatePoll = () => {
   const alert = useAlert();

@@ -4,8 +4,6 @@ import PollItem from './components/PollItem';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
 import { Skeleton } from '@mui/material';
-import { deletePoll, type Poll } from '../../../network/hooks/main/Poll';
-import { useGetPolls } from '../../../network/hooks/get/useGetPolls';
 import { useAlert } from '../../../hooks/useAlert';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 import { DEFAULT_ERROR } from '../../../constants/errorMessages';
@@ -18,6 +16,9 @@ import {
 } from './constants/sortOptions';
 import { generateOptionValue } from './utils/generateOptionValue';
 import { SearchNoResults } from './components/SearchNoResults';
+import { useGetPolls } from '../../../api/polls/polls.hooks';
+import { deletePoll } from '../../../api/polls/polls.api';
+import type { Poll } from '../../../api/polls/polls.types';
 
 const PollList = () => {
   const navigate = useNavigate();

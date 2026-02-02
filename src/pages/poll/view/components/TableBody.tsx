@@ -2,7 +2,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import { Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
-import type { Option, Participant } from '../../../../network/hooks/main/Poll';
+import type {
+  Option,
+  Participant,
+} from '../../../../api/hooks/polls/polls.api';
 import '../styles.css';
 
 type ChoiceCellProps = {

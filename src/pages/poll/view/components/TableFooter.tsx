@@ -1,6 +1,6 @@
 import Checkbox from '@mui/material/Checkbox';
 import type { ChangeEvent } from 'react';
-import type { Option, Poll } from '../../../../network/hooks/main/Poll';
+import type { Option, Poll } from '../../../../api/hooks/polls/polls.api';
 import { Button, TextField, Tooltip, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import type { RegisterVoteData } from '../../../../schemas/pollSchema';

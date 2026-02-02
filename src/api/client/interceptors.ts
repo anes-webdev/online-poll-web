@@ -1,19 +1,12 @@
-import axios, { AxiosError } from 'axios';
-import { API_BASE_URL } from '../constants/baseUrls';
-import { useAppDispatch } from '../hooks/useAppDispatch';
+import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../hooks/useAuth';
-import { useAlert } from '../hooks/useAlert';
 import { useEffect } from 'react';
-import { APP_ROUTES } from '../constants/routes';
-import { authAction } from '../store/slices/auth';
-
-export const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import { apiClient } from './axios';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAuth } from '../../hooks/useAuth';
+import { useAlert } from '../../hooks/useAlert';
+import { authAction } from '../../store/slices/auth';
+import { APP_ROUTES } from '../../constants/routes';
 
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
