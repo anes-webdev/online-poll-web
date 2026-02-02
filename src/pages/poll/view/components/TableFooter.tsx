@@ -1,10 +1,11 @@
 import Checkbox from '@mui/material/Checkbox';
 import type { ChangeEvent } from 'react';
-import type { Option, Poll } from '../../../../api/hooks/polls/polls.api';
-import { Button, TextField, Tooltip, Typography } from '@mui/material';
+import { Button, Tooltip, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import type { RegisterVoteData } from '../../../../schemas/pollSchema';
 import InfoIcon from '@mui/icons-material/Info';
+import TextFieldWithCounter from '../../../../components/TextFieldWithCounter/TextFieldWithCounter';
+import type { Option, Poll } from '../../../../api/polls/polls.types';
 
 type CheckBoxClickHandler = (isChecked: boolean, optionId: number) => void;
 
@@ -120,7 +121,8 @@ const TableFooter = ({
       <tr>
         <td>
           <div className="poll-table-cell px-0 py-1">
-            <TextField
+            <TextFieldWithCounter
+              maxLength={20}
               disabled={disabled}
               {...register('name')}
               error={!!errors.name}

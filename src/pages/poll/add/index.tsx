@@ -23,6 +23,7 @@ import OptionList from './components/OptionsList';
 import '../../../styles/global.css';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
 import { createPoll, editPoll } from '../../../api/polls/polls.api';
+import TextFieldWithCounter from '../../../components/TextFieldWithCounter/TextFieldWithCounter';
 
 const CreatePoll = () => {
   const alert = useAlert();
@@ -153,7 +154,8 @@ const CreatePoll = () => {
           {isEditPage ? 'Edit' : 'Create'} Poll
         </Typography>
         <div className="flex flex-col mt-6 lg:mt-10">
-          <TextField
+          <TextFieldWithCounter
+            maxLength={20}
             {...register('title')}
             error={!!errors.title}
             className="w-full"
@@ -187,7 +189,8 @@ const CreatePoll = () => {
             </div>
           )}
           <div className="flex justify-between items-center mt-4">
-            <TextField
+            <TextFieldWithCounter
+              maxLength={20}
               disabled={isEditPage}
               error={!!optionInputError}
               className="w-8/12"
