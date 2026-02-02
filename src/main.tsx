@@ -23,3 +23,4 @@ createRoot(document.getElementById('root')!).render(
 
 // Todo: Work on performance
 // Todo: update linked in link
+// Todo: Add tests
