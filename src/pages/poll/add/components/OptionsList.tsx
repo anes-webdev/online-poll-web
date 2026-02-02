@@ -1,6 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, Typography } from '@mui/material';
-import { palette } from '../../../../theme/palette';
+import { palette } from '../../../../styles/palette';
+import '../styles.css';
 
 type OptionProps = {
   optionName: string;

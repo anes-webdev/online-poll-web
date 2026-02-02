@@ -22,7 +22,7 @@ import {
   type CreatePollData,
 } from '../../../schemas/pollSchema';
 import OptionList from './components/OptionsList';
-import './styles.css';
+import '../../../styles/global.css';
 
 const CreatePoll = () => {
   const alert = useAlert();

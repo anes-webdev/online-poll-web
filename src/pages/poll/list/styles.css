@@ -1,9 +1,9 @@
 @reference "tailwindcss";
+@config "../../../../tailwind.config.ts";
 
 @layer components {
   .poll-item-container {
-    @apply border transition p-4 mt-3 rounded-lg cursor-pointer hover:shadow-md;
-    border-color: var(--color-border-default);
+    @apply border transition p-4 mt-3 rounded-lg cursor-pointer hover:shadow-md border-border-default;
   }
 }
 

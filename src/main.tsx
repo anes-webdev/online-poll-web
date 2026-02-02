@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router';
 import './index.css';
 import App from './App.tsx';
 import store from './store';
-import theme from './theme/theme.ts';
+import theme from './styles/muiTheme.ts';
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(

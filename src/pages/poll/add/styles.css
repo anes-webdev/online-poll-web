@@ -1,12 +1,11 @@
-@import "tailwindcss";
+@reference 'tailwindcss';
+@config "../../../../tailwind.config.ts";
 
-@layer utilities {
+@layer components {
   .poll-option-container {
-    @apply border rounded-lg px-2.5 py-2 m-1.5 flex justify-between items-center bg-white;
-    border-color: var(--color-border-default);
+    @apply border rounded-lg px-2.5 py-2 m-1.5 flex justify-between items-center bg-white border-border-default;
   }
-    .poll-options-list-container {
-    @apply border bg-gray-100 p-2.5 sm:p-4 rounded-lg mt-4;
-    border-color: var(--color-border-default);
+  .poll-options-list-container {
+    @apply border bg-gray-100 p-2.5 sm:p-4 rounded-lg mt-4 border-border-default;
   }
 }

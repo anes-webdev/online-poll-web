@@ -1,0 +1,8 @@
+@reference "tailwindcss";
+@config "../../tailwind.config.ts";
+
+@layer components {
+  .form-container {
+    @apply max-w-90 sm:max-w-104 mx-auto md:mt-4 px-1 sm:px-8 py-6 sm:py-8 sm:border rounded-lg sm:shadow-sm border-border-default;
+  }
+}

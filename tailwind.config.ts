@@ -1,5 +1,6 @@
-import { palette } from "./src/theme/palette";
+import { palette } from "./src/styles/palette";
 import type { Config } from "tailwindcss";
+// Tailwind.config is not recommended in v4 but I used it because of mui theme system
 
 const config: Config = {
   theme: {
@@ -11,9 +12,9 @@ const config: Config = {
           secondary: palette.fg.secondary,
           muted: palette.fg.muted,
         },
-        // border: {
-        //     default: palette.border.default,
-        // }
+        border: {
+            default: palette.border.default,
+        }
       },
     },
   },

@@ -9,7 +9,7 @@ import { DEFAULT_ERROR } from '../../constants/errorMessages';
 import { APP_ROUTES } from '../../constants/routes';
 import { useAlert } from '../../hooks/useAlert';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import '../../index.css';
+import '../../styles/global.css';
 import { signIn } from '../../network/hooks/main/useSignIn';
 import { authAction } from '../../store/slices/auth';
 
