@@ -4,7 +4,7 @@ A simple React application that allows users to create surveys, share them with 
 
 ## Demo / Screenshot
 
-![Poll App Screenshot](public/poll-app-ss.png)
+![Poll App Screenshot](public/poll-app-screenshot.png)
 
 Or check out the live demo: [Live Demo](https://update-this-link)
 
