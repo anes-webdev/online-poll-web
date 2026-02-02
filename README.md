@@ -34,7 +34,7 @@ Or check out the live demo: [Live Demo](https://update-this-link)
 git clone https://github.com/anes-webdev/online-poll.git
 
 # Navigate into the project folder
-cd poll-app
+cd online-poll
 
 # Install dependencies
 yarn
