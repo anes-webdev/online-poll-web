@@ -3,7 +3,7 @@
 
 @layer components {
   .poll-item-container {
-    @apply border transition p-4 mt-3 rounded-lg cursor-pointer hover:shadow-md border-border-default;
+    @apply border transition p-4 mt-3 rounded-lg cursor-pointer hover:shadow-md border-border-default hover:border-fg-muted;
   }
 }
 
