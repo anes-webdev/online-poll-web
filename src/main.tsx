@@ -23,3 +23,4 @@ createRoot(document.getElementById('root')!).render(
 
 // Todo: check best practice for folder and file names and write notes for them
 // Todo: Work on performance
+// Todo: Change error section and not found images

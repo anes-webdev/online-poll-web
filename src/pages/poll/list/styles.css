@@ -1,11 +1,14 @@
 @reference "tailwindcss";
-@config "../../../../tailwind.config.ts";
 
 @layer components {
   .poll-item-container {
-    @apply border transition p-4 mt-3 rounded-lg cursor-pointer border-border-default hover:shadow-md;
+    @apply border transition p-4 mt-3 rounded-lg cursor-pointer hover:shadow-md;
+    border-color: var(--color-border-default);
   }
-    .poll-item-head {
+}
+
+@layer components {
+  .poll-item-head {
     @apply flex justify-between items-center flex-wrap gap-1;
   }
 }

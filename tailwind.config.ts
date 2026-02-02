@@ -11,9 +11,9 @@ const config: Config = {
           secondary: palette.fg.secondary,
           muted: palette.fg.muted,
         },
-        border: {
-            default: palette.border.default,
-        }
+        // border: {
+        //     default: palette.border.default,
+        // }
       },
     },
   },
