@@ -31,7 +31,7 @@ Or check out the live demo: [Live Demo](https://update-this-link)
 ```bash
 
 # Clone the repository
-git clone https://github.com/anes-webdev/online-poll.git
+git clone https://github.com/anes-webdev/online-poll-web.git
 
 # Navigate into the project folder
 cd online-poll
