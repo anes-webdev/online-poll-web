@@ -6,6 +6,7 @@ import type { RegisterVoteData } from '../../../../schemas/pollSchema';
 import InfoIcon from '@mui/icons-material/Info';
 import TextFieldWithCounter from '../../../../components/TextFieldWithCounter/TextFieldWithCounter';
 import type { Option, Poll } from '../../../../api/polls/polls.types';
+import { POLL_OPTION_MAX_LENGTH } from '../../../../constants/poll';
 
 type CheckBoxClickHandler = (isChecked: boolean, optionId: number) => void;
 
@@ -122,7 +123,7 @@ const TableFooter = ({
         <td>
           <div className="poll-table-cell px-0 py-1">
             <TextFieldWithCounter
-              maxLength={20}
+              maxLength={POLL_OPTION_MAX_LENGTH}
               disabled={disabled}
               {...register('name')}
               error={!!errors.name}

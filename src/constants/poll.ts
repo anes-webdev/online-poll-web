@@ -1,0 +1,6 @@
+export const POLL_TITLE_MAX_LENGTH = 40;
+export const POLL_TITLE_MIN_LENGTH = 3;
+export const POLL_DESCRIPTION_MAX_LENGTH = 255;
+export const POLL_DESCRIPTION_MIN_LENGTH = 3;
+export const POLL_OPTION_MAX_LENGTH = 20;
+export const POLL_OPTION_MIN_LENGTH = 3;
