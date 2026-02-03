@@ -25,4 +25,4 @@ createRoot(document.getElementById('root')!).render(
 // Todo: update linked in link
 // Todo: Add tests
 // Todo: Update readme demo link after deployment
-// Todo: Add some tests later
+// Todo: Add some tests
