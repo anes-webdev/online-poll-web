@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import TextField, { type TextFieldProps } from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Typography } from '@mui/material';
@@ -8,18 +7,7 @@ export type TextFieldWithCounterProps = TextFieldProps & {
 };
 
 const TextFieldWithCounter = (props: TextFieldWithCounterProps) => {
-  const { value: propValue, onChange: propOnChange, maxLength, size } = props;
-  const [value, setValue] = useState((propValue as string) || '');
-
-  const handleChange = (e: any) => {
-    const newValue = e.target.value;
-
-    // prevent typing beyond maxLength
-    if (newValue.length <= maxLength) {
-      setValue(newValue);
-      if (propOnChange) propOnChange(e);
-    }
-  };
+  const { value, onChange, maxLength, size } = props;
 
   const counterClass = size === 'small' ? 'text-xs!' : 'text-sm!';
 
@@ -27,7 +15,7 @@ const TextFieldWithCounter = (props: TextFieldWithCounterProps) => {
     <TextField
       {...props}
       value={value}
-      onChange={handleChange}
+      onChange={onChange}
       slotProps={{
         htmlInput: {
           maxLength,
@@ -36,7 +24,7 @@ const TextFieldWithCounter = (props: TextFieldWithCounterProps) => {
           endAdornment: (
             <InputAdornment position="end">
               <Typography className={counterClass} color="textMuted">
-                {value.length}/{maxLength}
+                {((value as string) || '').length}/{maxLength}
               </Typography>
             </InputAdornment>
           ),

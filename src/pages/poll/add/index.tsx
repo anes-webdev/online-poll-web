@@ -5,7 +5,7 @@ import { FormHelperText, Tooltip, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
@@ -24,6 +24,7 @@ import '../../../styles/global.css';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
 import { createPoll, editPoll } from '../../../api/polls/polls.api';
 import TextFieldWithCounter from '../../../components/TextFieldWithCounter/TextFieldWithCounter';
+import { POLL_TITLE_MAX_LENGTH } from '../../../constants/poll';
 
 const CreatePoll = () => {
   const alert = useAlert();
@@ -40,6 +41,7 @@ const CreatePoll = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
 
   const {
+    control,
     watch,
     setValue,
     register,
@@ -154,14 +156,20 @@ const CreatePoll = () => {
           {isEditPage ? 'Edit' : 'Create'} Poll
         </Typography>
         <div className="flex flex-col mt-6 lg:mt-10">
-          <TextFieldWithCounter
-            maxLength={20}
-            {...register('title')}
-            error={!!errors.title}
-            className="w-full"
-            id="outlined-basic"
-            label="Title"
-            variant="outlined"
+          <Controller
+            name="title"
+            control={control}
+            render={({ field }) => (
+              <TextFieldWithCounter
+                maxLength={POLL_TITLE_MAX_LENGTH}
+                {...field}
+                error={!!errors.title}
+                className="w-full"
+                id="outlined-basic"
+                label="Title"
+                variant="outlined"
+              />
+            )}
           />
           <FormHelperText error>{errors.title?.message}</FormHelperText>
           <TextField
