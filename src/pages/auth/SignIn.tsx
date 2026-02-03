@@ -48,8 +48,7 @@ const SignIn = () => {
       dispatch(authAction.login(token));
       navigate(APP_ROUTES.POLLS);
     } catch (error: any) {
-      // Todo: When user pass is incorrect the response is 500!
-      if (error.status === 404 || error.status === 500) {
+      if (error.status === 401) {
         setError('username', { message: 'Incorrect username' });
         setError('password', { message: 'Incorrect password' });
         alert('Username or password is incorrect', 'error');
