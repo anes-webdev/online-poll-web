@@ -102,7 +102,7 @@ const PollList = () => {
     return (
       <div className="max-w-3xl mx-auto flex flex-col gap-3">
         <Skeleton className="w-30! h-10! mb-2!" />
-        {[...Array(3)].map((item, index) => {
+        {[...Array(3)].map((_item, index) => {
           return <Skeleton key={index} className="h-36! w-full!" />;
         })}
       </div>
