@@ -27,3 +27,4 @@ createRoot(document.getElementById('root')!).render(
 // Todo: Update readme demo link after deployment
 // Todo: Add some tests
 // Todo: Use react query for post, put, delete methods
+// Todo: update readme file - for env vars
