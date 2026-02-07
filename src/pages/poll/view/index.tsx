@@ -22,6 +22,7 @@ import { TableHead } from './components/TableHead';
 import './styles.css';
 import { registerVote } from '../../../api/polls/polls.api';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
+import { RotateDialog } from './components/RotateDialog';
 
 const PollView = () => {
   const alert = useAlert();
@@ -155,6 +156,7 @@ const PollView = () => {
           </table>
         </FormProvider>
       </div>
+      <RotateDialog />
     </div>
   );
 };
