@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router';
-import pollImage from '../../assets/poll.webp';
+import pollImage from '../../assets/select-poll.webp';
 import { APP_ROUTES } from '../../constants/routes';
 import { useAuth } from '../../hooks/useAuth';
 import './styles.css';

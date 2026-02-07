@@ -2,7 +2,7 @@ import { useState, type Ref } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/main-logo.svg';
 import NavbarList from './components/NavbarList';
 import './styles.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
