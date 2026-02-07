@@ -6,7 +6,7 @@ A simple React application that allows users to create surveys, share them with 
 
 ![Poll App Screenshot](public/poll-app-screenshot.png)
 
-Or check out the live demo: [Live Demo](https://update-this-link)
+Or check out the live demo: [Live Demo](https://online-poll-web-production.up.railway.app/)
 
 ## Features
 
