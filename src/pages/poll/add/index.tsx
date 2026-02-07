@@ -161,6 +161,7 @@ const CreatePoll = () => {
             control={control}
             render={({ field }) => (
               <TextFieldWithCounter
+                required
                 maxLength={POLL_TITLE_MAX_LENGTH}
                 {...field}
                 error={!!errors.title}
@@ -173,6 +174,7 @@ const CreatePoll = () => {
           />
           <FormHelperText error>{errors.title?.message}</FormHelperText>
           <TextField
+            required
             {...register('description')}
             error={!!errors.description}
             className="w-full mt-4!"

@@ -123,6 +123,7 @@ const TableFooter = ({
         <td>
           <div className="poll-table-cell px-0 py-1">
             <TextFieldWithCounter
+              required
               maxLength={POLL_OPTION_MAX_LENGTH}
               disabled={disabled}
               {...register('name')}
