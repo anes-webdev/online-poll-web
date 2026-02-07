@@ -16,6 +16,7 @@ const DeleteModal = ({
   onConfirm,
   title,
   description,
+  confirmLoading,
 }: DeleteModalProps) => {
   return (
     <Dialog open={isOpen} onClose={onClose}>
@@ -45,6 +46,7 @@ const DeleteModal = ({
             No
           </Button>
           <Button
+            loading={confirmLoading}
             color="error"
             size="small"
             variant="contained"
