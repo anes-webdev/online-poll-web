@@ -6,7 +6,7 @@ import { getPolls } from '../polls/polls.api';
 export const useGetPoll = (pollSlug: string, enabled: boolean = true) => {
   return useQuery({
     enabled: enabled,
-    queryKey: ['poll'],
+    queryKey: ['poll', pollSlug],
     queryFn: async (): Promise<Poll> => await getPoll(pollSlug),
   });
 };
