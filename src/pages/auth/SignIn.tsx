@@ -89,7 +89,7 @@ const SignIn = () => {
           variant="contained"
           type="submit"
         >
-          Sing in
+          Sign in
         </Button>
       </form>
     </div>
