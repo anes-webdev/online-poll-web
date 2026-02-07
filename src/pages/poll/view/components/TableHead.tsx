@@ -1,7 +1,7 @@
 import Tooltip from '@mui/material/Tooltip';
-import type { Option } from '../../../../api/hooks/polls/polls.api';
 import { Typography } from '@mui/material';
 import '../styles.css';
+import type { Option } from '../../../../api/polls/polls.types';
 
 type CheckBoxProps = {
   option: Option;
