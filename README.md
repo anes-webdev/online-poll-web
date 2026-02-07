@@ -36,6 +36,9 @@ git clone https://github.com/anes-webdev/online-poll-web.git
 # Navigate into the project folder
 cd online-poll
 
+# # Add a .env file in the root folder (copy and edit .env.example as needed)
+# Example: cp .env.example .env
+
 # Install dependencies
 yarn
 
