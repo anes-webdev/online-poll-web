@@ -24,6 +24,4 @@ createRoot(document.getElementById('root')!).render(
 // Todo: Work on performance
 // Todo: update linked in link
 // Todo: Add tests
-// Todo: Add some tests
 // Todo: Use react query for post, put, delete methods
-// Todo: Add a dialog for poll details page in mobile view
