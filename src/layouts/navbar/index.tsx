@@ -2,7 +2,7 @@ import { useState, type Ref } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router';
-import Logo from '../../assets/logo.svg';
+import logo from '../../assets/logo.svg';
 import NavbarList from './components/NavbarList';
 import './styles.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -45,7 +45,7 @@ const Navbar = ({ ref }: NavbarProps) => {
     <>
       <nav ref={ref} className="navbar">
         <Link to="/">
-          <img className="logo" alt="Logo" src={Logo} />
+          <img className="logo" alt="Logo" src={logo} />
         </Link>
         {isDesktopView && (
           <div className="mr-4">
