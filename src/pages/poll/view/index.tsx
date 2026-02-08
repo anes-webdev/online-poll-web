@@ -31,6 +31,9 @@ import { useGetPoll } from '../../../api/polls/polls.hooks';
 import { RotateDialog } from './components/RotateDialog';
 import { Chart } from './components/Chart';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import { APP_BASE_URL } from '../../../constants/baseUrls';
+import { OutlinedIconButton } from './components/OutlinedIconButton';
+import ShareIcon from '@mui/icons-material/Share';
 
 const PollView = () => {
   const alert = useAlert();
@@ -100,6 +103,13 @@ const PollView = () => {
     }
   };
 
+  const copyPollLink = () => {
+    const pollViewRoute = APP_ROUTES.POLL_VIEW.build(poll?.link as string);
+    const pollLink = APP_BASE_URL + pollViewRoute;
+    navigator.clipboard.writeText(pollLink);
+    alert('Poll link copied', 'success');
+  };
+
   const navigateToPollList = () => {
     navigate(APP_ROUTES.POLLS);
   };
@@ -134,8 +144,8 @@ const PollView = () => {
 
   return (
     <div className="poll-view-container">
-      <div>
-        <div className={`flex ${actionButtonsLayout}`}>
+      <div className="flex">
+        <div className="flex-1">
           {isAuthenticated && (
             <Tooltip title="Back to poll list" placement="top">
               <Button
@@ -150,34 +160,32 @@ const PollView = () => {
               </Button>
             </Tooltip>
           )}
-          {isDesktopView && (
-            <Tooltip title="Show chart" placement="top">
-              <Button
-                onClick={openChartModal}
-                disableRipple
-                variant="outlined"
-                color="primary"
-                sx={{
-                  '& .MuiButton-startIcon': {
-                    margin: 0,
-                  },
-                }}
-                className="py-2! px-3! min-w-10!"
-                startIcon={<BarChartIcon color="inherit" />}
-              ></Button>
-            </Tooltip>
-          )}
+          <Typography
+            variant="h4"
+            className="font-thin! mt-4!"
+            color="textPrimary"
+          >
+            {poll.title}
+          </Typography>
+          <Typography className="poll-description" color="textPrimary">
+            {poll.description}
+          </Typography>
         </div>
-        <Typography
-          variant="h4"
-          className="font-thin! mt-4!"
-          color="textPrimary"
-        >
-          {poll.title}
-        </Typography>
-        <Typography className="poll-description" color="textPrimary">
-          {poll.description}
-        </Typography>
+        <div className="w-12">
+          {isDesktopView && (
+            <OutlinedIconButton
+              title="Show chart"
+              startIcon={<BarChartIcon color="inherit" />}
+              className="mb-3!"
+              onClick={openChartModal}
+            />
+          )}
+          <OutlinedIconButton
+            title="Copy poll link"
+            startIcon={<ShareIcon color="inherit" />}
+            onClick={copyPollLink}
+          />
+        </div>
       </div>
       <div className="vote-table-container">
         <FormProvider {...methods}>
