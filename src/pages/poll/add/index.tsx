@@ -88,6 +88,10 @@ const CreatePoll = () => {
       setOptionInputError('This option already added');
       isValid = false;
     }
+    if (watch('options').length >= 7) {
+      setOptionInputError('You’ve reached the maximum of 7 options.');
+      isValid = false;
+    }
     return isValid;
   };
 
