@@ -1,6 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowBack from '@mui/icons-material/ArrowBackIos';
-import { Button, Tooltip, Typography } from '@mui/material';
+import {
+  Button,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
@@ -23,9 +29,12 @@ import './styles.css';
 import { registerVote } from '../../../api/polls/polls.api';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
 import { RotateDialog } from './components/RotateDialog';
+import { Chart } from './components/Chart';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const PollView = () => {
   const alert = useAlert();
+  const theme = useTheme();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { showPollLink } = usePollLink();
@@ -35,6 +44,11 @@ const PollView = () => {
   const alreadyVoted = prevVotes.includes(pollSlug);
   const [submitLoading, setSubmitLoading] = useState(false);
   const { data: poll, isLoading, error } = useGetPoll(pollSlug);
+  const isDesktopView = useMediaQuery(theme.breakpoints.up(1024));
+
+  const [isChartModalOpen, setIsChartModalOpen] = useState(false);
+  const closeChartModal = () => setIsChartModalOpen(false);
+  const openChartModal = () => setIsChartModalOpen(true);
 
   const methods = useForm<RegisterVoteData>({
     resolver: zodResolver(registerVoteSchema),
@@ -94,6 +108,10 @@ const PollView = () => {
     navigate(APP_ROUTES.POLLS);
   };
 
+  const actionButtonsLayout = isAuthenticated
+    ? 'justify-between'
+    : 'justify-end';
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -117,20 +135,39 @@ const PollView = () => {
   return (
     <div className="poll-view-container">
       <div>
-        {isAuthenticated && (
-          <Tooltip title="Back to poll list" placement="top">
-            <Button
-              onClick={navigateToPolls}
-              disableRipple
-              className="px-0!"
-              variant="navbar"
-              color="neutral"
-              startIcon={<ArrowBack color="inherit" />}
-            >
-              Back
-            </Button>
-          </Tooltip>
-        )}
+        <div className={`flex ${actionButtonsLayout}`}>
+          {isAuthenticated && (
+            <Tooltip title="Back to poll list" placement="top">
+              <Button
+                onClick={navigateToPolls}
+                disableRipple
+                className="px-0!"
+                variant="navbar"
+                color="neutral"
+                startIcon={<ArrowBack color="inherit" />}
+              >
+                Back
+              </Button>
+            </Tooltip>
+          )}
+          {isDesktopView && (
+            <Tooltip title="Show chart" placement="top">
+              <Button
+                onClick={openChartModal}
+                disableRipple
+                variant="outlined"
+                color="primary"
+                sx={{
+                  '& .MuiButton-startIcon': {
+                    margin: 0,
+                  },
+                }}
+                className="py-2! px-3! min-w-10!"
+                startIcon={<BarChartIcon color="inherit" />}
+              ></Button>
+            </Tooltip>
+          )}
+        </div>
         <Typography
           variant="h4"
           className="font-thin! mt-4!"
@@ -157,6 +194,11 @@ const PollView = () => {
         </FormProvider>
       </div>
       <RotateDialog />
+      <Chart
+        isOpen={isChartModalOpen}
+        onClose={closeChartModal}
+        options={options}
+      />
     </div>
   );
 };
