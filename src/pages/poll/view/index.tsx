@@ -1,6 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowBack from '@mui/icons-material/ArrowBackIos';
-import { Button, Tooltip, Typography } from '@mui/material';
+import {
+  Button,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
@@ -23,9 +29,15 @@ import './styles.css';
 import { registerVote } from '../../../api/polls/polls.api';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
 import { RotateDialog } from './components/RotateDialog';
+import { Chart } from './components/Chart';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import { APP_BASE_URL } from '../../../constants/baseUrls';
+import { OutlinedIconButton } from './components/OutlinedIconButton';
+import ShareIcon from '@mui/icons-material/Share';
 
 const PollView = () => {
   const alert = useAlert();
+  const theme = useTheme();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { showPollLink } = usePollLink();
@@ -35,6 +47,11 @@ const PollView = () => {
   const alreadyVoted = prevVotes.includes(pollSlug);
   const [submitLoading, setSubmitLoading] = useState(false);
   const { data: poll, isLoading, error } = useGetPoll(pollSlug);
+  const isDesktopView = useMediaQuery(theme.breakpoints.up(1024));
+
+  const [isChartModalOpen, setIsChartModalOpen] = useState(false);
+  const closeChartModal = () => setIsChartModalOpen(false);
+  const openChartModal = () => setIsChartModalOpen(true);
 
   const methods = useForm<RegisterVoteData>({
     resolver: zodResolver(registerVoteSchema),
@@ -86,6 +103,13 @@ const PollView = () => {
     }
   };
 
+  const copyPollLink = () => {
+    const pollViewRoute = APP_ROUTES.POLL_VIEW.build(poll?.link as string);
+    const pollLink = APP_BASE_URL + pollViewRoute;
+    navigator.clipboard.writeText(pollLink);
+    alert('Poll link copied', 'success');
+  };
+
   const navigateToPollList = () => {
     navigate(APP_ROUTES.POLLS);
   };
@@ -93,6 +117,10 @@ const PollView = () => {
   const navigateToPolls = () => {
     navigate(APP_ROUTES.POLLS);
   };
+
+  const actionButtonsLayout = isAuthenticated
+    ? 'justify-between'
+    : 'justify-end';
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -116,31 +144,48 @@ const PollView = () => {
 
   return (
     <div className="poll-view-container">
-      <div>
-        {isAuthenticated && (
-          <Tooltip title="Back to poll list" placement="top">
-            <Button
-              onClick={navigateToPolls}
-              disableRipple
-              className="px-0!"
-              variant="navbar"
-              color="neutral"
-              startIcon={<ArrowBack color="inherit" />}
-            >
-              Back
-            </Button>
-          </Tooltip>
-        )}
-        <Typography
-          variant="h4"
-          className="font-thin! mt-4!"
-          color="textPrimary"
-        >
-          {poll.title}
-        </Typography>
-        <Typography className="poll-description" color="textPrimary">
-          {poll.description}
-        </Typography>
+      <div className="flex">
+        <div className="flex-1">
+          {isAuthenticated && (
+            <Tooltip title="Back to poll list" placement="top">
+              <Button
+                onClick={navigateToPolls}
+                disableRipple
+                className="px-0!"
+                variant="navbar"
+                color="neutral"
+                startIcon={<ArrowBack color="inherit" />}
+              >
+                Back
+              </Button>
+            </Tooltip>
+          )}
+          <Typography
+            variant="h4"
+            className="font-thin! mt-4!"
+            color="textPrimary"
+          >
+            {poll.title}
+          </Typography>
+          <Typography className="poll-description" color="textPrimary">
+            {poll.description}
+          </Typography>
+        </div>
+        <div className="w-12">
+          {isDesktopView && (
+            <OutlinedIconButton
+              title="Show chart"
+              startIcon={<BarChartIcon color="inherit" />}
+              className="mb-3!"
+              onClick={openChartModal}
+            />
+          )}
+          <OutlinedIconButton
+            title="Copy poll link"
+            startIcon={<ShareIcon color="inherit" />}
+            onClick={copyPollLink}
+          />
+        </div>
       </div>
       <div className="vote-table-container">
         <FormProvider {...methods}>
@@ -157,6 +202,11 @@ const PollView = () => {
         </FormProvider>
       </div>
       <RotateDialog />
+      <Chart
+        isOpen={isChartModalOpen}
+        onClose={closeChartModal}
+        options={options}
+      />
     </div>
   );
 };
