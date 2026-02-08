@@ -12,6 +12,7 @@ import { APP_ROUTES } from '../../../constants/routes';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { usePollLink } from '../../../hooks/usePollLink';
 import './styles.css';
+import { InfoMessage } from '../../../components/InfoMessage/InfoMessage';
 
 const PollLink = () => {
   const alert = useAlert();
@@ -74,6 +75,10 @@ const PollLink = () => {
           </button>
         </div>
       </div>
+      <InfoMessage
+        className="mt-1"
+        text="Share this link with others so they can vote in this poll."
+      />
       {isAuthenticated && (
         <div className="text-center mt-6">
           <Button
