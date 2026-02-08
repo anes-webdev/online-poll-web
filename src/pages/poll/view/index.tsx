@@ -118,10 +118,6 @@ const PollView = () => {
     navigate(APP_ROUTES.POLLS);
   };
 
-  const actionButtonsLayout = isAuthenticated
-    ? 'justify-between'
-    : 'justify-end';
-
   if (isLoading) {
     return <LoadingSpinner />;
   }
