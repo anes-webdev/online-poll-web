@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import InfoIcon from '@mui/icons-material/Info';
 import { FormHelperText, Tooltip, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -25,6 +24,7 @@ import { useGetPoll } from '../../../api/polls/polls.hooks';
 import { createPoll, editPoll } from '../../../api/polls/polls.api';
 import TextFieldWithCounter from '../../../components/TextFieldWithCounter/TextFieldWithCounter';
 import { POLL_TITLE_MAX_LENGTH } from '../../../constants/poll';
+import { InfoMessage } from '../../../components/InfoMessage/InfoMessage';
 
 const CreatePoll = () => {
   const alert = useAlert();
@@ -86,6 +86,10 @@ const CreatePoll = () => {
       )
     ) {
       setOptionInputError('This option already added');
+      isValid = false;
+    }
+    if (watch('options').length >= 7) {
+      setOptionInputError('You’ve reached the maximum of 7 options.');
       isValid = false;
     }
     return isValid;
@@ -186,17 +190,10 @@ const CreatePoll = () => {
           />
           <FormHelperText error>{errors.description?.message}</FormHelperText>
           {isEditPage && (
-            <div className="mt-3!">
-              <InfoIcon color="info" className="text-lg!" />
-              <Typography
-                component="span"
-                variant="caption"
-                color="textMuted"
-                className="ml-1!"
-              >
-                Updating options is not possible in edit mode
-              </Typography>
-            </div>
+            <InfoMessage
+              className="mt-3!"
+              text="Updating options is not possible in edit mode"
+            />
           )}
           <div className="flex justify-between items-center mt-4">
             <TextFieldWithCounter

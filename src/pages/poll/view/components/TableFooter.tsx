@@ -1,12 +1,12 @@
 import Checkbox from '@mui/material/Checkbox';
 import type { ChangeEvent } from 'react';
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import type { RegisterVoteData } from '../../../../schemas/pollSchema';
-import InfoIcon from '@mui/icons-material/Info';
 import TextFieldWithCounter from '../../../../components/TextFieldWithCounter/TextFieldWithCounter';
 import type { Option, Poll } from '../../../../api/polls/polls.types';
 import { POLL_OPTION_MAX_LENGTH } from '../../../../constants/poll';
+import { InfoMessage } from '../../../../components/InfoMessage/InfoMessage';
 
 type CheckBoxClickHandler = (isChecked: boolean, optionId: number) => void;
 
@@ -111,12 +111,7 @@ const TableFooter = ({
     <tfoot>
       <tr>
         {disabled && (
-          <div className="my-1">
-            <InfoIcon color="info" className="text-lg! mr-1" />
-            <Typography color="textMuted" variant="caption">
-              You've already voted
-            </Typography>
-          </div>
+          <InfoMessage className="my-1" text="You've already voted" />
         )}
       </tr>
       <tr>

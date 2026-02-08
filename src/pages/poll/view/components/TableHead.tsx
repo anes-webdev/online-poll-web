@@ -2,6 +2,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { Typography } from '@mui/material';
 import '../styles.css';
 import type { Option } from '../../../../api/polls/polls.types';
+import { truncateText } from '../../../../utils/TruncateText';
 
 type CheckBoxProps = {
   option: Option;
@@ -9,16 +10,12 @@ type CheckBoxProps = {
 
 const OptionCell = ({ option }: CheckBoxProps) => {
   const { optionName } = option;
-  let truncated = optionName;
-  if (optionName.trim().length > 12) {
-    truncated = optionName.trim().substring(0, 12) + '...';
-  }
   return (
     <Tooltip placement="top" title={optionName}>
       <th className="text-center">
-        <div className="poll-table-cell py-2.5 bg-gray-200">
+        <div className="poll-table-cell px-2.5 py-2.5 bg-gray-200">
           <Typography color="textPrimary" noWrap>
-            {truncated}
+            {truncateText(optionName, 14)}
           </Typography>
         </div>
       </th>
