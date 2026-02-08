@@ -2,7 +2,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { Typography } from '@mui/material';
 import '../styles.css';
 import type { Option } from '../../../../api/polls/polls.types';
-import { truncateText } from '../../../../utils/TruncateText';
+import { truncateText } from '../../../../utils/truncateText';
 
 type CheckBoxProps = {
   option: Option;
