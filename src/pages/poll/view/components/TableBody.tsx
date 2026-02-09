@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import '../styles.css';
 import type { Option, Participant } from '../../../../api/polls/polls.types';
 import { TapTooltip } from '../../../../components/TapTooltip/TapTooltip';
+import { truncateText } from '../../../../utils/truncateText';
 
 type ChoiceCellProps = {
   isSelected: boolean;
@@ -37,9 +38,8 @@ const NameCell = ({ name }: NameCellProps) => {
     <td>
       <TapTooltip placement="top-start" title={name}>
         <div className="poll-table-cell bg-blue-100">
-          {/* Handle this by truncated text */}
-          <Typography color="textPrimary" className="participant-name">
-            {name}
+          <Typography color="textPrimary" noWrap>
+            {truncateText(name, 14)}
           </Typography>
         </div>
       </TapTooltip>
