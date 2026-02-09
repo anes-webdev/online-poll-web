@@ -34,7 +34,7 @@ export const FilterSection = (props: FilterSectionProps) => {
   }, [onSearch, searchInput]);
 
   return (
-    <div className="flex justify-between flex-wrap-reverse gap-4 mt-6">
+    <div className="flex justify-between gap-4 mt-6">
       <TextField
         error={false}
         className="w-70!"
@@ -45,17 +45,21 @@ export const FilterSection = (props: FilterSectionProps) => {
         onChange={onSearchChange}
         value={searchInput}
       />
-      <div className="w-50!">
+      <div>
         <Select
           size="small"
+          className="pr-0!"
           value={sortInput}
+          renderValue={() => ''}
           onChange={onSortChange}
-          className="w-full!"
           IconComponent={SortIcon}
           sx={{
             '& .MuiSelect-icon': {
               transform: 'none !important',
               transition: 'none !important',
+            },
+            '& .MuiSelect-select': {
+              paddingRight: '26px !important',
             },
           }}
         >

@@ -1,7 +1,7 @@
 import Checkbox from '@mui/material/Checkbox';
 import type { ChangeEvent } from 'react';
 import { Button, Tooltip } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import type { RegisterVoteData } from '../../../../schemas/pollSchema';
 import TextFieldWithCounter from '../../../../components/TextFieldWithCounter/TextFieldWithCounter';
 import type { Option, Poll } from '../../../../api/polls/polls.types';
@@ -95,7 +95,7 @@ const TableFooter = ({
   onSubmit,
   disabled,
 }: TableFooterProps) => {
-  const { register, formState, setValue, watch } =
+  const { formState, setValue, watch, control } =
     useFormContext<RegisterVoteData>();
   const { errors } = formState;
 
@@ -117,16 +117,22 @@ const TableFooter = ({
       <tr>
         <td>
           <div className="poll-table-cell px-0 py-1">
-            <TextFieldWithCounter
-              required
-              maxLength={POLL_OPTION_MAX_LENGTH}
-              disabled={disabled}
-              {...register('name')}
-              error={!!errors.name}
-              className="w-full"
-              label="Name"
-              variant="outlined"
-              size="small"
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <TextFieldWithCounter
+                  {...field}
+                  required
+                  maxLength={POLL_OPTION_MAX_LENGTH}
+                  disabled={disabled}
+                  error={!!errors.name}
+                  className="w-full"
+                  label="Name"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
             />
           </div>
         </td>

@@ -20,8 +20,3 @@ createRoot(document.getElementById('root')!).render(
     </QueryClientProvider>
   </Provider>,
 );
-
-// Todo: Work on performance
-// Todo: update linked in link
-// Todo: Add tests
-// Todo: Use react query for post, put, delete methods
