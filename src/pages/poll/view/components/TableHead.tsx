@@ -1,8 +1,8 @@
-import Tooltip from '@mui/material/Tooltip';
 import { Typography } from '@mui/material';
 import '../styles.css';
 import type { Option } from '../../../../api/polls/polls.types';
 import { truncateText } from '../../../../utils/truncateText';
+import { TapTooltip } from '../../../../components/TapTooltip/TapTooltip';
 
 type CheckBoxProps = {
   option: Option;
@@ -11,15 +11,15 @@ type CheckBoxProps = {
 const OptionCell = ({ option }: CheckBoxProps) => {
   const { optionName } = option;
   return (
-    <Tooltip placement="top" title={optionName}>
+    <TapTooltip placement="top" title={optionName}>
       <th className="text-center">
         <div className="poll-table-cell px-2.5 py-2.5 bg-gray-200">
-          <Typography color="textPrimary" noWrap>
+          <Typography color="textPrimary" className="text-sm!" noWrap>
             {truncateText(optionName, 14)}
           </Typography>
         </div>
       </th>
-    </Tooltip>
+    </TapTooltip>
   );
 };
 export default OptionCell;
