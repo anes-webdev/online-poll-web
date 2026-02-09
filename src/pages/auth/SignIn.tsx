@@ -1,5 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, FormHelperText, Typography } from '@mui/material';
+import {
+  Button,
+  FormHelperText,
+  IconButton,
+  InputAdornment,
+  Typography,
+} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -12,6 +18,8 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import '../../styles/global.css';
 import { signIn } from '../../api/auth/auth.api';
 import { authAction } from '../../store/slices/auth';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -19,6 +27,8 @@ const SignIn = () => {
   const alert = useAlert();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => setShowPassword((prev) => !prev);
 
   const loginSchema = z.object({
     username: z.string().nonempty('Can not be empty'),
@@ -80,7 +90,22 @@ const SignIn = () => {
           className="w-full mt-4!"
           label="Password"
           variant="outlined"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={togglePassword}>
+                    {showPassword ? (
+                      <VisibilityOff color="action" />
+                    ) : (
+                      <Visibility color="action" />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
         />
         <FormHelperText error>{errors.password?.message}</FormHelperText>
         <Button
