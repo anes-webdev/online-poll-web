@@ -1,4 +1,4 @@
-# Simple Poll
+# Online Poll
 
 A simple React application that allows users to create surveys, share them with others via a link, and collect votes in real-time. Perfect for gathering quick opinions or feedback.
 

@@ -8,7 +8,10 @@
     height: calc(100vh - 57px);
     @apply w-full sticky z-20 top-14 bg-white pt-16 flex flex-col items-center;
   }
+  .logo-container {
+    @apply flex items-center hover:opacity-75 transition-opacity
+  }
   .logo {
-    @apply hover:opacity-75 transition-opacity h-8;
+    @apply h-9.5 mr-4;
   }
 }
