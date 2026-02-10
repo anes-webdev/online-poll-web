@@ -2,12 +2,12 @@ import { useState, type Ref } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router';
-import logo from '../../assets/main-logo.svg';
+import logo from '../../assets/main-logo.jpg';
 import NavbarList from './components/NavbarList';
 import './styles.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { Button, IconButton } from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 import { APP_ROUTES } from '../../constants/routes';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { authAction } from '../../store/slices/auth';
@@ -45,8 +45,18 @@ const Navbar = ({ ref }: NavbarProps) => {
     <>
       <nav ref={ref} className="navbar">
         <Link to="/">
-          <img className="logo" alt="Logo" src={logo} />
+          <div className="logo-container">
+            <img className="logo" alt="Logo" src={logo} />
+            <Typography
+              color="textPrimary"
+              component="span"
+              className="text-2xl! font-extrabold!"
+            >
+              Online Poll
+            </Typography>
+          </div>
         </Link>
+
         {isDesktopView && (
           <div className="mr-4">
             {isAuthenticated && <NavbarList isMobileView={false} />}
