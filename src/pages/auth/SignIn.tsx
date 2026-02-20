@@ -27,6 +27,9 @@ const SignIn = () => {
   const alert = useAlert();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isDemoLogin, setIsDemoLogin] = useState(false);
+  const isDemoLoading = isLoading && isDemoLogin;
+  const isSignInLoading = isLoading && !isDemoLogin;
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
 
@@ -50,29 +53,45 @@ const SignIn = () => {
     },
   });
 
-  const onFormSubmit = async (data: LoginFormData) => {
+  const onFormSubmit = async (data: LoginFormData, isDemoLogin?: boolean) => {
     const { username, password } = data;
     setIsLoading(true);
+    setIsDemoLogin(!!isDemoLogin);
     try {
       const token = await signIn(username, password);
       dispatch(authAction.login(token));
       navigate(APP_ROUTES.POLLS);
     } catch (error: any) {
       if (error.status === 401) {
-        setError('username', { message: 'Incorrect username' });
-        setError('password', { message: 'Incorrect password' });
+        if (!isDemoLogin) {
+          setError('username', { message: 'Incorrect username' });
+          setError('password', { message: 'Incorrect password' });
+        }
         alert('Username or password is incorrect', 'error');
       } else {
         alert(DEFAULT_ERROR, 'error');
       }
     } finally {
       setIsLoading(false);
+      setIsDemoLogin(false);
     }
   };
 
+  const onTryDemoClick = () => {
+    onFormSubmit(
+      {
+        username: 'admin',
+        password: 'demo123',
+      },
+      true,
+    );
+  };
+
+  const onSignInClick = (data: LoginFormData) => onFormSubmit(data);
+
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit(onFormSubmit)}>
+      <form onSubmit={handleSubmit(onSignInClick)}>
         <Typography className="text-center" variant="h5" color="textSecondary">
           Sign in
         </Typography>
@@ -109,13 +128,30 @@ const SignIn = () => {
         />
         <FormHelperText error>{errors.password?.message}</FormHelperText>
         <Button
-          loading={isLoading}
+          disabled={isDemoLoading}
+          loading={isSignInLoading}
           className="w-full h-11 mt-5!"
           variant="contained"
           type="submit"
         >
           Sign in
         </Button>
+        <div className="mt-4! flex items-center">
+          <Typography className="mr-1!" variant="body2" component="span">
+            Just exploring?
+          </Typography>
+          <Button
+            disabled={isSignInLoading}
+            loading={isDemoLoading}
+            color="secondary"
+            size="small"
+            variant="text"
+            className="text-sm!"
+            onClick={onTryDemoClick}
+          >
+            Try Demo
+          </Button>
+        </div>
       </form>
     </div>
   );
