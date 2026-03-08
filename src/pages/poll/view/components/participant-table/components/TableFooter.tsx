@@ -2,7 +2,7 @@ import Checkbox from '@mui/material/Checkbox';
 import type { ChangeEvent } from 'react';
 import { Button, Tooltip } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
-import type { RegisterVoteData } from '../../../../../../schemas/pollSchema';
+import { type RegisterVoteData } from '../../../../../../schemas/pollSchema';
 import TextFieldWithCounter from '../../../../../../components/TextFieldWithCounter/TextFieldWithCounter';
 import type { Option, Poll } from '../../../../../../api/polls/polls.types';
 import { POLL_OPTION_MAX_LENGTH } from '../../../../../../constants/poll';
