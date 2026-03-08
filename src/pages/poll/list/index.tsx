@@ -20,6 +20,8 @@ import { useGetPolls } from '../../../api/polls/polls.hooks';
 import { deletePoll } from '../../../api/polls/polls.api';
 import type { Poll } from '../../../api/polls/polls.types';
 
+const MemoizedPollItem = memo(PollItem);
+
 type PollsListContainerProps = {
   polls: Poll[];
   deletePoll: (pollSlug: string) => void;
@@ -32,7 +34,7 @@ const PollsListContainer = (props: PollsListContainerProps) => {
     <div className="mt-3">
       {polls.map((poll) => {
         return (
-          <PollItem
+          <MemoizedPollItem
             deletePoll={deletePoll}
             editPoll={editPoll}
             key={poll.id}
@@ -125,17 +127,6 @@ const PollList = () => {
     return applySearchAndSort(polls);
   }, [applySearchAndSort, polls]);
 
-  const pollsList = filteredPolls?.map((poll, index) => {
-    return (
-      <PollItem
-        deletePoll={onDeletePollIconClick}
-        editPoll={onEditPollIconClick}
-        key={index}
-        poll={poll}
-      />
-    );
-  });
-
   if (isLoading) {
     return (
       <div className="max-w-3xl mx-auto flex flex-col gap-3">
@@ -168,7 +159,7 @@ const PollList = () => {
           sortInput={sortInput}
           onSort={onSort}
         />
-        {pollsList?.length === 0 && <SearchNoResults />}
+        {filteredPolls?.length === 0 && <SearchNoResults />}
         <MemoizedPollsListContainer
           polls={filteredPolls as Poll[]}
           deletePoll={onDeletePollIconClick}
