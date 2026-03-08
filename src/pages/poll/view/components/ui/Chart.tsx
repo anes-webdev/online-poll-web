@@ -1,9 +1,9 @@
 import { Dialog, IconButton } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import CloseIcon from '@mui/icons-material/Close';
-import { palette } from '../../../../styles/palette';
-import type { Option } from '../../../../api/polls/polls.types';
-import { truncateText } from '../../../../utils/truncateText';
+import { palette } from '../../../../../styles/palette';
+import type { Option } from '../../../../../api/polls/polls.types';
+import { truncateText } from '../../../../../utils/truncateText';
 
 const COLORS = [
   '#C8E6C9',

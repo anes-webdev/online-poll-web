@@ -1,10 +1,13 @@
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import { Typography } from '@mui/material';
-import '../styles.css';
-import type { Option, Participant } from '../../../../api/polls/polls.types';
-import { TapTooltip } from '../../../../components/TapTooltip/TapTooltip';
-import { truncateText } from '../../../../utils/truncateText';
+import '../../../styles.css';
+import type {
+  Option,
+  Participant,
+} from '../../../../../../api/polls/polls.types';
+import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
+import { truncateText } from '../../../../../../utils/truncateText';
 
 type ChoiceCellProps = {
   isSelected: boolean;

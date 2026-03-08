@@ -22,18 +22,16 @@ import {
   registerVoteSchema,
   type RegisterVoteData,
 } from '../../../schemas/pollSchema';
-import { TableBody } from './components/TableBody';
-import TableFooter from './components/TableFooter';
-import { TableHead } from './components/TableHead';
 import './styles.css';
 import { registerVote } from '../../../api/polls/polls.api';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
-import { RotateDialog } from './components/RotateDialog';
-import { Chart } from './components/Chart';
+import { RotateDialog } from './components/ui/RotateDialog';
+import { Chart } from './components/ui/Chart';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
-import { OutlinedIconButton } from './components/OutlinedIconButton';
+import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
+import { ParticipantTable } from './components/participant-table';
 
 const PollView = () => {
   const alert = useAlert();
@@ -185,16 +183,12 @@ const PollView = () => {
       </div>
       <div className="vote-table-container">
         <FormProvider {...methods}>
-          <table className="mx-auto">
-            <TableHead options={options} />
-            <TableBody options={options} participants={participants} />
-            <TableFooter
-              disabled={alreadyVoted}
-              poll={poll}
-              submitLoading={submitLoading}
-              onSubmit={handleSubmit(onSaveButtonClick, onSubmitError)}
-            />
-          </table>
+          <ParticipantTable
+            poll={poll}
+            alreadyVoted={alreadyVoted}
+            submitLoading={submitLoading}
+            onSubmit={handleSubmit(onSaveButtonClick, onSubmitError)}
+          />
         </FormProvider>
       </div>
       <RotateDialog />
