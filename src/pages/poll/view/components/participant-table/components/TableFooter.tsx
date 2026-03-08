@@ -110,9 +110,11 @@ const TableFooter = ({
   return (
     <tfoot>
       <tr>
-        {disabled && (
-          <InfoMessage className="my-1" text="You've already voted" />
-        )}
+        <td>
+          {disabled && (
+            <InfoMessage className="my-1" text="You've already voted" />
+          )}
+        </td>
       </tr>
       <tr>
         <td>
@@ -142,7 +144,6 @@ const TableFooter = ({
           onCheckBoxClick={onCheckBoxClick}
         />
       </tr>
-
       <tr>
         <td>
           <form onSubmit={onSubmit}>
