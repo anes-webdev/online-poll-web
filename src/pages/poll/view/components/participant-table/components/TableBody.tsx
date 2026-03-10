@@ -8,6 +8,7 @@ import type {
 } from '../../../../../../api/polls/polls.types';
 import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
 import { truncateText } from '../../../../../../utils/truncateText';
+import { memo } from 'react';
 
 type ChoiceCellProps = {
   isSelected: boolean;
@@ -87,3 +88,5 @@ export const TableBody = ({ participants, options }: TableBodyProps) => {
     </tbody>
   );
 };
+
+export const MemoizedTableBody = memo(TableBody);

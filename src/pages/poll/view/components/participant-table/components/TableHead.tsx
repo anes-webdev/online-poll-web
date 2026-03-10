@@ -3,6 +3,7 @@ import '../../../styles.css';
 import type { Option } from '../../../../../../api/polls/polls.types';
 import { truncateText } from '../../../../../../utils/truncateText';
 import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
+import { memo } from 'react';
 
 type CheckBoxProps = {
   option: Option;
@@ -40,3 +41,5 @@ export const TableHead = ({ options }: TableHeadProps) => {
     </thead>
   );
 };
+
+export const MemoizedTableHead = memo(TableHead);

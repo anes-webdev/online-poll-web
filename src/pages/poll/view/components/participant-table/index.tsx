@@ -1,8 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import type { Poll } from '../../../../../api/polls/polls.types';
-import { TableBody } from './components/TableBody';
 import TableFooter from './components/TableFooter';
-import { TableHead } from './components/TableHead';
 import {
   registerVoteSchema,
   type RegisterVoteData,
@@ -15,9 +13,8 @@ import { usePollLink } from '../../../../../hooks/usePollLink';
 import { useStoreVotes } from '../../../../../hooks/useStoreVotes';
 import { useParams } from 'react-router';
 import { DEFAULT_ERROR } from '../../../../../constants/errorMessages';
-
-const MemoizedTableHead = memo(TableHead);
-const MemoizedTableBody = memo(TableBody);
+import { MemoizedTableHead } from './components/TableHead';
+import { MemoizedTableBody } from './components/TableBody';
 
 type ParticipantTableProps = {
   poll: Poll;

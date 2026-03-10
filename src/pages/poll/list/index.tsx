@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import PollItem from './components/PollItem';
+import { MemoizedPollItem } from './components/PollItem';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
 import { Skeleton } from '@mui/material';
@@ -19,8 +19,6 @@ import { SearchNoResults } from './components/SearchNoResults';
 import { useGetPolls } from '../../../api/polls/polls.hooks';
 import { deletePoll } from '../../../api/polls/polls.api';
 import type { Poll } from '../../../api/polls/polls.types';
-
-const MemoizedPollItem = memo(PollItem);
 
 type PollsListContainerProps = {
   polls: Poll[];
