@@ -131,13 +131,6 @@ const PollView = () => {
           {isListView ? 'Table View' : 'List View'}
         </Button>
       </div>
-      {/* <div className="participants-container">
-        {isListView ? (
-          <ParticipantList poll={poll} />
-        ) : (
-          <ParticipantTable poll={poll} />
-        )}
-      </div> */}
       <Participants poll={poll} isListView={isListView} />
       <RotateDialog />
       <Chart
