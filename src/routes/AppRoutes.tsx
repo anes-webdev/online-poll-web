@@ -8,6 +8,7 @@ import CreatePoll from '../pages/poll/add';
 import PollLink from '../pages/poll/link/PollLink';
 import PollsList from '../pages/poll/list';
 import PollView from '../pages/poll/view';
+import { TestComponent } from '../pages/test/TestComponent';
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
       <Route path={APP_ROUTES.LANDING} element={<Landing />} />
       <Route path={APP_ROUTES.POLL_LINK.PATH} element={<PollLink />} />
       <Route path={APP_ROUTES.POLL_VIEW.PATH} element={<PollView />} />
+      <Route path={'test'} element={<TestComponent />} />
       <Route element={<ProtectedRoute />}>
         <Route path={APP_ROUTES.POLLS} element={<PollsList />} />
         <Route path={APP_ROUTES.ADD_POLL} element={<CreatePoll />} />

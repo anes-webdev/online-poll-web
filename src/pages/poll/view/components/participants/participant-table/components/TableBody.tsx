@@ -7,7 +7,7 @@ import type {
 import { TapTooltip } from '../../../../../../../components/TapTooltip/TapTooltip';
 import { truncateText } from '../../../../../../../utils/truncateText';
 import { memo } from 'react';
-import { ChoiceStatusIcon } from '../../common/ChoiceStatusIcon';
+import { ChoiceStatusIcon } from '../../common/components/ChoiceStatusIcon';
 
 type ChoiceCellProps = {
   isSelected: boolean;

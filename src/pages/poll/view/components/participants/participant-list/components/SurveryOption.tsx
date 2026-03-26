@@ -1,22 +1,25 @@
 import { Checkbox, Typography } from '@mui/material';
 import '../styles.css';
-import { ChoiceStatus } from './ChoiceStatus';
+import { OptionStatus } from './OptionStatus';
 import type {
   Option,
   Participant,
 } from '../../../../../../../api/polls/polls.types';
+import { useSelectOption } from '../../common/hooks/useSelectOption';
 
 type SurveyOptionProps = {
   option: Option;
   allParticipants: Participant[];
+  disabled: boolean;
 };
 // Todo: Refactor component:
 // Todo: Move this component to another folder:
 export const SurveyOption = ({
   option,
   allParticipants,
+  disabled,
 }: SurveyOptionProps) => {
-  // Todo: Use a better name:
+  const onSelectOption = useSelectOption();
 
   const selectedParticipantsName = option.participants?.map(
     (item) => item.name,
@@ -33,18 +36,22 @@ export const SurveyOption = ({
       <div className="survey-option-container">
         <Typography>{option.optionName}</Typography>
         <div className="flex flex-col sm:flex-row gap-2">
-          <ChoiceStatus
+          <OptionStatus
             isSelected={true}
             participants={selectedParticipantsName as string[]}
           />
-          <ChoiceStatus
+          <OptionStatus
             isSelected={false}
             participants={notSelectedParticipantsName}
           />
         </div>
       </div>
       <div className="checkbox-container">
-        <Checkbox value={option.id} disabled={false} />
+        <Checkbox
+          value={option.id}
+          disabled={disabled}
+          onChange={onSelectOption}
+        />
       </div>
     </li>
   );

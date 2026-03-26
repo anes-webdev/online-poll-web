@@ -1,9 +1,9 @@
 import '../styles.css';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
-import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
+import { TapTooltip } from '../../../../../../../components/TapTooltip/TapTooltip';
+import { ChoiceStatusIcon } from '../../common/components/ChoiceStatusIcon';
 import { useMemo } from 'react';
-import { groupArray } from '../../../../../../utils/groupArray';
-import { ChoiceStatusIcon } from '../../participants/common/ChoiceStatusIcon';
+import { groupArray } from '../../../../../../../utils/groupArray';
 
 const TOOLTIP_PLACEMENT = {
   mobile: {
@@ -22,15 +22,15 @@ const findTooltipLocation = (isMobile: boolean, isSelected: boolean) => {
   ];
 };
 
-export type ChoiceStatusProps = {
+export type OptionStatusProps = {
   isSelected: boolean;
   participants: string[];
 };
 
-export const ChoiceStatus = ({
+export const OptionStatus = ({
   isSelected,
   participants,
-}: ChoiceStatusProps) => {
+}: OptionStatusProps) => {
   const theme = useTheme();
   const showTooltip = participants.length > 0;
   const bgClass = isSelected ? 'bg-green-200' : 'bg-red-200';

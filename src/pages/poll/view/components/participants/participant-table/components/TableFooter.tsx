@@ -1,36 +1,25 @@
 import Checkbox from '@mui/material/Checkbox';
-import type { ChangeEvent } from 'react';
 import { Button, Tooltip } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
-import { type RegisterVoteData } from '../../../../../../../schemas/pollSchema';
 import type { Option, Poll } from '../../../../../../../api/polls/polls.types';
 import { InfoMessage } from '../../../../../../../components/InfoMessage/InfoMessage';
-import { NameTextField } from '../../common/NameTextField';
+import { NameTextField } from '../../common/components/NameTextField';
 import '../styles.css';
-
-type CheckBoxClickHandler = (isChecked: boolean, optionId: number) => void;
+import { useSelectOption } from '../../common/hooks/useSelectOption';
+import { ALREADY_VOTED_MESSAGE } from '../../common/constants/infoMessages';
 
 type CheckBoxProps = {
-  onCheckBoxClick: CheckBoxClickHandler;
   option: Option;
   disabled: boolean;
 };
 
-const CheckBoxCell = ({ onCheckBoxClick, option, disabled }: CheckBoxProps) => {
-  const onCheckBoxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = event.target;
-    onCheckBoxClick(checked, +value);
-  };
+const CheckBoxCell = ({ option, disabled }: CheckBoxProps) => {
+  const onSelectOption = useSelectOption();
   const { id, optionName } = option;
   return (
     <td className="text-center">
       <div className="poll-table-cell py-0 px-0 bg-gray-100">
         <Tooltip title={optionName} placement="top">
-          <Checkbox
-            onChange={onCheckBoxChange}
-            value={id}
-            disabled={disabled}
-          />
+          <Checkbox onChange={onSelectOption} value={id} disabled={disabled} />
         </Tooltip>
       </div>
     </td>
@@ -57,25 +46,15 @@ const VoteNumbersRow = ({ options }: VoteNumbersRowProps) => {
 
 type SelectionRowProps = {
   options: Option[];
-  onCheckBoxClick: CheckBoxClickHandler;
   disabled: boolean;
 };
 
-const SelectionRow = ({
-  options,
-  onCheckBoxClick,
-  disabled,
-}: SelectionRowProps) => {
+const SelectionRow = ({ options, disabled }: SelectionRowProps) => {
   return (
     <>
       {options.map((option) => {
         return (
-          <CheckBoxCell
-            key={option.id}
-            option={option}
-            disabled={disabled}
-            onCheckBoxClick={onCheckBoxClick}
-          />
+          <CheckBoxCell key={option.id} option={option} disabled={disabled} />
         );
       })}
     </>
@@ -95,36 +74,22 @@ const TableFooter = ({
   onSubmit,
   disabled,
 }: TableFooterProps) => {
-  const { setValue, watch } = useFormContext<RegisterVoteData>();
-
-  const onCheckBoxClick = (isChecked: boolean, optionId: number) => {
-    const choices = [...watch('choices')];
-    const updatedChoices = isChecked
-      ? [...choices, optionId]
-      : choices.filter((choiceId) => choiceId !== optionId);
-    setValue('choices', updatedChoices);
-  };
-
   return (
     <tfoot>
       <tr>
         <td>
           {disabled && (
-            <InfoMessage className="my-1" text="You've already voted" />
+            <InfoMessage className="my-1" text={ALREADY_VOTED_MESSAGE} />
           )}
         </td>
       </tr>
       <tr>
         <td>
           <div className="poll-table-cell px-0 py-1">
-            <NameTextField className="w-full" disabled />
+            <NameTextField className="w-full" disabled={disabled} />
           </div>
         </td>
-        <SelectionRow
-          disabled={disabled}
-          options={poll.options}
-          onCheckBoxClick={onCheckBoxClick}
-        />
+        <SelectionRow disabled={disabled} options={poll.options} />
       </tr>
       <tr>
         <td>

@@ -1,7 +1,7 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import TextFieldWithCounter from '../../../../../../components/TextFieldWithCounter/TextFieldWithCounter';
-import { POLL_OPTION_MAX_LENGTH } from '../../../../../../constants/poll';
-import type { RegisterVoteData } from '../../../../../../schemas/pollSchema';
+import TextFieldWithCounter from '../../../../../../../components/TextFieldWithCounter/TextFieldWithCounter';
+import { POLL_OPTION_MAX_LENGTH } from '../../../../../../../constants/poll';
+import type { RegisterVoteData } from '../../../../../../../schemas/pollSchema';
 
 type NameTextFieldProps = {
   disabled: boolean;

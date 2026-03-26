@@ -22,9 +22,8 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
-import { ParticipantTable } from './components/participants/participant-table';
-import { ParticipantList } from './components/participants/participant-list';
 import Visibility from '@mui/icons-material/Visibility';
+import { Participants } from './components/participants';
 
 const PollView = () => {
   const alert = useAlert();
@@ -132,13 +131,14 @@ const PollView = () => {
           {isListView ? 'Table View' : 'List View'}
         </Button>
       </div>
-      <div className="participants-container">
+      {/* <div className="participants-container">
         {isListView ? (
           <ParticipantList poll={poll} />
         ) : (
           <ParticipantTable poll={poll} />
         )}
-      </div>
+      </div> */}
+      <Participants poll={poll} isListView={isListView} />
       <RotateDialog />
       <Chart
         isOpen={isChartModalOpen}
