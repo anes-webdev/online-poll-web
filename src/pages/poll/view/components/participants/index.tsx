@@ -72,7 +72,7 @@ export const Participants = (props: ParticipantsProps) => {
     onSubmit: onSaveButtonClick,
     onSubmitError: onSubmitError,
   };
-
+  // Todo: Handle functions and props in global state like context:
   return (
     <div className="participants-container">
       {isListView ? (
