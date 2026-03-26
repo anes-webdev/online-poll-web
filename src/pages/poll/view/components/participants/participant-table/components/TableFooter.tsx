@@ -6,6 +6,7 @@ import { type RegisterVoteData } from '../../../../../../../schemas/pollSchema';
 import type { Option, Poll } from '../../../../../../../api/polls/polls.types';
 import { InfoMessage } from '../../../../../../../components/InfoMessage/InfoMessage';
 import { NameTextField } from '../../common/NameTextField';
+import '../styles.css';
 
 type CheckBoxClickHandler = (isChecked: boolean, optionId: number) => void;
 
@@ -94,9 +95,7 @@ const TableFooter = ({
   onSubmit,
   disabled,
 }: TableFooterProps) => {
-  const { formState, setValue, watch, control } =
-    useFormContext<RegisterVoteData>();
-  const { errors } = formState;
+  const { setValue, watch } = useFormContext<RegisterVoteData>();
 
   const onCheckBoxClick = (isChecked: boolean, optionId: number) => {
     const choices = [...watch('choices')];

@@ -132,7 +132,7 @@ const PollView = () => {
           {isListView ? 'Table View' : 'List View'}
         </Button>
       </div>
-      <div className="vote-table-container">
+      <div className="participants-container">
         {isListView ? (
           <ParticipantList poll={poll} />
         ) : (

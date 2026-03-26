@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import '../../../../styles.css';
+import '../styles.css';
 import type {
   Option,
   Participant,
