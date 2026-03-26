@@ -22,7 +22,6 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
-import Visibility from '@mui/icons-material/Visibility';
 import { Participants } from './components/participants';
 
 const PollView = () => {
@@ -38,9 +37,6 @@ const PollView = () => {
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
   const closeChartModal = () => setIsChartModalOpen(false);
   const openChartModal = () => setIsChartModalOpen(true);
-
-  const [isListView, setIsListView] = useState(true);
-  const toggleParticipantsView = () => setIsListView((prev) => !prev);
 
   const copyPollLink = () => {
     const pollViewRoute = APP_ROUTES.POLL_VIEW.build(poll?.link as string);
@@ -122,16 +118,7 @@ const PollView = () => {
           />
         </div>
       </div>
-      <div className="flex justify-end mt-6">
-        <Button
-          size="small"
-          onClick={toggleParticipantsView}
-          endIcon={<Visibility color="inherit" />}
-        >
-          {isListView ? 'Table View' : 'List View'}
-        </Button>
-      </div>
-      <Participants poll={poll} isListView={isListView} />
+      <Participants poll={poll} />
       <RotateDialog />
       <Chart
         isOpen={isChartModalOpen}

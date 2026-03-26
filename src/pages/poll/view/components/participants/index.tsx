@@ -10,11 +10,13 @@ import { useParams } from 'react-router';
 import { useStoreVotes } from '../../../../../hooks/useStoreVotes';
 import { DEFAULT_ERROR } from '../../../../../constants/errorMessages';
 import { useAlert } from '../../../../../hooks/useAlert';
+import Visibility from '@mui/icons-material/Visibility';
+import { Button } from '@mui/material';
 
-type ParticipantsProps = { isListView: boolean; poll: Poll };
+type ParticipantsProps = { poll: Poll };
 
 export const Participants = (props: ParticipantsProps) => {
-  const { isListView, poll } = props;
+  const { poll } = props;
 
   const alert = useAlert();
   const { showPollLink } = usePollLink();
@@ -22,7 +24,9 @@ export const Participants = (props: ParticipantsProps) => {
   const pollSlug = params.pollSlug as string;
   const { prevVotes, addVote } = useStoreVotes();
   const alreadyVoted = prevVotes.includes(pollSlug);
-
+  // Handle default view in mobile device here:
+  const [isListView, setIsListView] = useState(true);
+  const toggleParticipantsView = () => setIsListView((prev) => !prev);
   const [submitLoading, setSubmitLoading] = useState(false);
 
   const checkNameUniqueness = (name: string) => {
@@ -72,14 +76,25 @@ export const Participants = (props: ParticipantsProps) => {
     onSubmit: onSaveButtonClick,
     onSubmitError: onSubmitError,
   };
-  // Todo: Handle functions and props in global state like context:
+  // Todo: Handle functions and props in global states like context:
   return (
-    <div className="participants-container">
-      {isListView ? (
-        <ParticipantList {...participantsProps} />
-      ) : (
-        <ParticipantTable {...participantsProps} />
-      )}
-    </div>
+    <>
+      <div className="flex justify-end mt-6">
+        <Button
+          size="small"
+          onClick={toggleParticipantsView}
+          endIcon={<Visibility color="inherit" />}
+        >
+          {isListView ? 'Table View' : 'List View'}
+        </Button>
+      </div>
+      <div className="participants-container">
+        {isListView ? (
+          <ParticipantList {...participantsProps} />
+        ) : (
+          <ParticipantTable {...participantsProps} />
+        )}
+      </div>
+    </>
   );
 };
