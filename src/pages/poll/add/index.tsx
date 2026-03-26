@@ -69,7 +69,7 @@ const CreatePoll = () => {
       );
     }
   }, [isEditPage, poll, setValue]);
-
+  // Check it its possible to refactor this:
   const isNewOptionValid = (value: string) => {
     let isValid = true;
     if (optionInput.trim() === '') {
