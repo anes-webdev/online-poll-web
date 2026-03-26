@@ -22,7 +22,9 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
-import { MemoizedParticipantTable } from './components/participant-table';
+import { ParticipantTable } from './components/participant-table';
+import { ParticipantList } from './components/participant-list';
+import Visibility from '@mui/icons-material/Visibility';
 
 const PollView = () => {
   const alert = useAlert();
@@ -37,6 +39,9 @@ const PollView = () => {
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
   const closeChartModal = () => setIsChartModalOpen(false);
   const openChartModal = () => setIsChartModalOpen(true);
+
+  const [isListView, setIsListView] = useState(true);
+  const toggleParticipantsView = () => setIsListView((prev) => !prev);
 
   const copyPollLink = () => {
     const pollViewRoute = APP_ROUTES.POLL_VIEW.build(poll?.link as string);
@@ -118,8 +123,21 @@ const PollView = () => {
           />
         </div>
       </div>
+      <div className="flex justify-end mt-6">
+        <Button
+          size="small"
+          onClick={toggleParticipantsView}
+          endIcon={<Visibility color="inherit" />}
+        >
+          {isListView ? 'Table View' : 'List View'}
+        </Button>
+      </div>
       <div className="vote-table-container">
-        <MemoizedParticipantTable poll={poll} />
+        {isListView ? (
+          <ParticipantList poll={poll} />
+        ) : (
+          <ParticipantTable poll={poll} />
+        )}
       </div>
       <RotateDialog />
       <Chart

@@ -8,7 +8,7 @@
     @apply max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto;
   }
   .vote-table-container {
-    @apply mt-8 overflow-scroll sm:overflow-auto;
+    @apply mt-2 overflow-scroll sm:overflow-auto;
   }
   .poll-description {
     @apply mt-5! font-normal! text-lg!;

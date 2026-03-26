@@ -1,5 +1,3 @@
-import CloseIcon from '@mui/icons-material/Close';
-import DoneIcon from '@mui/icons-material/Done';
 import { Typography } from '@mui/material';
 import '../../../styles.css';
 import type {
@@ -9,25 +7,18 @@ import type {
 import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
 import { truncateText } from '../../../../../../utils/truncateText';
 import { memo } from 'react';
+import { ChoiceStatusIcon } from '../../common/ChoiceStatusIcon';
 
 type ChoiceCellProps = {
   isSelected: boolean;
 };
 
 const ChoiceCell = ({ isSelected }: ChoiceCellProps) => {
-  const backgroundColor = isSelected ? '#bbf7d0' : '#fecaca';
-  const icon = isSelected ? (
-    <DoneIcon className="text-green-600" />
-  ) : (
-    <CloseIcon className="text-red-600" />
-  );
+  const bgClass = isSelected ? 'bg-green-200' : 'bg-red-200';
   return (
     <td className="text-center">
-      <div
-        style={{ backgroundColor: backgroundColor }}
-        className="poll-table-cell"
-      >
-        {icon}
+      <div className={`${'poll-table-cell'} ${bgClass}`}>
+        <ChoiceStatusIcon size="medium" isSelected={isSelected} />
       </div>
     </td>
   );
