@@ -119,23 +119,6 @@ const TableFooter = ({
         <td>
           <div className="poll-table-cell px-0 py-1">
             <NameTextField className="w-full" disabled />
-            {/* <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <TextFieldWithCounter
-                  {...field}
-                  required
-                  maxLength={POLL_OPTION_MAX_LENGTH}
-                  disabled={disabled}
-                  error={!!errors.name}
-                  className="w-full"
-                  label="Name"
-                  variant="outlined"
-                  size="small"
-                />
-              )}
-            /> */}
           </div>
         </td>
         <SelectionRow
