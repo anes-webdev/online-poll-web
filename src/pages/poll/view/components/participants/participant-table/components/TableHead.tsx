@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material';
-import '../../../styles.css';
-import type { Option } from '../../../../../../api/polls/polls.types';
-import { truncateText } from '../../../../../../utils/truncateText';
-import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
+import '../../../../styles.css';
+import type { Option } from '../../../../../../../api/polls/polls.types';
+import { truncateText } from '../../../../../../../utils/truncateText';
+import { TapTooltip } from '../../../../../../../components/TapTooltip/TapTooltip';
 import { memo } from 'react';
 
 type CheckBoxProps = {

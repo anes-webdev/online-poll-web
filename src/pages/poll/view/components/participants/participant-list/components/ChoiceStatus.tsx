@@ -1,9 +1,9 @@
 import '../styles.css';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
-import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
+import { TapTooltip } from '../../../../../../../components/TapTooltip/TapTooltip';
 import { ChoiceStatusIcon } from '../../common/ChoiceStatusIcon';
 import { useMemo } from 'react';
-import { groupArray } from '../../../../../../utils/groupArray';
+import { groupArray } from '../../../../../../../utils/groupArray';
 
 const TOOLTIP_PLACEMENT = {
   mobile: {

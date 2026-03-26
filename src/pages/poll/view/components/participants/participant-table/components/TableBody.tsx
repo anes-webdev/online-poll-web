@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
-import '../../../styles.css';
+import '../../../../styles.css';
 import type {
   Option,
   Participant,
-} from '../../../../../../api/polls/polls.types';
-import { TapTooltip } from '../../../../../../components/TapTooltip/TapTooltip';
-import { truncateText } from '../../../../../../utils/truncateText';
+} from '../../../../../../../api/polls/polls.types';
+import { TapTooltip } from '../../../../../../../components/TapTooltip/TapTooltip';
+import { truncateText } from '../../../../../../../utils/truncateText';
 import { memo } from 'react';
 import { ChoiceStatusIcon } from '../../common/ChoiceStatusIcon';
 

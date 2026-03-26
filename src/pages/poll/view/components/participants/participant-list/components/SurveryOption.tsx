@@ -1,11 +1,10 @@
 import { Checkbox, Typography } from '@mui/material';
+import '../styles.css';
+import { ChoiceStatus } from './ChoiceStatus';
 import type {
   Option,
   Participant,
-  Poll,
-} from '../../../../../api/polls/polls.types';
-import { ChoiceStatus } from './components/ChoiceStatus';
-import './styles.css';
+} from '../../../../../../../api/polls/polls.types';
 
 type SurveyOptionProps = {
   option: Option;
@@ -13,7 +12,10 @@ type SurveyOptionProps = {
 };
 // Todo: Refactor component:
 // Todo: Move this component to another folder:
-const SurveyOption = ({ option, allParticipants }: SurveyOptionProps) => {
+export const SurveyOption = ({
+  option,
+  allParticipants,
+}: SurveyOptionProps) => {
   // Todo: Use a better name:
 
   const selectedParticipantsName = option.participants?.map(
@@ -45,29 +47,5 @@ const SurveyOption = ({ option, allParticipants }: SurveyOptionProps) => {
         <Checkbox value={option.id} disabled={false} />
       </div>
     </li>
-  );
-};
-
-type ParticipantListProps = {
-  poll: Poll;
-};
-
-export const ParticipantList = ({ poll }: ParticipantListProps) => {
-  return (
-    // Todo: Should I pass classes to ul tag?
-    // Todo: should I use ul, li for all lists?
-    <div className="flex justify-center">
-      <ul className="w-120 flex flex-col gap-2">
-        {poll.options.map((option) => {
-          return (
-            <SurveyOption
-              option={option}
-              allParticipants={poll.participants}
-              key={option.id}
-            />
-          );
-        })}
-      </ul>
-    </div>
   );
 };

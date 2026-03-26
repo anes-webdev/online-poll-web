@@ -1,18 +1,18 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import type { Poll } from '../../../../../api/polls/polls.types';
+import type { Poll } from '../../../../../../api/polls/polls.types';
 import TableFooter from './components/TableFooter';
 import {
   registerVoteSchema,
   type RegisterVoteData,
-} from '../../../../../schemas/pollSchema';
+} from '../../../../../../schemas/pollSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAlert } from '../../../../../hooks/useAlert';
+import { useAlert } from '../../../../../../hooks/useAlert';
 import { memo, useState } from 'react';
-import { registerVote } from '../../../../../api/polls/polls.api';
-import { usePollLink } from '../../../../../hooks/usePollLink';
-import { useStoreVotes } from '../../../../../hooks/useStoreVotes';
+import { registerVote } from '../../../../../../api/polls/polls.api';
+import { usePollLink } from '../../../../../../hooks/usePollLink';
+import { useStoreVotes } from '../../../../../../hooks/useStoreVotes';
 import { useParams } from 'react-router';
-import { DEFAULT_ERROR } from '../../../../../constants/errorMessages';
+import { DEFAULT_ERROR } from '../../../../../../constants/errorMessages';
 import { MemoizedTableHead } from './components/TableHead';
 import { MemoizedTableBody } from './components/TableBody';
 

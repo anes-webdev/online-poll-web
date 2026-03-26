@@ -22,8 +22,8 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
-import { ParticipantTable } from './components/participant-table';
-import { ParticipantList } from './components/participant-list';
+import { ParticipantTable } from './components/participants/participant-table';
+import { ParticipantList } from './components/participants/participant-list';
 import Visibility from '@mui/icons-material/Visibility';
 
 const PollView = () => {
