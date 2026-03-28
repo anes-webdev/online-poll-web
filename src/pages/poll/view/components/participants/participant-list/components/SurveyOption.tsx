@@ -1,11 +1,11 @@
-import { Checkbox, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import '../styles.css';
 import { OptionStatus } from './OptionStatus';
 import type {
   Option,
   Participant,
 } from '../../../../../../../api/polls/polls.types';
-import { useSelectOption } from '../../common/hooks/useSelectOption';
+import { OptionCheckBox } from '../../common/components/OptionCheckBox';
 
 type SurveyOptionProps = {
   option: Option;
@@ -19,8 +19,6 @@ export const SurveyOption = ({
   allParticipants,
   disabled,
 }: SurveyOptionProps) => {
-  const onSelectOption = useSelectOption();
-
   const selectedParticipantsName = option.participants?.map(
     (item) => item.name,
   );
@@ -46,13 +44,7 @@ export const SurveyOption = ({
           />
         </div>
       </div>
-      <div className="checkbox-container">
-        <Checkbox
-          value={option.id}
-          disabled={disabled}
-          onChange={onSelectOption}
-        />
-      </div>
+      <OptionCheckBox optionId={option.id} disabled={disabled} />
     </li>
   );
 };

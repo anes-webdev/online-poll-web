@@ -1,13 +1,40 @@
 import { FormProvider } from 'react-hook-form';
 import type { Poll } from '../../../../../../api/polls/polls.types';
 import { useRegisterVoteForm } from '../common/hooks/useRegisterVoteForm';
-import { SurveyOption } from './components/SurveryOption';
+import { SurveyOption } from './components/SurveyOption';
 import './styles.css';
 import { NameTextField } from '../common/components/NameTextField';
 import { Button } from '@mui/material';
 import type { RegisterVoteData } from '../../../../../../schemas/pollSchema';
 import { ALREADY_VOTED_MESSAGE } from '../common/constants/infoMessages';
 import { InfoMessage } from '../../../../../../components/InfoMessage/InfoMessage';
+import { memo } from 'react';
+
+type SurveyOptionsListProps = {
+  poll: Poll;
+  alreadyVoted: boolean;
+};
+
+const SurveyOptionsList = ({ poll, alreadyVoted }: SurveyOptionsListProps) => {
+  // Todo: Should I pass classes to ul tag?
+  // Todo: should I use ul, li for all lists?
+  return (
+    <ul className="flex flex-col gap-2">
+      {poll.options.map((option) => {
+        return (
+          <SurveyOption
+            disabled={alreadyVoted}
+            option={option}
+            allParticipants={poll.participants}
+            key={option.id}
+          />
+        );
+      })}
+    </ul>
+  );
+};
+
+const MemoizedSurveyOptionsList = memo(SurveyOptionsList);
 
 type ParticipantListProps = {
   poll: Poll;
@@ -23,23 +50,10 @@ export const ParticipantList = (props: ParticipantListProps) => {
   const { handleSubmit } = methods;
 
   return (
-    // Todo: Should I pass classes to ul tag?
-    // Todo: should I use ul, li for all lists?
     <div className="flex justify-center">
       <div className="w-120">
         <FormProvider {...methods}>
-          <ul className="flex flex-col gap-2">
-            {poll.options.map((option) => {
-              return (
-                <SurveyOption
-                  disabled={alreadyVoted}
-                  option={option}
-                  allParticipants={poll.participants}
-                  key={option.id}
-                />
-              );
-            })}
-          </ul>
+          <MemoizedSurveyOptionsList poll={poll} alreadyVoted={alreadyVoted} />
           {/* Todo: Change the placement of this message: */}
           {alreadyVoted && (
             <InfoMessage
