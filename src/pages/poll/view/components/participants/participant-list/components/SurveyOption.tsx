@@ -12,8 +12,7 @@ type SurveyOptionProps = {
   allParticipants: Participant[];
   disabled: boolean;
 };
-// Todo: Refactor component:
-// Todo: Move this component to another folder:
+
 export const SurveyOption = ({
   option,
   allParticipants,

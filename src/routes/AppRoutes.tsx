@@ -10,6 +10,7 @@ import PollsList from '../pages/poll/list';
 import PollView from '../pages/poll/view';
 import { TestComponent } from '../pages/test/TestComponent';
 
+// Todo: Remove test component:
 const AppRoutes = () => {
   return (
     <Routes>
