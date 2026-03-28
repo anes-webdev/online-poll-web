@@ -6,6 +6,9 @@ import { NameTextField } from '../../common/components/NameTextField';
 import '../styles.css';
 import { useSelectOption } from '../../common/hooks/useSelectOption';
 import { ALREADY_VOTED_MESSAGE } from '../../common/constants/infoMessages';
+import type { RegisterVoteData } from '../../../../../../../schemas/pollSchema';
+import { useRegisterVoteForm } from '../../common/hooks/useRegisterVoteForm';
+import { FormProvider } from 'react-hook-form';
 
 type CheckBoxProps = {
   option: Option;
@@ -64,7 +67,8 @@ const SelectionRow = ({ options, disabled }: SelectionRowProps) => {
 type TableFooterProps = {
   poll: Poll;
   submitLoading: boolean;
-  onSubmit: () => void;
+  onSubmit: (formData: RegisterVoteData) => Promise<void>;
+  onSubmitError: (errors: any) => void;
   disabled: boolean;
 };
 
@@ -72,8 +76,11 @@ const TableFooter = ({
   poll,
   submitLoading,
   onSubmit,
+  onSubmitError,
   disabled,
 }: TableFooterProps) => {
+  const methods = useRegisterVoteForm();
+  const { handleSubmit } = methods;
   return (
     <tfoot>
       <tr>
@@ -84,16 +91,18 @@ const TableFooter = ({
         </td>
       </tr>
       <tr>
-        <td>
-          <div className="poll-table-cell px-0 py-1">
-            <NameTextField className="w-full" disabled={disabled} />
-          </div>
-        </td>
-        <SelectionRow disabled={disabled} options={poll.options} />
+        <FormProvider {...methods}>
+          <td>
+            <div className="poll-table-cell px-0 py-1">
+              <NameTextField className="w-full" disabled={disabled} />
+            </div>
+          </td>
+          <SelectionRow disabled={disabled} options={poll.options} />
+        </FormProvider>
       </tr>
       <tr>
         <td>
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>
             <Button
               disabled={disabled}
               loading={submitLoading}

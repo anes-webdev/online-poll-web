@@ -22,7 +22,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
-import { Participants } from './components/participants';
+import { MemoizedParticipants } from './components/participants';
 
 const PollView = () => {
   const alert = useAlert();
@@ -118,7 +118,7 @@ const PollView = () => {
           />
         </div>
       </div>
-      <Participants poll={poll} />
+      <MemoizedParticipants poll={poll} />
       <RotateDialog />
       <Chart
         isOpen={isChartModalOpen}

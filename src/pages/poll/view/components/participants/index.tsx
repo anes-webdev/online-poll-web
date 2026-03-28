@@ -3,7 +3,7 @@ import { ParticipantList } from './participant-list';
 import { ParticipantTable } from './participant-table';
 import '../../styles.css';
 import type { RegisterVoteData } from '../../../../../schemas/pollSchema';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { usePollLink } from '../../../../../hooks/usePollLink';
 import { registerVote } from '../../../../../api/polls/polls.api';
 import { useParams } from 'react-router';
@@ -14,7 +14,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import { Button } from '@mui/material';
 
 type ParticipantsProps = { poll: Poll };
-
+// Todo: When I open and close the chart, this component re-renders, should I memoize such a large component like this?
 export const Participants = (props: ParticipantsProps) => {
   const { poll } = props;
 
@@ -38,6 +38,8 @@ export const Participants = (props: ParticipantsProps) => {
     };
   };
 
+  // Todo: Is it possible to store this method into context?
+  // Todo: Is it common to store functions in global state?
   const onSaveButtonClick = async (formData: RegisterVoteData) => {
     const { name, choices } = formData;
     if (!checkNameUniqueness(name).isUnique) {
@@ -98,3 +100,5 @@ export const Participants = (props: ParticipantsProps) => {
     </>
   );
 };
+
+export const MemoizedParticipants = memo(Participants);
