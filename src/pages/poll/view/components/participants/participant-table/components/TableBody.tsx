@@ -1,13 +1,11 @@
 import { Typography } from '@mui/material';
 import '../styles.css';
-import type {
-  Option,
-  Participant,
-} from '../../../../../../../api/polls/polls.types';
+import type { Option } from '../../../../../../../api/polls/polls.types';
 import { TapTooltip } from '../../../../../../../components/TapTooltip/TapTooltip';
 import { truncateText } from '../../../../../../../utils/truncateText';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import { ChoiceStatusIcon } from '../../common/components/ChoiceStatusIcon';
+import { PollViewContext } from '../../store/PollViewContext';
 
 type ChoiceCellProps = {
   isSelected: boolean;
@@ -60,19 +58,15 @@ const ChoicesRow = ({ options, participantId }: ChoicesRowProps) => {
   );
 };
 
-type TableBodyProps = {
-  participants: Participant[];
-  options: Option[];
-};
-
-export const TableBody = ({ participants, options }: TableBodyProps) => {
+export const TableBody = () => {
+  const { poll } = useContext(PollViewContext);
   return (
     <tbody>
-      {participants.map(({ id, name }, index) => {
+      {poll?.participants.map(({ id, name }, index) => {
         return (
           <tr key={index}>
             <NameCell name={name} />
-            <ChoicesRow options={options} participantId={id} />
+            <ChoicesRow options={poll?.options} participantId={id} />
           </tr>
         );
       })}

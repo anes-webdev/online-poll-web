@@ -12,6 +12,7 @@ import { DEFAULT_ERROR } from '../../../../../constants/errorMessages';
 import { useAlert } from '../../../../../hooks/useAlert';
 import Visibility from '@mui/icons-material/Visibility';
 import { Button } from '@mui/material';
+import { PollViewContext } from './store/PollViewContext';
 
 type ParticipantsProps = { poll: Poll };
 // Todo: When I open and close the chart, this component re-renders, should I memoize such a large component like this?
@@ -72,13 +73,9 @@ export const Participants = (props: ParticipantsProps) => {
   };
 
   const participantsProps = {
-    poll: poll,
-    alreadyVoted: alreadyVoted,
-    submitLoading: submitLoading,
     onSubmit: onSaveButtonClick,
     onSubmitError: onSubmitError,
   };
-  // Todo: Handle functions and props in global states like context:
   return (
     <>
       <div className="flex justify-end mt-6">
@@ -90,13 +87,15 @@ export const Participants = (props: ParticipantsProps) => {
           {isListView ? 'Table View' : 'List View'}
         </Button>
       </div>
-      <div className="participants-container">
-        {isListView ? (
-          <ParticipantList {...participantsProps} />
-        ) : (
-          <ParticipantTable {...participantsProps} />
-        )}
-      </div>
+      <PollViewContext.Provider value={{ poll, alreadyVoted, submitLoading }}>
+        <div className="participants-container">
+          {isListView ? (
+            <ParticipantList {...participantsProps} />
+          ) : (
+            <ParticipantTable {...participantsProps} />
+          )}
+        </div>
+      </PollViewContext.Provider>
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { FormProvider } from 'react-hook-form';
-import type { Poll } from '../../../../../../api/polls/polls.types';
 import { useRegisterVoteForm } from '../common/hooks/useRegisterVoteForm';
 import { SurveyOption } from './components/SurveyOption';
 import './styles.css';
@@ -8,22 +7,19 @@ import { Button } from '@mui/material';
 import type { RegisterVoteData } from '../../../../../../schemas/pollSchema';
 import { ALREADY_VOTED_MESSAGE } from '../common/constants/infoMessages';
 import { InfoMessage } from '../../../../../../components/InfoMessage/InfoMessage';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+import { PollViewContext } from '../store/PollViewContext';
 
-type SurveyOptionsListProps = {
-  poll: Poll;
-  disabled: boolean;
-};
-
-const SurveyOptionsList = ({ poll, disabled }: SurveyOptionsListProps) => {
+const SurveyOptionsList = () => {
+  const { poll, alreadyVoted } = useContext(PollViewContext);
   // Todo: Should I pass classes to ul tag?
   // Todo: should I use ul, li for all lists?
   return (
     <ul className="flex flex-col gap-2">
-      {poll.options.map((option) => {
+      {poll?.options.map((option) => {
         return (
           <SurveyOption
-            disabled={disabled}
+            disabled={alreadyVoted}
             option={option}
             allParticipants={poll.participants}
             key={option.id}
@@ -37,15 +33,13 @@ const SurveyOptionsList = ({ poll, disabled }: SurveyOptionsListProps) => {
 const MemoizedSurveyOptionsList = memo(SurveyOptionsList);
 
 type ParticipantListProps = {
-  poll: Poll;
-  alreadyVoted: boolean;
-  submitLoading: boolean;
   onSubmit: (formData: RegisterVoteData) => Promise<void>;
   onSubmitError: (errors: any) => void;
 };
 
 export const ParticipantList = (props: ParticipantListProps) => {
-  const { poll, alreadyVoted, onSubmit, onSubmitError, submitLoading } = props;
+  const { onSubmit, onSubmitError } = props;
+  const { alreadyVoted, submitLoading } = useContext(PollViewContext);
   const methods = useRegisterVoteForm();
   const { handleSubmit } = methods;
 
@@ -53,7 +47,7 @@ export const ParticipantList = (props: ParticipantListProps) => {
     <div className="flex justify-center">
       <div className="w-120">
         <FormProvider {...methods}>
-          <MemoizedSurveyOptionsList poll={poll} disabled={alreadyVoted} />
+          <MemoizedSurveyOptionsList />
           {alreadyVoted && (
             <InfoMessage
               className="my-2! sm:text-right!"

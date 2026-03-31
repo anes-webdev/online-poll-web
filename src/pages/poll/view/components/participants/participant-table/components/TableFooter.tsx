@@ -1,6 +1,6 @@
 import Checkbox from '@mui/material/Checkbox';
 import { Button, Tooltip } from '@mui/material';
-import type { Option, Poll } from '../../../../../../../api/polls/polls.types';
+import type { Option } from '../../../../../../../api/polls/polls.types';
 import { InfoMessage } from '../../../../../../../components/InfoMessage/InfoMessage';
 import { NameTextField } from '../../common/components/NameTextField';
 import '../styles.css';
@@ -9,6 +9,8 @@ import { ALREADY_VOTED_MESSAGE } from '../../common/constants/infoMessages';
 import type { RegisterVoteData } from '../../../../../../../schemas/pollSchema';
 import { useRegisterVoteForm } from '../../common/hooks/useRegisterVoteForm';
 import { FormProvider } from 'react-hook-form';
+import { useContext } from 'react';
+import { PollViewContext } from '../../store/PollViewContext';
 
 type CheckBoxProps = {
   option: Option;
@@ -29,14 +31,11 @@ const CheckBoxCell = ({ option, disabled }: CheckBoxProps) => {
   );
 };
 
-type VoteNumbersRowProps = {
-  options: Option[];
-};
-
-const VoteNumbersRow = ({ options }: VoteNumbersRowProps) => {
+const VoteNumbersRow = () => {
+  const { poll } = useContext(PollViewContext);
   return (
     <>
-      {options.map(({ participants, id }) => {
+      {poll!.options.map(({ participants, id }) => {
         return (
           <td key={id} className="text-center">
             <div>{participants?.length || 0}</div>
@@ -47,17 +46,17 @@ const VoteNumbersRow = ({ options }: VoteNumbersRowProps) => {
   );
 };
 
-type SelectionRowProps = {
-  options: Option[];
-  disabled: boolean;
-};
-
-const SelectionRow = ({ options, disabled }: SelectionRowProps) => {
+const SelectionRow = () => {
+  const { poll, alreadyVoted } = useContext(PollViewContext);
   return (
     <>
-      {options.map((option) => {
+      {poll!.options.map((option) => {
         return (
-          <CheckBoxCell key={option.id} option={option} disabled={disabled} />
+          <CheckBoxCell
+            key={option.id}
+            option={option}
+            disabled={alreadyVoted}
+          />
         );
       })}
     </>
@@ -65,27 +64,20 @@ const SelectionRow = ({ options, disabled }: SelectionRowProps) => {
 };
 
 type TableFooterProps = {
-  poll: Poll;
-  submitLoading: boolean;
   onSubmit: (formData: RegisterVoteData) => Promise<void>;
   onSubmitError: (errors: any) => void;
-  disabled: boolean;
 };
 
-const TableFooter = ({
-  poll,
-  submitLoading,
-  onSubmit,
-  onSubmitError,
-  disabled,
-}: TableFooterProps) => {
+const TableFooter = ({ onSubmit, onSubmitError }: TableFooterProps) => {
+  const { submitLoading, alreadyVoted } = useContext(PollViewContext);
   const methods = useRegisterVoteForm();
   const { handleSubmit } = methods;
+
   return (
     <tfoot>
       <tr>
         <td>
-          {disabled && (
+          {alreadyVoted && (
             <InfoMessage className="my-1" text={ALREADY_VOTED_MESSAGE} />
           )}
         </td>
@@ -94,17 +86,17 @@ const TableFooter = ({
         <FormProvider {...methods}>
           <td>
             <div className="poll-table-cell px-0 py-1">
-              <NameTextField className="w-full" disabled={disabled} />
+              <NameTextField className="w-full" disabled={alreadyVoted} />
             </div>
           </td>
-          <SelectionRow disabled={disabled} options={poll.options} />
+          <SelectionRow />
         </FormProvider>
       </tr>
       <tr>
         <td>
           <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>
             <Button
-              disabled={disabled}
+              disabled={alreadyVoted}
               loading={submitLoading}
               type="submit"
               className="w-1/3 h-9"
@@ -114,7 +106,7 @@ const TableFooter = ({
             </Button>
           </form>
         </td>
-        <VoteNumbersRow options={poll.options} />
+        <VoteNumbersRow />
       </tr>
     </tfoot>
   );

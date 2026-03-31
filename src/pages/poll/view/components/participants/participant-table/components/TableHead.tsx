@@ -3,7 +3,8 @@ import '../styles.css';
 import type { Option } from '../../../../../../../api/polls/polls.types';
 import { truncateText } from '../../../../../../../utils/truncateText';
 import { TapTooltip } from '../../../../../../../components/TapTooltip/TapTooltip';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+import { PollViewContext } from '../../store/PollViewContext';
 
 type CheckBoxProps = {
   option: Option;
@@ -25,16 +26,13 @@ const OptionCell = ({ option }: CheckBoxProps) => {
 };
 export default OptionCell;
 
-type TableHeadProps = {
-  options: Option[];
-};
-
-export const TableHead = ({ options }: TableHeadProps) => {
+export const TableHead = () => {
+  const { poll } = useContext(PollViewContext);
   return (
     <thead>
       <tr>
         <th className="p-4 w-44 min-w-44"></th>
-        {options.map((option) => {
+        {poll?.options.map((option) => {
           return <OptionCell key={option.id} option={option} />;
         })}
       </tr>
