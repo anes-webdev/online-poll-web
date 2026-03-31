@@ -12,10 +12,10 @@ import { memo } from 'react';
 
 type SurveyOptionsListProps = {
   poll: Poll;
-  alreadyVoted: boolean;
+  disabled: boolean;
 };
 
-const SurveyOptionsList = ({ poll, alreadyVoted }: SurveyOptionsListProps) => {
+const SurveyOptionsList = ({ poll, disabled }: SurveyOptionsListProps) => {
   // Todo: Should I pass classes to ul tag?
   // Todo: should I use ul, li for all lists?
   return (
@@ -23,7 +23,7 @@ const SurveyOptionsList = ({ poll, alreadyVoted }: SurveyOptionsListProps) => {
       {poll.options.map((option) => {
         return (
           <SurveyOption
-            disabled={alreadyVoted}
+            disabled={disabled}
             option={option}
             allParticipants={poll.participants}
             key={option.id}
@@ -53,7 +53,7 @@ export const ParticipantList = (props: ParticipantListProps) => {
     <div className="flex justify-center">
       <div className="w-120">
         <FormProvider {...methods}>
-          <MemoizedSurveyOptionsList poll={poll} alreadyVoted={alreadyVoted} />
+          <MemoizedSurveyOptionsList poll={poll} disabled={alreadyVoted} />
           {alreadyVoted && (
             <InfoMessage
               className="my-2! sm:text-right!"
