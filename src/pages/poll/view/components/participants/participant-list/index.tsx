@@ -54,16 +54,14 @@ export const ParticipantList = (props: ParticipantListProps) => {
       <div className="w-120">
         <FormProvider {...methods}>
           <MemoizedSurveyOptionsList poll={poll} alreadyVoted={alreadyVoted} />
-          {/* Todo: Change the placement of this message: */}
           {alreadyVoted && (
             <InfoMessage
-              className="my-2! text-right"
+              className="my-2! sm:text-right!"
               text={ALREADY_VOTED_MESSAGE}
             />
           )}
-          <div className="mt-2.5 flex justify-end gap-2">
-            {/* Todo: Handle the size of this text field: */}
-            <NameTextField className="w-46" disabled={alreadyVoted} />
+          <div className="mt-3 flex sm:justify-end gap-2">
+            <NameTextField className="max-w-46" disabled={alreadyVoted} />
             <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>
               <Button
                 disabled={alreadyVoted}
