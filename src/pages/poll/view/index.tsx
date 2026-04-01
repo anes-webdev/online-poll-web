@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
@@ -17,12 +17,14 @@ import { useAuth } from '../../../hooks/useAuth';
 import './styles.css';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
 import { RotateDialog } from './components/ui/RotateDialog';
-import { Chart } from './components/ui/Chart';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
 import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
 import { MemoizedParticipants } from './components/participants';
+import { SuspenseLoading } from '../../../components/SuspenseLoading/SuspenseLoading';
+
+const Chart = lazy(() => import('./components/ui/Chart'));
 
 const PollView = () => {
   const alert = useAlert();
@@ -52,6 +54,8 @@ const PollView = () => {
   const navigateToPolls = () => {
     navigate(APP_ROUTES.POLLS);
   };
+
+  const [chartLoading, setChartLoading] = useState(false);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -105,10 +109,11 @@ const PollView = () => {
         <div className="w-12">
           {isDesktopView && (
             <OutlinedIconButton
-              title="Show chart"
+              // title="Show chart"
               startIcon={<BarChartIcon color="inherit" />}
               className="mb-3!"
               onClick={openChartModal}
+              loading={chartLoading}
             />
           )}
           <OutlinedIconButton
@@ -120,11 +125,11 @@ const PollView = () => {
       </div>
       <MemoizedParticipants poll={poll} />
       <RotateDialog />
-      <Chart
-        isOpen={isChartModalOpen}
-        onClose={closeChartModal}
-        options={options}
-      />
+      <Suspense fallback={<SuspenseLoading setLoading={setChartLoading} />}>
+        {isChartModalOpen && (
+          <Chart onClose={closeChartModal} options={options} />
+        )}
+      </Suspense>
     </div>
   );
 };
