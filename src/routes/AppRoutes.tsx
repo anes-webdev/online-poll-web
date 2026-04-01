@@ -12,7 +12,7 @@ const PollView = lazy(() => import('../pages/poll/view'));
 const PollsList = lazy(() => import('../pages/poll/list'));
 const CreatePoll = lazy(() => import('../pages/poll/add'));
 const NotFoundPage = lazy(() => import('../pages/not-found/NotFoundPage'));
-
+// Todo: remove test component:
 const AppRoutes = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
