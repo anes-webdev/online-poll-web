@@ -1,6 +1,5 @@
 import TableFooter from './components/TableFooter';
 import { type RegisterVoteData } from '../../../../../../schemas/pollSchema';
-import { memo } from 'react';
 import { TableHead } from './components/TableHead';
 import { TableBody } from './components/TableBody';
 
@@ -9,7 +8,7 @@ type ParticipantTableProps = {
   onSubmitError: (errors: any) => void;
 };
 
-export const ParticipantTable = (props: ParticipantTableProps) => {
+const ParticipantTable = (props: ParticipantTableProps) => {
   const { onSubmit, onSubmitError } = props;
 
   return (
@@ -21,4 +20,4 @@ export const ParticipantTable = (props: ParticipantTableProps) => {
   );
 };
 
-export const MemoizedParticipantTable = memo(ParticipantTable);
+export default ParticipantTable;

@@ -1,9 +1,7 @@
 import type { Poll } from '../../../../../api/polls/polls.types';
-import { ParticipantList } from './participant-list';
-import { ParticipantTable } from './participant-table';
 import '../../styles.css';
 import type { RegisterVoteData } from '../../../../../schemas/pollSchema';
-import { memo, useState } from 'react';
+import { lazy, memo, Suspense, useState } from 'react';
 import { usePollLink } from '../../../../../hooks/usePollLink';
 import { registerVote } from '../../../../../api/polls/polls.api';
 import { useParams } from 'react-router';
@@ -13,6 +11,10 @@ import { useAlert } from '../../../../../hooks/useAlert';
 import Visibility from '@mui/icons-material/Visibility';
 import { Button } from '@mui/material';
 import { PollViewContext } from './store/PollViewContext';
+import LoadingSpinner from '../../../../../components/LoadingSpinner/LoadingSpinner';
+
+const ParticipantList = lazy(() => import('./participant-list'));
+const ParticipantTable = lazy(() => import('./participant-table'));
 
 type ParticipantsProps = { poll: Poll };
 // Todo: When I open and close the chart, this component re-renders, should I memoize such a large component like this?
@@ -89,11 +91,13 @@ export const Participants = (props: ParticipantsProps) => {
       </div>
       <PollViewContext.Provider value={{ poll, alreadyVoted, submitLoading }}>
         <div className="participants-container">
-          {isListView ? (
-            <ParticipantList {...participantsProps} />
-          ) : (
-            <ParticipantTable {...participantsProps} />
-          )}
+          <Suspense fallback={<LoadingSpinner />}>
+            {isListView ? (
+              <ParticipantList {...participantsProps} />
+            ) : (
+              <ParticipantTable {...participantsProps} />
+            )}
+          </Suspense>
         </div>
       </PollViewContext.Provider>
     </>

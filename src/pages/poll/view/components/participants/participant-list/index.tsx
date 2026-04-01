@@ -37,7 +37,7 @@ type ParticipantListProps = {
   onSubmitError: (errors: any) => void;
 };
 
-export const ParticipantList = (props: ParticipantListProps) => {
+const ParticipantList = (props: ParticipantListProps) => {
   const { onSubmit, onSubmitError } = props;
   const { alreadyVoted, submitLoading } = useContext(PollViewContext);
   const methods = useRegisterVoteForm();
@@ -73,3 +73,5 @@ export const ParticipantList = (props: ParticipantListProps) => {
     </div>
   );
 };
+
+export default ParticipantList;
