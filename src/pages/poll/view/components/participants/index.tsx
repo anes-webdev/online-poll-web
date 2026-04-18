@@ -1,7 +1,7 @@
 import type { Poll } from '../../../../../api/polls/polls.types';
 import '../../styles.css';
 import type { RegisterVoteData } from '../../../../../schemas/pollSchema';
-import { memo, useState } from 'react';
+import { memo, useState, useTransition } from 'react';
 import { usePollLink } from '../../../../../hooks/usePollLink';
 import { registerVote } from '../../../../../api/polls/polls.api';
 import { useParams } from 'react-router';
@@ -22,12 +22,17 @@ export const Participants = (props: ParticipantsProps) => {
   const alert = useAlert();
   const { showPollLink } = usePollLink();
   const params = useParams<{ pollSlug: string }>();
+  const [isPending, startTransition] = useTransition();
   const pollSlug = params.pollSlug as string;
   const { prevVotes, addVote } = useStoreVotes();
   const alreadyVoted = prevVotes.includes(pollSlug);
-  // Handle default view in mobile device here:
+  // Todo: Handle default view in mobile device here:
   const [isListView, setIsListView] = useState(true);
-  const toggleParticipantsView = () => setIsListView((prev) => !prev);
+  const toggleParticipantsView = () => {
+    startTransition(() => {
+      setIsListView((prev) => !prev);
+    });
+  };
   const [submitLoading, setSubmitLoading] = useState(false);
 
   const checkNameUniqueness = (name: string) => {
@@ -83,6 +88,7 @@ export const Participants = (props: ParticipantsProps) => {
           size="small"
           onClick={toggleParticipantsView}
           endIcon={<Visibility color="inherit" />}
+          loading={isPending}
         >
           {isListView ? 'Table View' : 'List View'}
         </Button>
