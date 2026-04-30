@@ -15,7 +15,6 @@ import ParticipantList from './participant-list';
 import ParticipantTable from './participant-table';
 
 type ParticipantsProps = { poll: Poll };
-// Todo: When I open and close the chart, this component re-renders, should I memoize such a large component like this?
 export const Participants = (props: ParticipantsProps) => {
   const { poll } = props;
 
@@ -26,7 +25,6 @@ export const Participants = (props: ParticipantsProps) => {
   const pollSlug = params.pollSlug as string;
   const { prevVotes, addVote } = useStoreVotes();
   const alreadyVoted = prevVotes.includes(pollSlug);
-  // Todo: Handle default view in mobile device here:
   const [isListView, setIsListView] = useState(true);
   const toggleParticipantsView = () => {
     startTransition(() => {
@@ -44,8 +42,6 @@ export const Participants = (props: ParticipantsProps) => {
     };
   };
 
-  // Todo: Is it possible to store this method into context?
-  // Todo: Is it common to store functions in global state?
   const onSaveButtonClick = async (formData: RegisterVoteData) => {
     const { name, choices } = formData;
     if (!checkNameUniqueness(name).isUnique) {

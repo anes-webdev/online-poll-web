@@ -12,8 +12,6 @@ import { PollViewContext } from '../store/PollViewContext';
 
 const SurveyOptionsList = () => {
   const { poll, alreadyVoted } = useContext(PollViewContext);
-  // Todo: Should I pass classes to ul tag?
-  // Todo: should I use ul, li for all lists?
   return (
     <ul className="flex flex-col gap-2">
       {poll?.options.map((option) => {
