@@ -1,5 +1,3 @@
-// Todo: check the name of this method:
-// Todo: refactor this group method (make it shorter)
 export const groupArray = <T>(array: T[], groupLength: number) => {
   let count = 1;
   const mainGroup: T[][] = [];
