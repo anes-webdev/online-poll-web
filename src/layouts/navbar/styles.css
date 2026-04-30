@@ -12,6 +12,6 @@
     @apply flex items-center hover:opacity-75 transition-opacity
   }
   .logo {
-    @apply h-9.5 mr-4;
+    @apply h-9.5 w-9.5 mr-4;
   }
 }

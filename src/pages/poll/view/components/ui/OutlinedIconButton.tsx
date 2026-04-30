@@ -2,10 +2,11 @@ import { Button, Tooltip } from '@mui/material';
 import type { ReactNode } from 'react';
 
 type IconButtonWithTooltipProps = {
-  title: string;
+  title?: string;
   startIcon: ReactNode;
   onClick?: () => void;
   className?: string;
+  loading?: boolean;
 };
 
 export const OutlinedIconButton = ({
@@ -13,10 +14,12 @@ export const OutlinedIconButton = ({
   startIcon,
   onClick,
   className = '',
+  loading,
 }: IconButtonWithTooltipProps) => {
   return (
     <Tooltip title={title} placement="right">
       <Button
+        loading={loading}
         onClick={onClick}
         disableRipple
         variant="outlined"

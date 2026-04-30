@@ -1,0 +1,16 @@
+@reference "tailwindcss";
+
+@layer components {
+  .poll-table-cell {
+    @apply px-4 py-2 m-0.75 rounded-lg min-w-20!;
+  }
+  /* .participant-name {
+    line-clamp: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    letter-spacing: unset !important;
+  } */
+}

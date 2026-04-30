@@ -1,8 +1,9 @@
 import SortIcon from '@mui/icons-material/Sort';
 import { MenuItem, Select, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SORT_OPTIONS } from '../constants/sortOptions';
 import { generateOptionValue } from '../utils/generateOptionValue';
+import { useDebounceCallBack } from '../../../../hooks/useDebounceCallBack';
 
 type FilterSectionProps = {
   onSearch: (value: string) => void;
@@ -19,19 +20,15 @@ export const FilterSection = (props: FilterSectionProps) => {
     onSort(event.target.value);
   };
 
+  const onSearchDebounce = useDebounceCallBack((value: any) => {
+    onSearch(value);
+  }, 500);
+
   const onSearchChange = (event: any) => {
-    setSearchInput(event.target.value);
+    const value = event.target.value;
+    setSearchInput(value);
+    onSearchDebounce(value);
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onSearch(searchInput);
-    }, 600);
-
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [onSearch, searchInput]);
 
   return (
     <div className="flex justify-between gap-4 mt-6">

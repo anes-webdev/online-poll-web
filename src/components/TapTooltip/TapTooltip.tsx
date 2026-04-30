@@ -6,27 +6,39 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-export const TapTooltip = (props: TooltipProps) => {
+const MobileTooltip = (props: TooltipProps) => {
   const { children } = props;
-  const theme = useTheme();
-  const isTouchDevice = useMediaQuery(theme.breakpoints.down('md'));
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+
   const showTooltip = () => {
     setIsTooltipOpen(true);
     setTimeout(() => {
       setIsTooltipOpen(false);
     }, 3000);
   };
+
   return (
     <Tooltip
       {...props}
-      open={isTouchDevice ? isTooltipOpen : undefined}
+      open={isTooltipOpen}
       onClick={showTooltip}
-      disableHoverListener={isTouchDevice}
-      disableFocusListener={isTouchDevice}
-      disableTouchListener={isTouchDevice}
+      disableHoverListener
+      disableFocusListener
+      disableTouchListener
     >
       {children}
     </Tooltip>
   );
+};
+
+export const TapTooltip = (props: TooltipProps) => {
+  const { children } = props;
+  const theme = useTheme();
+  const isTouchDevice = useMediaQuery(theme.breakpoints.down('md'));
+
+  if (isTouchDevice) {
+    return <MobileTooltip {...props}>{children}</MobileTooltip>;
+  } else {
+    return <Tooltip {...props}>{children}</Tooltip>;
+  }
 };
