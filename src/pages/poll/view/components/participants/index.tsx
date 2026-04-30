@@ -42,8 +42,6 @@ export const Participants = (props: ParticipantsProps) => {
     };
   };
 
-  // Todo: Is it possible to store this method into context?
-  // Todo: Is it common to store functions in global state?
   const onSaveButtonClick = async (formData: RegisterVoteData) => {
     const { name, choices } = formData;
     if (!checkNameUniqueness(name).isUnique) {
