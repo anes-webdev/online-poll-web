@@ -1,0 +1,13 @@
+@reference "tailwindcss";
+
+@layer components {
+  .survey-option-container {
+    @apply bg-blue-100 p-3.5 rounded-l-lg flex-1 flex justify-between items-center gap-2;
+  }
+  .checkbox-container {
+    @apply w-16 bg-gray-100 rounded-r-lg flex justify-center items-center;
+  }
+  .choice-status {
+    @apply flex items-center gap-1.5 rounded-lg shadow-sm px-1.5 py-0.5;
+  }
+}

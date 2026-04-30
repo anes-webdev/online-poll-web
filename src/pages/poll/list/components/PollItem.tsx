@@ -7,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { useState, type MouseEventHandler } from 'react';
+import { memo, useState, type MouseEventHandler } from 'react';
 import { useNavigate } from 'react-router';
 import { APP_BASE_URL } from '../../../../constants/baseUrls';
 import { APP_ROUTES } from '../../../../constants/routes';
@@ -101,4 +101,5 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
     </div>
   );
 };
-export default PollItem;
+
+export const MemoizedPollItem = memo(PollItem);

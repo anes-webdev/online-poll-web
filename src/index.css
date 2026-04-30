@@ -1,9 +1,39 @@
 @import 'tailwindcss';
-@import '@fontsource/roboto/300.css';
-@import '@fontsource/roboto/400.css';
-@import '@fontsource/roboto/500.css';
-@import '@fontsource/roboto/700.css';
-@import '@fontsource/roboto/800.css';
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('@fontsource/roboto/files/roboto-latin-300-normal.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('@fontsource/roboto/files/roboto-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('@fontsource/roboto/files/roboto-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('@fontsource/roboto/files/roboto-latin-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('@fontsource/roboto/files/roboto-latin-800-normal.woff2') format('woff2');
+  font-weight: 800;
+  font-display: swap;
+}
 
 :root {
   font-family: roboto, system-ui, sans-serif;
@@ -20,3 +50,5 @@ body {
 button {
   cursor: pointer;
 }
+
+/* Todo: Check global naming issue */

@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import PollItem from './components/PollItem';
+import { MemoizedPollItem } from './components/PollItem';
 import { APP_ROUTES } from '../../../constants/routes';
 import DeleteModal from './components/DeleteModal';
 import { Skeleton } from '@mui/material';
@@ -20,6 +20,32 @@ import { useGetPolls } from '../../../api/polls/polls.hooks';
 import { deletePoll } from '../../../api/polls/polls.api';
 import type { Poll } from '../../../api/polls/polls.types';
 
+type PollsListContainerProps = {
+  polls: Poll[];
+  deletePoll: (pollSlug: string) => void;
+  editPoll: (pollSlug: string) => void;
+};
+
+const PollsListContainer = (props: PollsListContainerProps) => {
+  const { polls, deletePoll, editPoll } = props;
+  return (
+    <div className="mt-3">
+      {polls.map((poll) => {
+        return (
+          <MemoizedPollItem
+            deletePoll={deletePoll}
+            editPoll={editPoll}
+            key={poll.id}
+            poll={poll}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+const MemoizedPollsListContainer = memo(PollsListContainer);
+
 const PollList = () => {
   const navigate = useNavigate();
   const alert = useAlert();
@@ -31,9 +57,14 @@ const PollList = () => {
 
   const { data: polls, isLoading, error, refetch } = useGetPolls();
 
-  const onDeletePollIconClick = (pollSlug: string) => setDeletingPoll(pollSlug);
-  const onEditPollIconClick = (pollSlug: string) =>
-    navigate(APP_ROUTES.EDIT_POLL.build(pollSlug));
+  const onDeletePollIconClick = useCallback(
+    (pollSlug: string) => setDeletingPoll(pollSlug),
+    [],
+  );
+  const onEditPollIconClick = useCallback(
+    (pollSlug: string) => navigate(APP_ROUTES.EDIT_POLL.build(pollSlug)),
+    [navigate],
+  );
   const navigateToCreatePoll = () => {
     navigate(APP_ROUTES.ADD_POLL);
   };
@@ -69,34 +100,30 @@ const PollList = () => {
     return { sortBy, sortOrder };
   };
 
-  const applySearchAndSort = (polls: Poll[] | undefined) => {
-    const { sortBy, sortOrder } = destructureSortInput(sortInput);
-    const findValues = (poll: Poll) => {
-      if (sortBy === 'created_at') return new Date(poll.createdAt).getTime();
-      if (sortBy === 'participants') return poll.participants.length;
-    };
-    const sorted = polls?.sort(
-      (a, b) =>
-        ((findValues(a) as number) - (findValues(b) as number)) *
-        (sortOrder === 'asc' ? 1 : -1),
-    );
-    const filteredAndSorted = sorted?.filter((poll) =>
-      poll.title.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
+  const applySearchAndSort = useCallback(
+    (polls: Poll[] | undefined) => {
+      const { sortBy, sortOrder } = destructureSortInput(sortInput);
+      const findValues = (poll: Poll) => {
+        if (sortBy === 'created_at') return new Date(poll.createdAt).getTime();
+        if (sortBy === 'participants') return poll.participants.length;
+      };
+      const sorted = polls?.sort(
+        (a, b) =>
+          ((findValues(a) as number) - (findValues(b) as number)) *
+          (sortOrder === 'asc' ? 1 : -1),
+      );
+      const filteredAndSorted = sorted?.filter((poll) =>
+        poll.title.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
 
-    return filteredAndSorted;
-  };
+      return filteredAndSorted;
+    },
+    [searchQuery, sortInput],
+  );
 
-  const pollsList = applySearchAndSort(polls)?.map((poll, index) => {
-    return (
-      <PollItem
-        deletePoll={onDeletePollIconClick}
-        editPoll={onEditPollIconClick}
-        key={index}
-        poll={poll}
-      />
-    );
-  });
+  const filteredPolls = useMemo(() => {
+    return applySearchAndSort(polls);
+  }, [applySearchAndSort, polls]);
 
   if (isLoading) {
     return (
@@ -130,8 +157,12 @@ const PollList = () => {
           sortInput={sortInput}
           onSort={onSort}
         />
-        {pollsList?.length === 0 && <SearchNoResults />}
-        <div className="mt-3">{pollsList}</div>
+        {filteredPolls?.length === 0 && <SearchNoResults />}
+        <MemoizedPollsListContainer
+          polls={filteredPolls as Poll[]}
+          deletePoll={onDeletePollIconClick}
+          editPoll={onEditPollIconClick}
+        />
       </div>
       {showDeleteModal && (
         <DeleteModal

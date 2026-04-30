@@ -1,4 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowBack from '@mui/icons-material/ArrowBackIos';
 import {
   Button,
@@ -7,8 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { lazy, Suspense, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { ErrorSection } from '../../../components/ErrorSection/ErrorSection';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
@@ -16,92 +14,31 @@ import { DEFAULT_ERROR } from '../../../constants/errorMessages';
 import { APP_ROUTES } from '../../../constants/routes';
 import { useAlert } from '../../../hooks/useAlert';
 import { useAuth } from '../../../hooks/useAuth';
-import { usePollLink } from '../../../hooks/usePollLink';
-import { useStoreVotes } from '../../../hooks/useStoreVotes';
-import {
-  registerVoteSchema,
-  type RegisterVoteData,
-} from '../../../schemas/pollSchema';
-import { TableBody } from './components/TableBody';
-import TableFooter from './components/TableFooter';
-import { TableHead } from './components/TableHead';
 import './styles.css';
-import { registerVote } from '../../../api/polls/polls.api';
 import { useGetPoll } from '../../../api/polls/polls.hooks';
-import { RotateDialog } from './components/RotateDialog';
-import { Chart } from './components/Chart';
+import { RotateDialog } from './components/ui/RotateDialog';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
-import { OutlinedIconButton } from './components/OutlinedIconButton';
+import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
+import { MemoizedParticipants } from './components/participants';
+import { SuspenseLoading } from '../../../components/SuspenseLoading/SuspenseLoading';
+
+const Chart = lazy(() => import('./components/ui/Chart'));
 
 const PollView = () => {
   const alert = useAlert();
   const theme = useTheme();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const { showPollLink } = usePollLink();
   const params = useParams<{ pollSlug: string }>();
   const pollSlug = params.pollSlug as string;
-  const { prevVotes, addVote } = useStoreVotes();
-  const alreadyVoted = prevVotes.includes(pollSlug);
-  const [submitLoading, setSubmitLoading] = useState(false);
   const { data: poll, isLoading, error } = useGetPoll(pollSlug);
   const isDesktopView = useMediaQuery(theme.breakpoints.up(1024));
 
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
   const closeChartModal = () => setIsChartModalOpen(false);
   const openChartModal = () => setIsChartModalOpen(true);
-
-  const methods = useForm<RegisterVoteData>({
-    resolver: zodResolver(registerVoteSchema),
-    defaultValues: {
-      name: '',
-      choices: [],
-    },
-  });
-
-  const { handleSubmit } = methods;
-
-  const checkNameUniqueness = (name: string) => {
-    return {
-      isUnique: !poll?.participants.some(
-        ({ name: participantName }) =>
-          participantName.toLowerCase() === name.toLowerCase(),
-      ),
-    };
-  };
-
-  const onSaveButtonClick = async (formData: RegisterVoteData) => {
-    const { name, choices } = formData;
-    if (!checkNameUniqueness(name).isUnique) {
-      alert(
-        'Someone has already voted with this name. Please enter a different name.',
-        'error',
-      );
-      return;
-    }
-    setSubmitLoading(true);
-    try {
-      await registerVote(choices.toString(), { name });
-      showPollLink(pollSlug, 'The vote successfully registered');
-      addVote(pollSlug);
-    } catch (error: any) {
-      alert(error.response.message || DEFAULT_ERROR, 'error');
-    } finally {
-      setSubmitLoading(false);
-    }
-  };
-
-  const onSubmitError = (errors: any) => {
-    for (const key in errors) {
-      const errorMessage = errors[key]?.message;
-      if (errorMessage) {
-        alert(errorMessage, 'error');
-        break;
-      }
-    }
-  };
 
   const copyPollLink = () => {
     const pollViewRoute = APP_ROUTES.POLL_VIEW.build(poll?.link as string);
@@ -117,6 +54,8 @@ const PollView = () => {
   const navigateToPolls = () => {
     navigate(APP_ROUTES.POLLS);
   };
+
+  const [chartLoading, setChartLoading] = useState(false);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -136,7 +75,7 @@ const PollView = () => {
     );
   }
 
-  const { options, participants } = poll;
+  const { options } = poll;
 
   return (
     <div className="poll-view-container">
@@ -170,10 +109,11 @@ const PollView = () => {
         <div className="w-12">
           {isDesktopView && (
             <OutlinedIconButton
-              title="Show chart"
+              // title="Show chart"
               startIcon={<BarChartIcon color="inherit" />}
               className="mb-3!"
               onClick={openChartModal}
+              loading={chartLoading}
             />
           )}
           <OutlinedIconButton
@@ -183,26 +123,13 @@ const PollView = () => {
           />
         </div>
       </div>
-      <div className="vote-table-container">
-        <FormProvider {...methods}>
-          <table className="mx-auto">
-            <TableHead options={options} />
-            <TableBody options={options} participants={participants} />
-            <TableFooter
-              disabled={alreadyVoted}
-              poll={poll}
-              submitLoading={submitLoading}
-              onSubmit={handleSubmit(onSaveButtonClick, onSubmitError)}
-            />
-          </table>
-        </FormProvider>
-      </div>
+      <MemoizedParticipants poll={poll} />
       <RotateDialog />
-      <Chart
-        isOpen={isChartModalOpen}
-        onClose={closeChartModal}
-        options={options}
-      />
+      <Suspense fallback={<SuspenseLoading setLoading={setChartLoading} />}>
+        {isChartModalOpen && (
+          <Chart onClose={closeChartModal} options={options} />
+        )}
+      </Suspense>
     </div>
   );
 };
