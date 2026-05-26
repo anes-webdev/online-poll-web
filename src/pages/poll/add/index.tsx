@@ -122,11 +122,11 @@ const CreatePoll = () => {
         await editPoll(pollSlug, { title, description });
         showPollLink(pollSlug, 'The poll successfully updated');
       } else {
-        const createdPollSlug = await createPoll(data);
-        showPollLink(createdPollSlug, 'The poll successfully created');
+        const createdPoll = await createPoll(data);
+        showPollLink(createdPoll.id, 'The poll successfully created');
       }
     } catch (error: any) {
-      alert(error.response.message, 'error');
+      alert(error.response.data?.message, 'error');
     } finally {
       setSubmitLoading(false);
     }

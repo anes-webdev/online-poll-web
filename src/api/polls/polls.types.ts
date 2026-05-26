@@ -11,11 +11,11 @@ export type Participant = {
 };
 
 export type Poll = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   createdAt: string;
-  link: string;
-  participants: Participant[];
   options: Option[];
+  participants: Participant[];
+  participantsCount: number;
 };

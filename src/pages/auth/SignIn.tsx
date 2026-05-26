@@ -58,11 +58,11 @@ const SignIn = () => {
     setIsLoading(true);
     setIsDemoLogin(!!isDemoLogin);
     try {
-      const token = await signIn(username, password);
-      dispatch(authAction.login(token));
+      await signIn(username, password);
+      dispatch(authAction.login());
       navigate(APP_ROUTES.POLLS);
     } catch (error: any) {
-      if (error.status === 401) {
+      if (error.status === 404) {
         if (!isDemoLogin) {
           setError('username', { message: 'Incorrect username' });
           setError('password', { message: 'Incorrect password' });

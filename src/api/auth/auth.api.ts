@@ -5,8 +5,9 @@ export const signIn = async (
   username: string,
   password: string,
 ): Promise<string> => {
-  const { data } = await apiClient.post<string>(
-    SIGN_IN_API(username, password),
-  );
+  const { data } = await apiClient.post<string>(SIGN_IN_API, {
+    username,
+    password,
+  });
   return data;
 };
