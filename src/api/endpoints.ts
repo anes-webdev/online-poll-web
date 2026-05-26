@@ -1,13 +1,8 @@
 // Auth:
-export const SIGN_IN_API = (username: string, password: string) =>
-  `/user/signing?username=${username}&password=${password}`;
+export const SIGN_IN_API = '/auth/signin';
 
 // Polls:
-export const GET_POLL_LIST_API = '/poll/find-all';
-export const GET_POLL_API = (pollSlug: string) =>
-  `/poll/find-by-link/${pollSlug}`;
-export const CREATE_POLL_API = '/poll/create';
-export const DELETE_POLL_API = (pollSlug: string) => `/poll/delete/${pollSlug}`;
-export const EDIT_POLL_API = (pollSlug: string) => `/poll/edit/${pollSlug}`;
-export const VOTE_API = (options: string) =>
-  `/participant/create?selectedOptionsId=${options}`;
+export const POLLS_API = '/polls';
+export const POLL_API = (pollId: string) => `/polls/${pollId}`;
+export const POLL_VOTES_API = (pollId: string) => `/polls/${pollId}/votes`;
+export const VOTE_API = '/polls/votes';

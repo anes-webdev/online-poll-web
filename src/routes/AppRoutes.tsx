@@ -3,6 +3,7 @@ import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import { APP_ROUTES } from '../constants/routes';
 import { lazy, Suspense } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import { TestComponent } from '../pages/test/TestComponent';
 
 const SignIn = lazy(() => import('../pages/auth/SignIn'));
 const Landing = lazy(() => import('../pages/landing/Landing'));
@@ -20,6 +21,7 @@ const AppRoutes = () => {
         <Route path={APP_ROUTES.LANDING} element={<Landing />} />
         <Route path={APP_ROUTES.POLL_LINK.PATH} element={<PollLink />} />
         <Route path={APP_ROUTES.POLL_VIEW.PATH} element={<PollView />} />
+        <Route path={'test'} element={<TestComponent />} />
         <Route element={<ProtectedRoute />}>
           <Route path={APP_ROUTES.POLLS} element={<PollsList />} />
           <Route path={APP_ROUTES.ADD_POLL} element={<CreatePoll />} />

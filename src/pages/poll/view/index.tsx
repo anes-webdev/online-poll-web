@@ -15,7 +15,7 @@ import { APP_ROUTES } from '../../../constants/routes';
 import { useAlert } from '../../../hooks/useAlert';
 import { useAuth } from '../../../hooks/useAuth';
 import './styles.css';
-import { useGetPoll } from '../../../api/polls/polls.hooks';
+import { useGetPollVotes } from '../../../api/polls/polls.hooks';
 import { RotateDialog } from './components/ui/RotateDialog';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { APP_BASE_URL } from '../../../constants/baseUrls';
@@ -33,7 +33,7 @@ const PollView = () => {
   const navigate = useNavigate();
   const params = useParams<{ pollSlug: string }>();
   const pollSlug = params.pollSlug as string;
-  const { data: poll, isLoading, error } = useGetPoll(pollSlug);
+  const { data: poll, isLoading, error } = useGetPollVotes(pollSlug);
   const isDesktopView = useMediaQuery(theme.breakpoints.up(1024));
 
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
@@ -41,7 +41,7 @@ const PollView = () => {
   const openChartModal = () => setIsChartModalOpen(true);
 
   const copyPollLink = () => {
-    const pollViewRoute = APP_ROUTES.POLL_VIEW.build(poll?.link as string);
+    const pollViewRoute = APP_ROUTES.POLL_VIEW.build(poll?.id as string);
     const pollLink = APP_BASE_URL + pollViewRoute;
     navigator.clipboard.writeText(pollLink);
     alert('Poll link copied', 'success');
