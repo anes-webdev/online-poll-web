@@ -48,7 +48,7 @@ export const registerVoteSchema = z.object({
       POLL_OPTION_MAX_LENGTH,
       `Name field must be less than ${POLL_OPTION_MAX_LENGTH} characters long`,
     ),
-  choices: z.array(z.number()).min(0).nonempty('No option selected'),
+  choices: z.array(z.string()).min(0).nonempty('No option selected'),
 });
 
 export type CreatePollData = z.infer<typeof createPollSchema>;

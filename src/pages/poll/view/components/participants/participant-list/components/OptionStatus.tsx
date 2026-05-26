@@ -61,7 +61,7 @@ export const OptionStatus = ({
       <div className={'choice-status ' + bgClass}>
         <ChoiceStatusIcon isSelected={isSelected} size="small" />
         <Typography variant="caption" className={'font-medium! ' + textClass}>
-          {participants.length}
+          {participants?.length}
         </Typography>
       </div>
     </TapTooltip>

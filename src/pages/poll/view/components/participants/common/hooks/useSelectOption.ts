@@ -6,7 +6,7 @@ export const useSelectOption = () => {
   const { setValue, watch } = useFormContext<RegisterVoteData>();
   const onSelectOption = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
-    const optionId = +value;
+    const optionId = value;
     const choices = [...watch('choices')];
     const updatedChoices = checked
       ? [...choices, optionId]

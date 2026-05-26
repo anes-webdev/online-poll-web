@@ -30,14 +30,14 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
 
   const [shareLinkToolTipMsg, setShareLinkToolTipMsg] =
     useState('Copy poll link');
-  const { title, description, participants, link, createdAt } = poll;
+  const { id, title, description, createdAt, participantsCount } = poll;
 
   const formattedCreateDate = dayjs
     .utc(createdAt)
     .local()
     .format('MM/DD/YYYY, hh:mm A');
 
-  const pollViewRoute = APP_ROUTES.POLL_VIEW.build(link);
+  const pollViewRoute = APP_ROUTES.POLL_VIEW.build(id);
   const pollLink = APP_BASE_URL + pollViewRoute;
 
   const onShareIconClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -52,11 +52,11 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
   const navigateToPollView = () => navigate(pollViewRoute);
   const onEditPollClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
-    editPoll(link);
+    editPoll(id);
   };
   const onDeletePollClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
-    deletePoll(link);
+    deletePoll(id);
   };
   return (
     <div onClick={navigateToPollView} className="poll-item-container">
@@ -90,7 +90,7 @@ const PollItem = ({ poll, editPoll, deletePoll }: PollItemProps) => {
           <div>
             <PeopleIcon color="action" className="mr-2 text-lg!" />
             <Typography component="span" color="textMuted" variant="body2">
-              {participants.length}
+              {participantsCount}
             </Typography>
           </div>
         </Tooltip>

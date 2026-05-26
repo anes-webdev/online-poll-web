@@ -37,7 +37,7 @@ export const Participants = (props: ParticipantsProps) => {
     return {
       isUnique: !poll?.participants.some(
         ({ name: participantName }) =>
-          participantName.toLowerCase() === name.toLowerCase(),
+          participantName.toLowerCase() === name.toLowerCase().trim(),
       ),
     };
   };
@@ -53,7 +53,7 @@ export const Participants = (props: ParticipantsProps) => {
     }
     setSubmitLoading(true);
     try {
-      await registerVote(choices.toString(), { name });
+      await registerVote({ participantName: name, optionIds: choices });
       showPollLink(pollSlug, 'The vote successfully registered');
       addVote(pollSlug);
     } catch (error: any) {
