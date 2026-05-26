@@ -20,7 +20,7 @@ export const useAxiosInterceptors = () => {
     const responseInterceptor = apiClient.interceptors.response.use(
       (response) => response,
       (error: AxiosError) => {
-        if (error.response?.status === 403) {
+        if (error.response?.status === 401) {
           dispatch(authAction.logout());
           navigate(APP_ROUTES.LANDING);
           alert('Session expired. Please sign in again to continue.', 'error');
