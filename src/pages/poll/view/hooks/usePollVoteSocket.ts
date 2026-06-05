@@ -21,7 +21,8 @@ export const usePollVoteSocket = (pollId: string, enabled: boolean) => {
   );
 
   useEffect(() => {
-    if (!enabled) return;
+    // Disabled on production because of vercel limits in supporting web socket
+    if (!enabled || import.meta.env.PROD) return;
     const socket = io(SOCKET_BASE_URL, { withCredentials: true });
     socket.emit('join-poll', pollId);
     socket.on('new-vote', onNewVoteSocket);
