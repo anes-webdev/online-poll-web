@@ -42,7 +42,7 @@ const NameCell = ({ name }: NameCellProps) => {
 
 type ChoicesRowProps = {
   options: Option[];
-  participantId: number;
+  participantId: string;
 };
 
 const ChoicesRow = ({ options, participantId }: ChoicesRowProps) => {
