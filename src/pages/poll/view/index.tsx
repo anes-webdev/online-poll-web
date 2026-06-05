@@ -23,6 +23,7 @@ import { OutlinedIconButton } from './components/ui/OutlinedIconButton';
 import ShareIcon from '@mui/icons-material/Share';
 import { MemoizedParticipants } from './components/participants';
 import { SuspenseLoading } from '../../../components/SuspenseLoading/SuspenseLoading';
+import { usePollVoteSocket } from './hooks/usePollVoteSocket';
 
 const Chart = lazy(() => import('./components/ui/Chart'));
 
@@ -34,6 +35,7 @@ const PollView = () => {
   const params = useParams<{ pollSlug: string }>();
   const pollSlug = params.pollSlug as string;
   const { data: poll, isLoading, error } = useGetPollVotes(pollSlug);
+  usePollVoteSocket(pollSlug, !isLoading && !error);
   const isDesktopView = useMediaQuery(theme.breakpoints.up(1024));
 
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
