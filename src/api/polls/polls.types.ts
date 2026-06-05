@@ -5,9 +5,9 @@ export type Option = {
 };
 
 export type Participant = {
-  id: number;
+  id: string;
   name: string;
-  choices: Option[];
+  choices?: Option[];
 };
 
 export type Poll = {
