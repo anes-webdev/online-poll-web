@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import type { Participant, Poll } from '../../../../api/polls/polls.types';
 import { useQueryClient } from '@tanstack/react-query';
-import { API_BASE_URL } from '../../../../constants/baseUrls';
 import { applyNewVote } from '../utils/applyNewVote';
+import { SOCKET_BASE_URL } from '../../../../constants/baseUrls';
 
 export const usePollVoteSocket = (pollId: string, enabled: boolean) => {
   const queryClient = useQueryClient();
@@ -22,7 +22,7 @@ export const usePollVoteSocket = (pollId: string, enabled: boolean) => {
 
   useEffect(() => {
     if (!enabled) return;
-    const socket = io(API_BASE_URL, { withCredentials: true });
+    const socket = io(SOCKET_BASE_URL, { withCredentials: true });
     socket.emit('join-poll', pollId);
     socket.on('new-vote', onNewVoteSocket);
     return () => {
