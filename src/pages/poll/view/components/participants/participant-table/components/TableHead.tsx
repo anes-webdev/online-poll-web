@@ -11,13 +11,13 @@ type CheckBoxProps = {
 };
 
 const OptionCell = ({ option }: CheckBoxProps) => {
-  const { optionName } = option;
+  const { name } = option;
   return (
-    <TapTooltip placement="top" title={optionName}>
+    <TapTooltip placement="top" title={name}>
       <th className="text-center">
         <div className="poll-table-cell px-2.5 py-2.5 bg-gray-200">
           <Typography color="textPrimary" className="text-sm!" noWrap>
-            {truncateText(optionName, 14)}
+            {truncateText(name, 14)}
           </Typography>
         </div>
       </th>
