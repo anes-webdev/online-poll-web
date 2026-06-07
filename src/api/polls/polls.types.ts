@@ -1,6 +1,6 @@
 export type Option = {
   id: number;
-  optionName: string;
+  name: string;
   participants?: Participant[];
 };
 

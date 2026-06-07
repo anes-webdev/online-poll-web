@@ -19,11 +19,11 @@ type CheckBoxProps = {
 
 const CheckBoxCell = ({ option, disabled }: CheckBoxProps) => {
   const onSelectOption = useSelectOption();
-  const { id, optionName } = option;
+  const { id, name } = option;
   return (
     <td className="text-center">
       <div className="poll-table-cell py-0 px-0 bg-gray-100">
-        <Tooltip title={optionName} placement="top">
+        <Tooltip title={name} placement="top">
           <Checkbox onChange={onSelectOption} value={id} disabled={disabled} />
         </Tooltip>
       </div>

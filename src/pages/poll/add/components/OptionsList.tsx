@@ -4,19 +4,19 @@ import { palette } from '../../../../styles/palette';
 import '../styles.css';
 
 type OptionProps = {
-  optionName: string;
+  name: string;
   disabled: boolean;
   deleteOption: (value: string) => void;
 };
 
-const Option = ({ deleteOption, optionName, disabled }: OptionProps) => {
+const Option = ({ deleteOption, name, disabled }: OptionProps) => {
   const onDeleteButtonClick = () => {
-    deleteOption(optionName);
+    deleteOption(name);
   };
   return (
     <li className="poll-option-container">
       <Typography color="textSecondary" className="w-10/12">
-        {optionName}
+        {name}
       </Typography>
       <IconButton onClick={onDeleteButtonClick} disabled={disabled}>
         <DeleteIcon color="action" />
@@ -26,7 +26,7 @@ const Option = ({ deleteOption, optionName, disabled }: OptionProps) => {
 };
 
 type OptionListProps = {
-  options: { optionName: string }[];
+  options: { name: string }[];
   error: boolean;
   deleteOption: (value: string) => void;
   disabled: boolean;
@@ -38,12 +38,12 @@ const OptionList = ({
   error,
   disabled,
 }: OptionListProps) => {
-  const optionList = options.map(({ optionName }, index) => {
+  const optionList = options.map(({ name }, index) => {
     return (
       <Option
         key={index}
         deleteOption={deleteOption}
-        optionName={optionName}
+        name={name}
         disabled={disabled}
       />
     );

@@ -64,8 +64,8 @@ const CreatePoll = () => {
       setValue('description', description);
       setValue(
         'options',
-        options.map(({ optionName }) => {
-          return { optionName };
+        options.map(({ name }) => {
+          return { name };
         }),
       );
     }
@@ -83,7 +83,7 @@ const CreatePoll = () => {
     }
     if (
       watch('options').some(
-        (option) => option.optionName.toLowerCase() === value.toLowerCase(),
+        (option) => option.name.toLowerCase() === value.toLowerCase(),
       )
     ) {
       setOptionInputError('This option already added');
@@ -101,7 +101,7 @@ const CreatePoll = () => {
     setOptionInput('');
     setOptionInputError('');
     const option = {
-      optionName: value,
+      name: value,
     };
     const updatedOptions = [option, ...watch('options')];
     const shouldValidate = updatedOptions.length >= 2;
@@ -111,7 +111,7 @@ const CreatePoll = () => {
   const deleteOption = (value: string) => {
     setValue(
       'options',
-      watch('options').filter(({ optionName }) => optionName !== value),
+      watch('options').filter(({ name }) => name !== value),
     );
   };
 
