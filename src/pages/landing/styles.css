@@ -11,7 +11,7 @@
     @apply md:w-7/12 md:px-10 lg:px-14 md:pt-12 lg:pt-16;
   }
   .signin-button {
-    @apply lg:h-11 mt-5! lg:mt-6! w-full sm:w-60
+    @apply lg:h-11 mt-5! lg:mt-6!
   }
     .landing-poll-image {
     @apply h-60 w-60 mx-auto sm:h-72 sm:w-72 lg:h-80 lg:w-80
