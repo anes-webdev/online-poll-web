@@ -19,8 +19,8 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 type PollItemProps = {
-  deletePoll: (pollSlug: string) => void;
-  editPoll: (pollSlug: string) => void;
+  deletePoll: (pollId: string) => void;
+  editPoll: (pollId: string) => void;
   poll: Poll;
 };
 

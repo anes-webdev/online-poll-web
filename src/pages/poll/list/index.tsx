@@ -19,11 +19,12 @@ import { SearchNoResults } from './components/SearchNoResults';
 import { useGetPolls } from '../../../api/polls/polls.hooks';
 import { deletePoll } from '../../../api/polls/polls.api';
 import type { Poll } from '../../../api/polls/polls.types';
+import { extractResponseError } from '../../../utils/extractResponseError';
 
 type PollsListContainerProps = {
   polls: Poll[];
-  deletePoll: (pollSlug: string) => void;
-  editPoll: (pollSlug: string) => void;
+  deletePoll: (pollId: string) => void;
+  editPoll: (pollId: string) => void;
 };
 
 const PollsListContainer = (props: PollsListContainerProps) => {
@@ -58,11 +59,11 @@ const PollList = () => {
   const { data: polls, isLoading, error, refetch } = useGetPolls();
 
   const onDeletePollIconClick = useCallback(
-    (pollSlug: string) => setDeletingPoll(pollSlug),
+    (pollId: string) => setDeletingPoll(pollId),
     [],
   );
   const onEditPollIconClick = useCallback(
-    (pollSlug: string) => navigate(APP_ROUTES.EDIT_POLL.build(pollSlug)),
+    (pollId: string) => navigate(APP_ROUTES.EDIT_POLL.build(pollId)),
     [navigate],
   );
   const navigateToCreatePoll = () => {
@@ -77,7 +78,7 @@ const PollList = () => {
       alert('Poll successfully deleted', 'success');
       refetch();
     } catch (error: any) {
-      alert(error.response.data, 'error');
+      alert(extractResponseError(error), 'error');
     } finally {
       setDeletePollLoading(false);
     }

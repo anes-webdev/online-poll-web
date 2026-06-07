@@ -32,10 +32,10 @@ const PollView = () => {
   const theme = useTheme();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const params = useParams<{ pollSlug: string }>();
-  const pollSlug = params.pollSlug as string;
-  const { data: poll, isLoading, error } = useGetPollVotes(pollSlug);
-  usePollVoteSocket(pollSlug, !isLoading && !error);
+  const params = useParams<{ pollId: string }>();
+  const pollId = params.pollId as string;
+  const { data: poll, isLoading, error } = useGetPollVotes(pollId);
+  usePollVoteSocket(pollId, !isLoading && !error);
   const isDesktopView = useMediaQuery(theme.breakpoints.up(1024));
 
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);

@@ -25,16 +25,17 @@ import { createPoll, editPoll } from '../../../api/polls/polls.api';
 import TextFieldWithCounter from '../../../components/TextFieldWithCounter/TextFieldWithCounter';
 import { POLL_TITLE_MAX_LENGTH } from '../../../constants/poll';
 import { InfoMessage } from '../../../components/InfoMessage/InfoMessage';
+import { extractResponseError } from '../../../utils/extractResponseError';
 
 const CreatePoll = () => {
   const alert = useAlert();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { showPollLink } = usePollLink();
-  const params = useParams<{ pollSlug: string }>() || '';
-  const pollSlug = (params.pollSlug || '') as string;
-  const isEditPage = pathname === APP_ROUTES.EDIT_POLL.build(pollSlug || '');
-  const { data: poll, isLoading, error } = useGetPoll(pollSlug, isEditPage);
+  const params = useParams<{ pollId: string }>() || '';
+  const pollId = (params.pollId || '') as string;
+  const isEditPage = pathname === APP_ROUTES.EDIT_POLL.build(pollId || '');
+  const { data: poll, isLoading, error } = useGetPoll(pollId, isEditPage);
 
   const [optionInput, setOptionInput] = useState('');
   const [optionInputError, setOptionInputError] = useState('');
@@ -119,14 +120,14 @@ const CreatePoll = () => {
     setSubmitLoading(true);
     try {
       if (isEditPage) {
-        await editPoll(pollSlug, { title, description });
-        showPollLink(pollSlug, 'The poll successfully updated');
+        await editPoll(pollId, { title, description });
+        showPollLink(pollId, 'The poll successfully updated');
       } else {
         const createdPoll = await createPoll(data);
         showPollLink(createdPoll.id, 'The poll successfully created');
       }
     } catch (error: any) {
-      alert(error.response.data?.message, 'error');
+      alert(extractResponseError(error), 'error');
     } finally {
       setSubmitLoading(false);
     }
