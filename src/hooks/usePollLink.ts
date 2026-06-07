@@ -10,9 +10,9 @@ export const usePollLink = () => {
   const dispatch = useAppDispatch();
   const { isDisplayed, message } = useAppSelector((state) => state.pollLink);
 
-  const showPollLink = (pollSlug: string, message: string) => {
+  const showPollLink = (pollId: string, message: string) => {
     dispatch(pollLinkAction.showPollLinkPage(message));
-    navigate(APP_ROUTES.POLL_LINK.build(pollSlug));
+    navigate(APP_ROUTES.POLL_LINK.build(pollId));
   };
   const hidePollLink = useCallback(
     () => dispatch(pollLinkAction.hidePollLinkPage()),

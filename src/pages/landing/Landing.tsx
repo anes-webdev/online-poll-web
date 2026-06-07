@@ -5,12 +5,12 @@ import pollImage from '../../assets/select-poll.webp';
 import { APP_ROUTES } from '../../constants/routes';
 import { useAuth } from '../../hooks/useAuth';
 import './styles.css';
-import { DEFAULT_ERROR } from '../../constants/errorMessages';
 import { demoSignIn } from '../../api/auth/auth.api';
 import { authAction } from '../../store/slices/auth';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAlert } from '../../hooks/useAlert';
+import { extractResponseError } from '../../utils/extractResponseError';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Landing = () => {
       dispatch(authAction.login());
       navigate(APP_ROUTES.POLLS);
     } catch (error: any) {
-      alert(DEFAULT_ERROR, 'error');
+      alert(extractResponseError(error), 'error');
     } finally {
       setIsLoading(false);
     }

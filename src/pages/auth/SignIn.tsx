@@ -20,6 +20,7 @@ import { demoSignIn, signIn } from '../../api/auth/auth.api';
 import { authAction } from '../../store/slices/auth';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { extractResponseError } from '../../utils/extractResponseError';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const SignIn = () => {
       dispatch(authAction.login());
       navigate(APP_ROUTES.POLLS);
     } catch (error: any) {
-      alert(DEFAULT_ERROR, 'error');
+      alert(extractResponseError(error), 'error');
     } finally {
       setIsLoading(false);
       setIsDemoLogin(false);

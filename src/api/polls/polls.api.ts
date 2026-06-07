@@ -8,13 +8,13 @@ export const getPolls = async (): Promise<Poll[]> => {
   return data;
 };
 
-export const getPoll = async (pollSlug: string): Promise<Poll> => {
-  const { data } = await apiClient.get<Poll>(POLL_API(pollSlug));
+export const getPoll = async (pollId: string): Promise<Poll> => {
+  const { data } = await apiClient.get<Poll>(POLL_API(pollId));
   return data;
 };
 
-export const getPollVotes = async (pollSlug: string): Promise<Poll> => {
-  const { data } = await apiClient.get<Poll>(POLL_VOTES_API(pollSlug));
+export const getPollVotes = async (pollId: string): Promise<Poll> => {
+  const { data } = await apiClient.get<Poll>(POLL_VOTES_API(pollId));
   return data;
 };
 
@@ -23,16 +23,16 @@ export const createPoll = async (formData: CreatePollData): Promise<Poll> => {
   return data;
 };
 
-export const deletePoll = async (pollSlug: string): Promise<any> => {
-  const { data } = await apiClient.delete(POLL_API(pollSlug));
+export const deletePoll = async (pollId: string): Promise<any> => {
+  const { data } = await apiClient.delete(POLL_API(pollId));
   return data;
 };
 
 export const editPoll = async (
-  pollSlug: string,
+  pollId: string,
   formData: Partial<CreatePollData>,
 ): Promise<any> => {
-  const { data } = await apiClient.put(POLL_API(pollSlug), formData);
+  const { data } = await apiClient.put(POLL_API(pollId), formData);
   return data;
 };
 
