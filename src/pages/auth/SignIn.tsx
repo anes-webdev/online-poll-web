@@ -16,7 +16,7 @@ import { APP_ROUTES } from '../../constants/routes';
 import { useAlert } from '../../hooks/useAlert';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import '../../styles/global.css';
-import { signIn } from '../../api/auth/auth.api';
+import { demoSignIn, signIn } from '../../api/auth/auth.api';
 import { authAction } from '../../store/slices/auth';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -53,10 +53,9 @@ const SignIn = () => {
     },
   });
 
-  const onFormSubmit = async (data: LoginFormData, isDemoLogin?: boolean) => {
+  const onFormSubmit = async (data: LoginFormData) => {
     const { username, password } = data;
     setIsLoading(true);
-    setIsDemoLogin(!!isDemoLogin);
     try {
       await signIn(username, password);
       dispatch(authAction.login());
@@ -77,14 +76,19 @@ const SignIn = () => {
     }
   };
 
-  const onTryDemoClick = () => {
-    onFormSubmit(
-      {
-        username: 'admin',
-        password: 'demo123',
-      },
-      true,
-    );
+  const onTryDemoClick = async () => {
+    setIsLoading(true);
+    setIsDemoLogin(true);
+    try {
+      await demoSignIn();
+      dispatch(authAction.login());
+      navigate(APP_ROUTES.POLLS);
+    } catch (error: any) {
+      alert(DEFAULT_ERROR, 'error');
+    } finally {
+      setIsLoading(false);
+      setIsDemoLogin(false);
+    }
   };
 
   const onSignInClick = (data: LoginFormData) => onFormSubmit(data);
