@@ -19,6 +19,7 @@ import { SearchNoResults } from './components/SearchNoResults';
 import { useGetPolls } from '../../../api/polls/polls.hooks';
 import { deletePoll } from '../../../api/polls/polls.api';
 import type { Poll } from '../../../api/polls/polls.types';
+import { extractResponseError } from '../../../utils/extractResponseError';
 
 type PollsListContainerProps = {
   polls: Poll[];
@@ -77,7 +78,7 @@ const PollList = () => {
       alert('Poll successfully deleted', 'success');
       refetch();
     } catch (error: any) {
-      alert(error.response.data, 'error');
+      alert(extractResponseError(error), 'error');
     } finally {
       setDeletePollLoading(false);
     }

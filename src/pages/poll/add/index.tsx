@@ -25,6 +25,7 @@ import { createPoll, editPoll } from '../../../api/polls/polls.api';
 import TextFieldWithCounter from '../../../components/TextFieldWithCounter/TextFieldWithCounter';
 import { POLL_TITLE_MAX_LENGTH } from '../../../constants/poll';
 import { InfoMessage } from '../../../components/InfoMessage/InfoMessage';
+import { extractResponseError } from '../../../utils/extractResponseError';
 
 const CreatePoll = () => {
   const alert = useAlert();
@@ -126,7 +127,7 @@ const CreatePoll = () => {
         showPollLink(createdPoll.id, 'The poll successfully created');
       }
     } catch (error: any) {
-      alert(error.response.data?.message, 'error');
+      alert(extractResponseError(error), 'error');
     } finally {
       setSubmitLoading(false);
     }

@@ -6,13 +6,13 @@ import { usePollLink } from '../../../../../hooks/usePollLink';
 import { registerVote } from '../../../../../api/polls/polls.api';
 import { useParams } from 'react-router';
 import { useStoreVotes } from '../../../../../hooks/useStoreVotes';
-import { DEFAULT_ERROR } from '../../../../../constants/errorMessages';
 import { useAlert } from '../../../../../hooks/useAlert';
 import Visibility from '@mui/icons-material/Visibility';
 import { Button } from '@mui/material';
 import { PollViewContext } from './store/PollViewContext';
 import ParticipantList from './participant-list';
 import ParticipantTable from './participant-table';
+import { extractResponseError } from '../../../../../utils/extractResponseError';
 
 type ParticipantsProps = { poll: Poll };
 export const Participants = (props: ParticipantsProps) => {
@@ -57,7 +57,7 @@ export const Participants = (props: ParticipantsProps) => {
       showPollLink(pollId, 'The vote successfully registered');
       addVote(pollId);
     } catch (error: any) {
-      alert(error.response.message || DEFAULT_ERROR, 'error');
+      alert(extractResponseError(error), 'error');
     } finally {
       setSubmitLoading(false);
     }
