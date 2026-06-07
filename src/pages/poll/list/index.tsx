@@ -22,8 +22,8 @@ import type { Poll } from '../../../api/polls/polls.types';
 
 type PollsListContainerProps = {
   polls: Poll[];
-  deletePoll: (pollSlug: string) => void;
-  editPoll: (pollSlug: string) => void;
+  deletePoll: (pollId: string) => void;
+  editPoll: (pollId: string) => void;
 };
 
 const PollsListContainer = (props: PollsListContainerProps) => {
@@ -58,11 +58,11 @@ const PollList = () => {
   const { data: polls, isLoading, error, refetch } = useGetPolls();
 
   const onDeletePollIconClick = useCallback(
-    (pollSlug: string) => setDeletingPoll(pollSlug),
+    (pollId: string) => setDeletingPoll(pollId),
     [],
   );
   const onEditPollIconClick = useCallback(
-    (pollSlug: string) => navigate(APP_ROUTES.EDIT_POLL.build(pollSlug)),
+    (pollId: string) => navigate(APP_ROUTES.EDIT_POLL.build(pollId)),
     [navigate],
   );
   const navigateToCreatePoll = () => {

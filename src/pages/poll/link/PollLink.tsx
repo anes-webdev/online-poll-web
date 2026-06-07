@@ -18,14 +18,13 @@ const PollLink = () => {
   const alert = useAlert();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const { pollSlug } = useParams<{ pollSlug: string }>();
+  const { pollId } = useParams<{ pollId: string }>();
   const { hidePollLink, pollLinkMessage, isPollLinkDisplayed } = usePollLink();
 
   const [copyLinkIconToolTipMsg, setCopyLinkIconToolTipMsg] =
     useState('Copy link');
 
-  const pollLink =
-    APP_BASE_URL + APP_ROUTES.POLL_VIEW.build(pollSlug as string);
+  const pollLink = APP_BASE_URL + APP_ROUTES.POLL_VIEW.build(pollId as string);
 
   const onBackButtonClick = () => {
     navigate(-1);

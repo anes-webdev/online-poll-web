@@ -20,11 +20,11 @@ export const Participants = (props: ParticipantsProps) => {
 
   const alert = useAlert();
   const { showPollLink } = usePollLink();
-  const params = useParams<{ pollSlug: string }>();
+  const params = useParams<{ pollId: string }>();
   const [isPending, startTransition] = useTransition();
-  const pollSlug = params.pollSlug as string;
+  const pollId = params.pollId as string;
   const { prevVotes, addVote } = useStoreVotes();
-  const alreadyVoted = prevVotes.includes(pollSlug);
+  const alreadyVoted = prevVotes.includes(pollId);
   const [isListView, setIsListView] = useState(true);
   const toggleParticipantsView = () => {
     startTransition(() => {
@@ -54,8 +54,8 @@ export const Participants = (props: ParticipantsProps) => {
     setSubmitLoading(true);
     try {
       await registerVote({ participantName: name, optionIds: choices });
-      showPollLink(pollSlug, 'The vote successfully registered');
-      addVote(pollSlug);
+      showPollLink(pollId, 'The vote successfully registered');
+      addVote(pollId);
     } catch (error: any) {
       alert(error.response.message || DEFAULT_ERROR, 'error');
     } finally {
