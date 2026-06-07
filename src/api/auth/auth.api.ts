@@ -1,4 +1,4 @@
-import { SIGN_IN_API } from '../endpoints';
+import { DEMO_SIGN_IN_API, SIGN_IN_API } from '../endpoints';
 import { apiClient } from '../client/axios';
 
 export const signIn = async (
@@ -9,5 +9,10 @@ export const signIn = async (
     username,
     password,
   });
+  return data;
+};
+
+export const demoSignIn = async (): Promise<string> => {
+  const { data } = await apiClient.post<string>(DEMO_SIGN_IN_API);
   return data;
 };
