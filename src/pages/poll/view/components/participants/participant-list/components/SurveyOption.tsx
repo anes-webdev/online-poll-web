@@ -31,7 +31,7 @@ export const SurveyOption = ({
   return (
     <li className="flex">
       <div className="survey-option-container">
-        <Typography>{option.optionName}</Typography>
+        <Typography>{option.name}</Typography>
         <div className="flex flex-col sm:flex-row gap-2">
           <OptionStatus
             isSelected={true}

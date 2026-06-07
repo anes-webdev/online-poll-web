@@ -22,7 +22,7 @@ export type ChartProps = {
 
 const Chart = ({ onClose, options }: ChartProps) => {
   const xLabels = options.map((option) => {
-    const label = option.optionName;
+    const label = option.name;
     return label;
   });
   const data = options.map((option) => option.participants?.length) as number[];
